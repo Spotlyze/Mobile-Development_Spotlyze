@@ -1,4 +1,4 @@
-package com.prayatna.spotlyze
+package com.bangkit.spotlyze
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.prayatna.spotlyze
+package com.bangkit.spotlyze
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
