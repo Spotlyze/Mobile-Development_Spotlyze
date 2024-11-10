@@ -15,4 +15,14 @@
         android:name="com.bangkit.spotlyze.ui.camera.CameraFrgment"
         android:label="fragment_camera_frgment"
         tools:layout="@layout/fragment_camera_frgment" />
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.bangkit.spotlyze.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/navigation_favourite"
+        android:name="com.bangkit.spotlyze.ui.favourite.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" />
 </navigation>
