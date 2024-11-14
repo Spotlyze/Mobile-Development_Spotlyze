@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_camera"
-        android:name="com.bangkit.spotlyze.ui.camera.CameraFrgment"
+        android:name="com.bangkit.spotlyze.ui.camera.CameraFragment"
         android:label="fragment_camera_frgment"
-        tools:layout="@layout/fragment_camera_frgment" />
+        tools:layout="@layout/fragment_camera" />
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.bangkit.spotlyze.ui.settings.SettingsFragment"
