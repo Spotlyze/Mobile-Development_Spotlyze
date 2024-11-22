@@ -7,12 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.bangkit.spotlyze.ui.ViewModelFactory
 import com.prayatna.spotlyze.databinding.FragmentCameraBinding
 
 class CameraFragment : Fragment() {
@@ -20,10 +19,28 @@ class CameraFragment : Fragment() {
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(requireActivity())
+    }
+    private val cameraViewModel: CameraViewModel by viewModels {
+        factory
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Toast.makeText(requireActivity(), "Permission request granted", Toast.LENGTH_LONG)
+                .show()
+        } else {
+            Toast.makeText(requireActivity(), "Permission request denied", Toast.LENGTH_LONG).show()
+        }
+    }
+
     companion object {
         private const val EXTRA_CAMERAX_IMAGE = "CameraX"
         private const val CAMERA_RESULT = 200
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private const val REQUIRED_PERMISSIONS = Manifest.permission.CAMERA
     }
 
     override fun onCreateView(
@@ -37,50 +54,25 @@ class CameraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (allPermissionGranted()) {
-            startCamera()
-        } else {
-            requireActivity().requestPermissions(REQUIRED_PERMISSIONS, CAMERA_RESULT)
+        if (!allPermissionGranted()) {
+            requestPermissionLauncher.launch(REQUIRED_PERMISSIONS)
         }
-    }
 
-    private fun allPermissionGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
+        binding.switchCamera.setOnClickListener {
+            cameraViewModel.switchCamera(this, binding.previewCamera)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        startCamera()
+        cameraViewModel.startCamera(this, binding.previewCamera)
     }
 
-    private fun startCamera() {
-        val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireActivity())
-
-        cameraProviderFuture.addListener({
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.surfaceProvider = binding.previewCamera.surfaceProvider
-                }
-            val imageCapture = ImageCapture.Builder()
-                .build()
-
-            try {
-                cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(
-                    requireActivity(),
-                    cameraSelector,
-                    preview,
-                    imageCapture
-                )
-            } catch (e: Exception) {
-                Toast.makeText(requireActivity(), "Cannot launch camera", Toast.LENGTH_SHORT).show()
-            }
-        }, ContextCompat.getMainExecutor(requireActivity()))
-    }
-
+    private fun allPermissionGranted() =
+        ContextCompat.checkSelfPermission(
+            requireActivity(),
+            REQUIRED_PERMISSIONS
+        ) == PackageManager.PERMISSION_GRANTED
 
     override fun onDestroy() {
         super.onDestroy()
