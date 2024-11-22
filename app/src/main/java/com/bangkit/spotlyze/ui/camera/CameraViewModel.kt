@@ -13,5 +13,4 @@ class CameraViewModel(private val repository: CameraRepository) : ViewModel() {
         repository.switchCamera(lifeCycleOwner, preview)
     }
 
-
 }
