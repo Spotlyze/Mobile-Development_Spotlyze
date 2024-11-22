@@ -9,22 +9,23 @@
         android:id="@+id/bottom_nav_view"
         android:layout_width="0dp"
         android:layout_height="70dp"
+        android:layout_margin="24dp"
+        android:background="@drawable/nav_bottom_curve"
+        app:itemIconTint="@color/bottom_nav_title_selector"
+        app:itemTextColor="@color/bottom_nav_title_selector"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:labelVisibilityMode="labeled"
-        app:itemIconTint="@color/bottom_nav_title_selector"
-        app:itemTextColor="@color/bottom_nav_title_selector"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_marginBottom="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="94dp"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/mobile_navigation"
-        />
+        app:navGraph="@navigation/mobile_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
