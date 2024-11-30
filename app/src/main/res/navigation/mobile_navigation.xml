@@ -13,12 +13,11 @@
     <fragment
         android:id="@+id/navigation_camera"
         android:name="com.bangkit.spotlyze.ui.camera.CameraFragment"
-        android:label="fragment_camera_frgment"
+        android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.bangkit.spotlyze.ui.settings.SettingsFragment"
+        android:id="@+id/navigation_profile"
+        android:name="com.bangkit.spotlyze.ui.profile.ProfileFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
-
+        tools:layout="@layout/fragment_profile" />
 </navigation>
