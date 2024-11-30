@@ -7,4 +7,14 @@
     <string name="favourite">Favourite</string>
     <string name="settings">Settings</string>
     <string name="profile">Profile</string>
+    <string name="email_required">Email Required</string>
+    <string name="invaid_email">Invalid Email</string>
+    <string name="email">Email</string>
+    <string name="password_must_have_8_characters">Password must be at least 8 characters long!</string>
+    <string name="password">Password</string>
+    <string name="welcome">Welcome</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="create_an_account">Create An Account </string>
+    <string name="sign_up">Sign Up</string>
 </resources>

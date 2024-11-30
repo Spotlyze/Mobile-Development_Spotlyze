@@ -9,10 +9,7 @@
         android:id="@+id/navigation_camera"
         android:icon="@drawable/camera_selector"
         android:title="@string/camera" />
-    <item
-        android:id="@+id/navigation_favourite"
-        android:icon="@drawable/fav_selector"
-        android:title="@string/favourite" />
+    
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/settings_selector"

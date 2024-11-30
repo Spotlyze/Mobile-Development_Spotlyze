@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bangkit.spotlyze.data.source.CameraRepository
 import com.bangkit.spotlyze.ui.camera.CameraViewModel
 
-class ViewModelFactory private constructor(private val mCameraRepository: CameraRepository) :
+class CameraViewModelFactory private constructor(private val mCameraRepository: CameraRepository) :
 ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -18,10 +18,10 @@ ViewModelProvider.NewInstanceFactory() {
 
     companion object {
         @Volatile
-        private var INSTANCE: ViewModelFactory? = null
-        fun getInstance(context: Context) : ViewModelFactory =
+        private var INSTANCE: CameraViewModelFactory? = null
+        fun getInstance(context: Context) : CameraViewModelFactory =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: ViewModelFactory(
+                INSTANCE ?: CameraViewModelFactory(
                     CameraRepository.getInstance(context)
                 )
             }

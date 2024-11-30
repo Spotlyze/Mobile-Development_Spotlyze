@@ -13,7 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.bangkit.spotlyze.ui.ViewModelFactory
+import com.bangkit.spotlyze.ui.CameraViewModelFactory
 import com.prayatna.spotlyze.databinding.FragmentCameraBinding
 
 class CameraFragment : Fragment() {
@@ -21,8 +21,8 @@ class CameraFragment : Fragment() {
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
-    private val factory: ViewModelFactory by lazy {
-        ViewModelFactory.getInstance(requireActivity())
+    private val factory: CameraViewModelFactory by lazy {
+        CameraViewModelFactory.getInstance(requireActivity())
     }
     private val cameraViewModel: CameraViewModel by viewModels {
         factory

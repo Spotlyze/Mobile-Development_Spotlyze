@@ -6,5 +6,7 @@
         <item name="colorOnPrimary">@color/onPrimary</item>
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorOnSecondary">@color/onSecondary</item>
+
+        <item name="android:fontFamily">@font/montserrat_default</item>
     </style>
 </resources>
