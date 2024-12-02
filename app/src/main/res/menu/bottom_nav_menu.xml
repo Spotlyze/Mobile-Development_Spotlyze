@@ -11,9 +11,9 @@
         android:title="@string/camera" />
     
     <item
-        android:id="@+id/navigation_settings"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/settings_selector"
-        android:title="@string/settings" />
+        android:title="@string/profile" />
 
 
 </menu>

@@ -17,4 +17,14 @@
     <string name="login">Login</string>
     <string name="create_an_account">Create An Account </string>
     <string name="sign_up">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="detail_profile">Detail Profile</string>
+    <string name="history">History</string>
+    <string name="button_settings">Button Settings</string>
+    <string name="button_history">Button History</string>
+    <string name="button_search">Button Search</string>
+    <string name="logout">Logout</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="language">Language</string>
+    <string name="btn_language">Button Language</string>
 </resources>

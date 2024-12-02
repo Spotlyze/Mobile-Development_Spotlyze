@@ -1,15 +1,29 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.bangkit.spotlyze.ui.home.HomeFragment">
 
-    <include
-        android:id="@+id/mToolBar"
-        layout="@layout/action_bar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolBarConstraint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/mToolBar"
+            layout="@layout/action_bar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/toolBarConstraint" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
