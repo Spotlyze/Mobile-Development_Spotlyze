@@ -6,25 +6,39 @@
     tools:context="com.bangkit.spotlyze.ui.settings.SettingsFragment">
 
     <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/tvSettings"
+        android:textSize="18sp"
+        android:fontFamily="@font/montserrat_bold"
+        />
+
+    <TextView
+        android:id="@+id/tvDarkMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
-        android:text="@string/settings"
+        android:text="@string/dark_mode"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSettings"
+        />
 
-    <ImageView
-        android:id="@+id/btnSettings"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/btnDarkMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/button_settings"
+        android:contentDescription="@string/dark_mode"
         android:src="@drawable/ic_arrow_right"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSettings"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDarkMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toEndOf="@+id/tvSettings"
-        app:layout_constraintTop_toTopOf="@+id/tvSettings" />
+        app:layout_constraintStart_toEndOf="@+id/tvDarkMode"
+        app:layout_constraintTop_toTopOf="@+id/tvDarkMode" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerSettings"
@@ -32,31 +46,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:dividerColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/btnSettings"
-        app:layout_constraintStart_toStartOf="@+id/tvSettings"
-        app:layout_constraintTop_toBottomOf="@+id/tvSettings" />
+        app:layout_constraintEnd_toEndOf="@+id/btnDarkMode"
+        app:layout_constraintStart_toStartOf="@+id/tvDarkMode"
+        app:layout_constraintTop_toBottomOf="@+id/tvDarkMode" />
 
     <TextView
-        android:id="@+id/tvHistory"
+        android:id="@+id/tvLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="@string/history"
+        android:text="@string/language"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dividerSettings" />
 
     <ImageView
-        android:id="@+id/btnHistory"
+        android:id="@+id/btnLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/button_history"
+        android:contentDescription="@string/btn_language"
         android:src="@drawable/ic_arrow_right"
-        app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toEndOf="@+id/tvHistory"
-        app:layout_constraintTop_toTopOf="@+id/tvHistory" />
+        app:layout_constraintStart_toEndOf="@+id/tvLanguage"
+        app:layout_constraintTop_toTopOf="@+id/tvLanguage"
+        tools:ignore="RedundantDescriptionCheck" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerHistory"
@@ -64,9 +79,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:dividerColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/btnHistory"
-        app:layout_constraintStart_toStartOf="@+id/tvHistory"
-        app:layout_constraintTop_toBottomOf="@+id/tvHistory" />
+        app:layout_constraintEnd_toEndOf="@+id/btnLanguage"
+        app:layout_constraintStart_toStartOf="@+id/tvLanguage"
+        app:layout_constraintTop_toBottomOf="@+id/tvLanguage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

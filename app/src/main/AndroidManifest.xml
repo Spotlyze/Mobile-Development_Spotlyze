@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Spotlyze"
         tools:targetApi="31">
         <activity
+            android:name="com.bangkit.spotlyze.ui.profile.DetailProfileActivity"
+            android:exported="false" />
+        <activity
             android:name="com.bangkit.spotlyze.ui.auth.login.LoginActivity"
             android:exported="false" />
         <activity

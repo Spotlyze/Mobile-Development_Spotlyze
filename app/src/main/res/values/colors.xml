@@ -7,6 +7,7 @@
     <color name="secondary">#8EA7E9</color>
     <color name="onSecondary">#FFF2F2</color>
     <color name="red_pink">#F83758</color>
+    <color name="red">#e43630</color>
     <color name="titleColor">#661BA8</color>
 
 </resources>
