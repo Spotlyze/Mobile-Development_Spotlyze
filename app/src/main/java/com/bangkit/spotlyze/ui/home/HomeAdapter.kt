@@ -1,6 +1,5 @@
 package com.bangkit.spotlyze.ui.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -14,9 +13,8 @@ class HomeAdapter : ListAdapter<GetSkincareResponseItem, HomeAdapter.ViewHolder>
     class ViewHolder(private val binding: ItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(skincare: GetSkincareResponseItem) {
-            Glide.with(binding.skincareImage.context).load(skincare.skincare_picture)
+            Glide.with(binding.skincareImage.context).load(skincare.skincarePicture)
                 .into(binding.skincareImage)
-            Log.d("okhttp", "Glide: ${skincare.skincare_picture}")
             binding.tvSkincareName.text = skincare.name
             binding.tvPrice.text = skincare.price.toString()
         }

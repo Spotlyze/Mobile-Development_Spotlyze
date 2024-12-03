@@ -1,5 +1,6 @@
 package com.bangkit.spotlyze.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.helper.customView.MarginItemDecoration
 import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.bangkit.spotlyze.ui.auth.login.LoginActivity
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentHomeBinding
 
@@ -43,10 +45,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel.getAllSkincare().observe(requireActivity()) { data ->
+        viewModel.getAllSkincare().observe(viewLifecycleOwner) { data ->
             when(data) {
                 is Result.Loading -> {}
                 is Result.Error -> {
+                    if (data.error == "Invalid token") {
+                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
                     Message.toast(requireActivity(), data.error)
                     Log.e("okhttp", "homeFragment: ${data.error}")
                 }
