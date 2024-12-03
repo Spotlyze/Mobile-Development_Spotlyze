@@ -27,4 +27,8 @@
     <string name="dark_mode">Dark mode</string>
     <string name="language">Language</string>
     <string name="btn_language">Button Language</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="for_you">For you</string>
+    <string name="skincare_picture">Skincare Picture</string>
 </resources>
