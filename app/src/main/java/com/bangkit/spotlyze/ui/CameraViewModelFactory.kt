@@ -3,7 +3,7 @@ package com.bangkit.spotlyze.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.spotlyze.data.source.CameraRepository
+import com.bangkit.spotlyze.data.repository.CameraRepository
 import com.bangkit.spotlyze.ui.camera.CameraViewModel
 
 class CameraViewModelFactory private constructor(private val cameraRepository: CameraRepository) :

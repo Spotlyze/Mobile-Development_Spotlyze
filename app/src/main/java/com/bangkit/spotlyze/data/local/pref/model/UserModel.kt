@@ -1,4 +1,4 @@
-package com.bangkit.spotlyze.data.local.model
+package com.bangkit.spotlyze.data.local.pref.model
 
 data class UserModel(
     val id: Int,
