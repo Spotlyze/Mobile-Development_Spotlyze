@@ -1,8 +1,15 @@
 package com.bangkit.spotlyze.data.remote.response
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponse(
-	val user_id: Int? = null,
-	val user_name: String? = null,
+
+	@field:SerializedName("user_id")
+	val userId: Int? = null,
+
+	@field:SerializedName("user_name")
+	val userName: String? = null,
+
+	@field:SerializedName("token")
 	val token: String? = null
 )
-

@@ -16,4 +16,6 @@ class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun getUser() = repository.getSession().asLiveData()
 
+    fun getUserProfile(id: String) = repository.getUserProfile(id)
+
 }

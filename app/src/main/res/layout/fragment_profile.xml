@@ -103,17 +103,17 @@
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/history"
         android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/btnLogout"
+        app:layout_constraintEnd_toStartOf="@+id/btnFavourite"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/cardViewProfile"
         app:layout_constraintStart_toStartOf="parent"
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnFavourite"
         android:layout_width="0dp"
-        android:text="@string/logout"
-        android:background="@drawable/logout_bg"
+        android:text="@string/favourite"
+        android:background="@drawable/btn_bg"
         android:fontFamily="@font/montserrat_bold"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -128,7 +128,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="@+id/btnLogout"
+            app:layout_constraintEnd_toEndOf="@+id/btnFavourite"
             app:layout_constraintStart_toStartOf="@+id/btnHistory"
             app:layout_constraintTop_toBottomOf="@+id/btnHistory">
 

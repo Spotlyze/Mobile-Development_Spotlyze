@@ -42,8 +42,8 @@ class LoginActivity : AppCompatActivity() {
                 is Result.Success -> {
                     val data = result.data
                     val user = UserModel(
-                        data.user_id!!,
-                        data.user_name!!,
+                        data.userId!!,
+                        data.userName!!,
                         data.token!!,
                         true
                     )

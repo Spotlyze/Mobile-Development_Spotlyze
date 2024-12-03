@@ -8,6 +8,7 @@ import com.bangkit.spotlyze.data.pref.UserPreference
 import com.bangkit.spotlyze.data.remote.request.LoginRequest
 import com.bangkit.spotlyze.data.remote.response.ErrorResponse
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
+import com.bangkit.spotlyze.data.remote.response.GetUserProfileResponse
 import com.bangkit.spotlyze.data.remote.response.LoginResponse
 import com.bangkit.spotlyze.data.remote.retrofit.ApiService
 import com.bangkit.spotlyze.data.source.Result
@@ -43,6 +44,23 @@ class UserRepository private constructor(
         }
     }
 
+    fun getUserProfile(id: String): LiveData<Result<GetUserProfileResponse>> {
+        return liveData {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getUserProfile("Bearer $token", id)
+                emit(Result.Success(response))
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error(errorMessage!!))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+    }
+
     fun getAllSkincare(): LiveData<Result<List<GetSkincareResponseItem>>> {
         return liveData {
             emit(Result.Loading)
@@ -60,6 +78,7 @@ class UserRepository private constructor(
         }
     }
 
+    //preferences
     suspend fun saveSession(user: UserModel) {
         userPref.saveSession(user)
     }

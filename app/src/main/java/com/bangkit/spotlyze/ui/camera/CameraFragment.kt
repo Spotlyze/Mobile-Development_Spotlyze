@@ -73,7 +73,7 @@ class CameraFragment : Fragment() {
         }
 
         binding.switchCamera.setOnClickListener {
-            cameraViewModel.switchCamera(this, binding.previewCamera)
+            cameraViewModel.switchCamera(viewLifecycleOwner, binding.previewCamera)
         }
 
         binding.imageGallery.setOnClickListener {
@@ -83,7 +83,7 @@ class CameraFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        cameraViewModel.startCamera(this, binding.previewCamera)
+        cameraViewModel.startCamera(viewLifecycleOwner, binding.previewCamera)
     }
 
     override fun onDestroy() {
@@ -93,8 +93,6 @@ class CameraFragment : Fragment() {
 
     companion object {
         private val TAG = CameraFragment::class.java.simpleName
-        private const val EXTRA_CAMERAX_IMAGE = "CameraX"
-        private const val CAMERA_RESULT = 200
         private const val REQUIRED_PERMISSIONS = Manifest.permission.CAMERA
     }
 }
