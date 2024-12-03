@@ -1,4 +1,4 @@
-package com.bangkit.spotlyze.data.source
+package com.bangkit.spotlyze.data.repository
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,6 +9,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.bangkit.spotlyze.data.source.Result
 
 class CameraRepository private constructor(private val context: Context) {
 

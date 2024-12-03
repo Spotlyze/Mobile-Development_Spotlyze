@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.bangkit.spotlyze.data.local.model.UserModel
+import com.bangkit.spotlyze.data.local.pref.model.UserModel
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.UserViewModelFactory

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bangkit.spotlyze.data.local.model.UserModel
+import com.bangkit.spotlyze.data.local.pref.model.UserModel
 import com.bangkit.spotlyze.data.remote.response.LoginResponse
 import com.bangkit.spotlyze.data.repository.UserRepository
 import com.bangkit.spotlyze.data.source.Result

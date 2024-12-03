@@ -3,8 +3,8 @@ package com.bangkit.spotlyze.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.bangkit.spotlyze.data.local.model.UserModel
-import com.bangkit.spotlyze.data.pref.UserPreference
+import com.bangkit.spotlyze.data.local.pref.model.UserModel
+import com.bangkit.spotlyze.data.local.pref.UserPreference
 import com.bangkit.spotlyze.data.remote.request.LoginRequest
 import com.bangkit.spotlyze.data.remote.response.ErrorResponse
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem

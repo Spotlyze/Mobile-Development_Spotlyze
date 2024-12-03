@@ -1,8 +1,8 @@
 package com.bangkit.spotlyze.data.di
 
 import android.content.Context
-import com.bangkit.spotlyze.data.pref.UserPreference
-import com.bangkit.spotlyze.data.pref.dataStore
+import com.bangkit.spotlyze.data.local.pref.UserPreference
+import com.bangkit.spotlyze.data.local.pref.dataStore
 import com.bangkit.spotlyze.data.remote.retrofit.ApiConfig
 import com.bangkit.spotlyze.data.repository.UserRepository
 
