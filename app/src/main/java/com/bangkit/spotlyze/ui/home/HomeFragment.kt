@@ -13,6 +13,7 @@ import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.helper.customView.MarginItemDecoration
 import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -60,9 +61,11 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapter() {
         adapter = HomeAdapter()
+        val marginStart = resources.getDimensionPixelSize(R.dimen.margin)
+        val marginEnd = resources.getDimensionPixelSize(R.dimen.margin)
         val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(MarginItemDecoration(16, 16))
+        binding.recyclerView.addItemDecoration(MarginItemDecoration(marginStart, marginEnd))
         binding.recyclerView.edgeEffectFactory = BoundEdgeEffect(requireActivity())
         binding.recyclerView.layoutManager = layoutManager
     }
