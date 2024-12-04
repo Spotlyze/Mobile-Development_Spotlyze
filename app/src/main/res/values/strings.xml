@@ -31,4 +31,7 @@
     <string name="no">No</string>
     <string name="for_you">For you</string>
     <string name="skincare_picture">Skincare Picture</string>
+    <string name="detail_skincare">Detail Skincare</string>
+    <string name="button_favourite">Button Favourite</string>
+    <string name="ingredients">Ingredients</string>
 </resources>

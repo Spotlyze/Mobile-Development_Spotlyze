@@ -66,6 +66,7 @@ class UserRepository private constructor(
             emit(Result.Loading)
             try {
                 val response = apiService.getAllSkincare("Bearer $token")
+                Log.d("okhttp", "getAllSkincare response: $response")
                 emit(Result.Success(response))
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
@@ -78,11 +79,12 @@ class UserRepository private constructor(
         }
     }
 
-    fun getSkincareById(id: String): LiveData<Result<GetSkincareResponseItem>> {
+    fun getSkincareById(id: String): LiveData<Result<List<GetSkincareResponseItem>>> {
         return liveData {
             emit(Result.Loading)
             try {
                 val response = apiService.getSkincareById("Bearer $token", id)
+                Log.d("okhttp", "getSkincareById response: $response")
                 emit(Result.Success(response))
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()

@@ -21,7 +21,7 @@ interface ApiService {
     suspend fun getSkincareById(
         @Header("Authorization") token: String,
         @Path("id") id: String
-    ): GetSkincareResponseItem
+    ): List<GetSkincareResponseItem>
 
     @GET("skincare")
     suspend fun getAllSkincare(
