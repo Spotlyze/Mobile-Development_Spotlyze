@@ -23,7 +23,6 @@ class SkincareRepository private constructor(
 ) {
 
     private val token = runBlocking { userPref.getSession().first().token }
-    val userId = runBlocking { userPref.getSession().first().id }
 
     fun getAllSkincare(): LiveData<Result<List<SkincareEntity>>> {
         return liveData {
