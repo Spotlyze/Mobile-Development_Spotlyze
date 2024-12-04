@@ -17,14 +17,20 @@ interface ApiService {
         @Body request: LoginRequest
     ): LoginResponse
 
+    @GET("skincare/{id}")
+    suspend fun getSkincareById(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): GetSkincareResponseItem
+
     @GET("skincare")
     suspend fun getAllSkincare(
         @Header("Authorization") token: String
-    ) : List<GetSkincareResponseItem>
+    ): List<GetSkincareResponseItem>
 
     @GET("profile/{id}")
     suspend fun getUserProfile(
         @Header("Authorization") token: String,
         @Path("id") id: String
-    ) : GetUserProfileResponse
+    ): GetUserProfileResponse
 }
