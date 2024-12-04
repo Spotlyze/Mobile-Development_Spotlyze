@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ActivityDetailSkincareBinding
@@ -13,6 +14,7 @@ import com.prayatna.spotlyze.databinding.ActivityDetailSkincareBinding
 class DetailSkincareActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailSkincareBinding
+    private var id: String? = null
     private val viewModel: SkincareViewModel by viewModels {
         SkincareViewModelFactory.getInstance(this)
     }
@@ -29,6 +31,28 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private fun setupAction() {
         backButton()
+        addFavorite()
+    }
+
+    private fun addFavorite() {
+        binding.btnFav.setOnClickListener {
+            viewModel.addFavorite(viewModel.userId, id!!.toInt())
+            setupFavorite()
+        }
+    }
+
+    private fun setupFavorite() {
+        viewModel.addFavorite.observe(this) { data ->
+            when (data) {
+                is Result.Error -> {
+                    Message.toast(this, data.error)
+                }
+                Result.Loading -> {}
+                is Result.Success -> {
+                    Message.toast(this, data.data.message.toString())
+                }
+            }
+        }
     }
 
     private fun backButton() {
@@ -38,7 +62,7 @@ class DetailSkincareActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        val id = intent.getStringExtra(EXTRA_ID)
+        id = intent.getStringExtra(EXTRA_ID)
         Log.d("okhttp", "id detail skincare: $id")
         viewModel.getSkincareById(id!!).observe(this) { data ->
             when (data) {
