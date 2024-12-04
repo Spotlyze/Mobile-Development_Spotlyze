@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
+import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.data.source.Result
-import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bumptech.glide.Glide
+import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.ActivityDetailSkincareBinding
 
 class DetailSkincareActivity : AppCompatActivity() {
@@ -31,28 +31,6 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private fun setupAction() {
         backButton()
-        addFavorite()
-    }
-
-    private fun addFavorite() {
-        binding.btnFav.setOnClickListener {
-            viewModel.addFavorite(viewModel.userId, id!!.toInt())
-            setupFavorite()
-        }
-    }
-
-    private fun setupFavorite() {
-        viewModel.addFavorite.observe(this) { data ->
-            when (data) {
-                is Result.Error -> {
-                    Message.toast(this, data.error)
-                }
-                Result.Loading -> {}
-                is Result.Success -> {
-                    Message.toast(this, data.data.message.toString())
-                }
-            }
-        }
     }
 
     private fun backButton() {
@@ -74,12 +52,36 @@ class DetailSkincareActivity : AppCompatActivity() {
                 is Result.Success -> {
                     val skincare = data.data[0]
                     setupView(skincare)
+                    setupFavorite(skincare)
+                    updateFavButton(skincare.isFavorite)
                 }
             }
         }
     }
 
-    private fun setupView(skincare: GetSkincareResponseItem) {
+    private fun setupFavorite(skincare: SkincareEntity) {
+        binding.btnFav.setOnClickListener {
+            if (skincare.isFavorite) {
+                viewModel.deleteFavSkincare(skincare)
+                skincare.isFavorite = false
+            } else {
+                viewModel.setFavSkincare(skincare)
+                skincare.isFavorite = true
+            }
+        }
+    }
+
+    private fun updateFavButton(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.btnFav.setImageResource(R.drawable.ic_fav)
+        } else {
+            binding.btnFav.setImageResource(R.drawable.ic_unfav)
+        }
+
+    }
+
+
+    private fun setupView(skincare: SkincareEntity) {
         binding.tvName.text = skincare.name
         binding.tvDescription.text = skincare.explanation
         binding.tvIngredients.text = skincare.ingredients

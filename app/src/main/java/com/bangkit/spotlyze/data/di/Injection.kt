@@ -1,6 +1,7 @@
 package com.bangkit.spotlyze.data.di
 
 import android.content.Context
+import com.bangkit.spotlyze.data.local.database.room.SkincareDatabase
 import com.bangkit.spotlyze.data.local.pref.UserPreference
 import com.bangkit.spotlyze.data.local.pref.dataStore
 import com.bangkit.spotlyze.data.remote.retrofit.ApiConfig
@@ -17,6 +18,7 @@ object Injection {
     fun provideSkincareRepository(context: Context): SkincareRepository {
         val pref = UserPreference.getInstance(context.dataStore)
         val apiService = ApiConfig.getInstance()
-        return SkincareRepository.getInstance(pref, apiService)
+        val dao = SkincareDatabase.getInstance(context).skincareDao()
+        return SkincareRepository.getInstance(pref, apiService, dao)
     }
 }

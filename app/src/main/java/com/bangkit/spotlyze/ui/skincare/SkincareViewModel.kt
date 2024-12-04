@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.data.remote.response.AddFavoriteResponse
 import com.bangkit.spotlyze.data.repository.SkincareRepository
 import com.bangkit.spotlyze.data.source.Result
@@ -25,5 +26,16 @@ class SkincareViewModel(private val repository: SkincareRepository) : ViewModel(
         }
     }
 
+    fun setFavSkincare(skincare: SkincareEntity) {
+        viewModelScope.launch {
+            repository.setFavoriteSkincare(skincare, true)
+        }
+    }
+
+    fun deleteFavSkincare(skincare: SkincareEntity) {
+        viewModelScope.launch {
+            repository.setFavoriteSkincare(skincare, false)
+        }
+    }
 
 }
