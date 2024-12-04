@@ -1,6 +1,8 @@
 package com.bangkit.spotlyze.data.remote.retrofit
 
+import com.bangkit.spotlyze.data.remote.request.AddFavoriteRequest
 import com.bangkit.spotlyze.data.remote.request.LoginRequest
+import com.bangkit.spotlyze.data.remote.response.AddFavoriteResponse
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetUserProfileResponse
 import com.bangkit.spotlyze.data.remote.response.LoginResponse
@@ -33,4 +35,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): GetUserProfileResponse
+
+    @POST("favorite")
+    suspend fun addFavorite(
+        @Header("Authorization") token: String,
+        @Body request: AddFavoriteRequest
+    ): AddFavoriteResponse
 }

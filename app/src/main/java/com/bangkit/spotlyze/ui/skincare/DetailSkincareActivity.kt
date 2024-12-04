@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.source.Result
-import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ActivityDetailSkincareBinding
 
@@ -14,7 +14,7 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailSkincareBinding
     private val viewModel: SkincareViewModel by viewModels {
-        UserViewModelFactory.getInstance(this)
+        SkincareViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
