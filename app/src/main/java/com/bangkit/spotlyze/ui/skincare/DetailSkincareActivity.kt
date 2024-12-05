@@ -84,11 +84,9 @@ class DetailSkincareActivity : AppCompatActivity() {
     private fun setupFavorite(skincare: SkincareEntity) {
         binding.btnFav.setOnClickListener {
             if (skincare.isFavorite) {
-                viewModel.deleteFavorite(skincare.skincareId!!)
                 viewModel.deleteFavSkincareDao(skincare)
                 skincare.isFavorite = false
             } else {
-                viewModel.addFavorite(skincare.skincareId!!)
                 viewModel.setFavSkincareDao(skincare)
                 skincare.isFavorite = true
             }
@@ -98,8 +96,10 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private fun updateFavButton(isFavorite: Boolean) {
         if (isFavorite) {
+            viewModel.addFavorite(id!!.toInt())
             binding.btnFav.setImageResource(R.drawable.ic_fav)
         } else {
+            viewModel.deleteFavorite(id!!.toInt())
             binding.btnFav.setImageResource(R.drawable.ic_unfav)
         }
     }
