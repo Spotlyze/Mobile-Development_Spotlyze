@@ -31,29 +31,8 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private fun setupAction() {
         backButton()
-        setupFavoriteState()
     }
 
-    private fun setupFavoriteState() {
-        viewModel.addFavoriteState.observe(this) { data ->
-            when (data) {
-                is Result.Error -> {}
-                Result.Loading -> {}
-                is Result.Success -> {
-                    binding.btnFav.setImageResource(R.drawable.ic_fav)
-                }
-            }
-        }
-        viewModel.deleteFavoriteState.observe(this) { data ->
-            when (data) {
-                is Result.Error -> {}
-                Result.Loading -> {}
-                is Result.Success -> {
-                    binding.btnFav.setImageResource(R.drawable.ic_unfav)
-                }
-            }
-        }
-    }
 
     private fun backButton() {
         binding.toolBar.setNavigationOnClickListener {
@@ -74,32 +53,32 @@ class DetailSkincareActivity : AppCompatActivity() {
                 is Result.Success -> {
                     val skincare = data.data[0]
                     setupView(skincare)
-                    setupFavorite(skincare)
+                    setupFavorite(skincare.skincareId!!)
                     updateFavButton(skincare.isFavorite)
                 }
             }
         }
     }
 
-    private fun setupFavorite(skincare: SkincareEntity) {
+    private fun setupFavorite(skincareId: Int) {
+        viewModel.isFavoriteSkincare(skincareId)
+        viewModel.isFavorite.observe(this) { isFavorite ->
+            updateFavButton(isFavorite)
+        }
+
         binding.btnFav.setOnClickListener {
-            if (skincare.isFavorite) {
-                viewModel.deleteFavSkincareDao(skincare)
-                skincare.isFavorite = false
+            if (viewModel.isFavorite.value == true) {
+                viewModel.deleteFavorite(skincareId)
             } else {
-                viewModel.setFavSkincareDao(skincare)
-                skincare.isFavorite = true
+                viewModel.addFavorite(skincareId)
             }
         }
-        updateFavButton(skincare.isFavorite)
     }
 
     private fun updateFavButton(isFavorite: Boolean) {
         if (isFavorite) {
-            viewModel.addFavorite(id!!.toInt())
             binding.btnFav.setImageResource(R.drawable.ic_fav)
         } else {
-            viewModel.deleteFavorite(id!!.toInt())
             binding.btnFav.setImageResource(R.drawable.ic_unfav)
         }
     }

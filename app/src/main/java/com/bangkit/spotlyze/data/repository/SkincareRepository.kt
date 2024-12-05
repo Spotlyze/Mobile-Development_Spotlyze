@@ -98,6 +98,16 @@ class SkincareRepository private constructor(
         }
     }
 
+    suspend fun isFavoriteSkincare(skincareId: Int): Boolean {
+            return try {
+                val listSkincare = apiService.getFavorite("Bearer $token", userId.toString())
+                val result = listSkincare.any { it.skincareId == skincareId }
+                result
+            } catch (e: Exception) {
+                false
+            }
+    }
+
     fun getFavorite(): LiveData<Result<List<GetSkincareResponseItem>>> {
         return liveData {
             try {

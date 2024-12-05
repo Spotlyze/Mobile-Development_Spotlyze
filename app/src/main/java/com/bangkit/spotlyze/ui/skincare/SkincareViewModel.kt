@@ -6,33 +6,29 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
-import com.bangkit.spotlyze.data.remote.response.AddFavoriteResponse
-import com.bangkit.spotlyze.data.remote.response.DeleteFavouriteResponse
 import com.bangkit.spotlyze.data.repository.SkincareRepository
-import com.bangkit.spotlyze.data.source.Result
 import kotlinx.coroutines.launch
 
 class SkincareViewModel(private val repository: SkincareRepository) : ViewModel() {
 
-    private var _addFavoriteState = MutableLiveData<Result<AddFavoriteResponse>>()
-    val addFavoriteState: LiveData<Result<AddFavoriteResponse>> = _addFavoriteState
-
-    private var _deleteFavoriteState = MutableLiveData<Result<DeleteFavouriteResponse>>()
-    val deleteFavoriteState: LiveData<Result<DeleteFavouriteResponse>> = _deleteFavoriteState
+    private var _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
 
     fun getSkincareById(id: String) = repository.getSkincareById(id)
 
     fun addFavorite(skincareId: Int) {
         viewModelScope.launch {
-            _addFavoriteState.value = repository.addFavorite(skincareId)
-            Log.d("okhttp", "add favorite: ${_addFavoriteState.value}")
+            repository.addFavorite(skincareId)
+            _isFavorite.value = true
+            Log.d("okhttp", "add favorite: ${_isFavorite.value}")
         }
     }
 
     fun deleteFavorite(skincareId: Int) {
         viewModelScope.launch {
-            _deleteFavoriteState.value = repository.deleteFavorite(skincareId)
-            Log.d("okhttp", "delete favorite: ${_deleteFavoriteState.value}")
+            repository.deleteFavorite(skincareId)
+            _isFavorite.value = false
+            Log.d("okhttp", "delete favorite: ${_isFavorite.value}")
         }
     }
 
@@ -49,4 +45,10 @@ class SkincareViewModel(private val repository: SkincareRepository) : ViewModel(
     }
 
     fun getFavorite() = repository.getFavorite()
+
+    fun isFavoriteSkincare(skincareId: Int) {
+        viewModelScope.launch {
+            _isFavorite.value = repository.isFavoriteSkincare(skincareId)
+        }
+    }
 }
