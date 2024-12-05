@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
-    android:layout_height="300dp"
+    android:layout_height="280dp"
     android:layout_gravity="center"
     android:layout_marginHorizontal="4dp"
     android:layout_marginVertical="8dp"
@@ -18,10 +18,9 @@
         <ImageView
             android:id="@+id/skincareImage"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="200dp"
             android:contentDescription="@string/skincare_picture"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,28 +29,28 @@
         <TextView
             android:id="@+id/tvSkincareName"
             android:layout_width="0dp"
+            android:textSize="12sp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:ellipsize="end"
-            android:fontFamily="@font/montserrat_bold"
-            android:maxLines="1"
+            android:maxLines="2"
+            app:layout_constraintTop_toBottomOf="@+id/skincareImage"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tvPrice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Skincare's name" />
+            tools:text="Skincare's name and this is just an example" />
 
         <TextView
             android:id="@+id/tvPrice"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/montserrat_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvSkincareName"
             tools:text="100000" />
 
 
