@@ -2,7 +2,7 @@ package com.bangkit.spotlyze.data.remote.request
 
 import com.google.gson.annotations.SerializedName
 
-data class AddFavoriteRequest(
+data class FavoriteRequest(
 
     @field:SerializedName("user_id")
     val userId: Int? = null,

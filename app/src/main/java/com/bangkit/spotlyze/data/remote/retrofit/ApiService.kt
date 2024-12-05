@@ -1,13 +1,16 @@
 package com.bangkit.spotlyze.data.remote.retrofit
 
-import com.bangkit.spotlyze.data.remote.request.AddFavoriteRequest
+import com.bangkit.spotlyze.data.remote.request.FavoriteRequest
 import com.bangkit.spotlyze.data.remote.request.LoginRequest
 import com.bangkit.spotlyze.data.remote.response.AddFavoriteResponse
+import com.bangkit.spotlyze.data.remote.response.DeleteFavouriteResponse
+import com.bangkit.spotlyze.data.remote.response.GetFavoriteResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetUserProfileResponse
 import com.bangkit.spotlyze.data.remote.response.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -39,6 +42,20 @@ interface ApiService {
     @POST("favorite")
     suspend fun addFavorite(
         @Header("Authorization") token: String,
-        @Body request: AddFavoriteRequest
+        @Body request: FavoriteRequest
     ): AddFavoriteResponse
+
+    @HTTP(method = "DELETE", path = "favorite", hasBody = true)
+    suspend fun deleteFavorite(
+        @Header("Authorization") token: String,
+        @Body request: FavoriteRequest
+    ): DeleteFavouriteResponse
+
+    @GET("favorite/{id}")
+    suspend fun getFavorite(
+        @Header("Authorization") token: String,
+        @Path("id") userId: String
+    ): List<GetFavoriteResponseItem>
+
+
 }

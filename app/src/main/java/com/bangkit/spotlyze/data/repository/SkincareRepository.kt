@@ -6,9 +6,11 @@ import androidx.lifecycle.map
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.data.local.database.room.SkincareDao
 import com.bangkit.spotlyze.data.local.pref.UserPreference
-import com.bangkit.spotlyze.data.remote.request.AddFavoriteRequest
+import com.bangkit.spotlyze.data.remote.request.FavoriteRequest
 import com.bangkit.spotlyze.data.remote.response.AddFavoriteResponse
+import com.bangkit.spotlyze.data.remote.response.DeleteFavouriteResponse
 import com.bangkit.spotlyze.data.remote.response.ErrorResponse
+import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.remote.retrofit.ApiService
 import com.bangkit.spotlyze.data.source.Result
 import com.google.gson.Gson
@@ -23,8 +25,9 @@ class SkincareRepository private constructor(
 ) {
 
     private val token = runBlocking { userPref.getSession().first().token }
+    private val userId = runBlocking { userPref.getSession().first().id }
 
-    fun getAllSkincare(): LiveData<Result<List<SkincareEntity>>> {
+    fun getAllSkincare(): LiveData<Result<List<GetSkincareResponseItem>>> {
         return liveData {
             emit(Result.Loading)
             try {
@@ -42,7 +45,9 @@ class SkincareRepository private constructor(
                         isFavorite = isFavorite
                     )
                 }
+                dao.deleteAll()
                 dao.insertSkincare(skincareList)
+                emit(Result.Success(response))
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
@@ -51,9 +56,6 @@ class SkincareRepository private constructor(
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
             }
-            val localData: LiveData<Result<List<SkincareEntity>>> =
-                dao.getAllSkincare().map { Result.Success(it) }
-            emitSource(localData)
         }
     }
 
@@ -96,16 +98,53 @@ class SkincareRepository private constructor(
         }
     }
 
-    suspend fun addFavorite(userId: Int, skincareId: Int): Result<AddFavoriteResponse> {
+    fun getFavorite(): LiveData<Result<List<GetSkincareResponseItem>>> {
+        return liveData {
+            try {
+                val response = apiService.getFavorite("Bearer $token", userId.toString())
+                val skincareList = apiService.getAllSkincare("Bearer $token")
+
+                val favSkincareId = response.map { it.skincareId }
+                val favSkincare = skincareList.filter { it.skincareId in favSkincareId }
+                emit(Result.Success(favSkincare))
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error(errorMessage!!))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+
+        }
+    }
+
+
+    suspend fun addFavorite(skincareId: Int): Result<AddFavoriteResponse> {
         return try {
-            val request = AddFavoriteRequest(userId, skincareId)
+            val request = FavoriteRequest(userId, skincareId)
             val response = apiService.addFavorite("Bearer $token", request)
             Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
-            Result.Error(errorMessage!!)
+            Result.Error(errorMessage.toString())
+        } catch (e: Exception) {
+            Result.Error(e.message.toString())
+        }
+    }
+
+    suspend fun deleteFavorite(skincareId: Int): Result<DeleteFavouriteResponse> {
+        return try {
+            val request = FavoriteRequest(userId, skincareId)
+            val response = apiService.deleteFavorite("Bearer $token", request)
+            Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            Result.Error(errorMessage.toString())
         } catch (e: Exception) {
             Result.Error(e.message.toString())
         }

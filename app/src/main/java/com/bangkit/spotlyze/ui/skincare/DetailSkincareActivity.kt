@@ -31,6 +31,28 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private fun setupAction() {
         backButton()
+        setupFavoriteState()
+    }
+
+    private fun setupFavoriteState() {
+        viewModel.addFavoriteState.observe(this) { data ->
+            when (data) {
+                is Result.Error -> {}
+                Result.Loading -> {}
+                is Result.Success -> {
+                    binding.btnFav.setImageResource(R.drawable.ic_fav)
+                }
+            }
+        }
+        viewModel.deleteFavoriteState.observe(this) { data ->
+            when (data) {
+                is Result.Error -> {}
+                Result.Loading -> {}
+                is Result.Success -> {
+                    binding.btnFav.setImageResource(R.drawable.ic_unfav)
+                }
+            }
+        }
     }
 
     private fun backButton() {
@@ -62,13 +84,16 @@ class DetailSkincareActivity : AppCompatActivity() {
     private fun setupFavorite(skincare: SkincareEntity) {
         binding.btnFav.setOnClickListener {
             if (skincare.isFavorite) {
-                viewModel.deleteFavSkincare(skincare)
+                viewModel.deleteFavorite(skincare.skincareId!!)
+                viewModel.deleteFavSkincareDao(skincare)
                 skincare.isFavorite = false
             } else {
-                viewModel.setFavSkincare(skincare)
+                viewModel.addFavorite(skincare.skincareId!!)
+                viewModel.setFavSkincareDao(skincare)
                 skincare.isFavorite = true
             }
         }
+        updateFavButton(skincare.isFavorite)
     }
 
     private fun updateFavButton(isFavorite: Boolean) {
@@ -77,7 +102,6 @@ class DetailSkincareActivity : AppCompatActivity() {
         } else {
             binding.btnFav.setImageResource(R.drawable.ic_unfav)
         }
-
     }
 
 

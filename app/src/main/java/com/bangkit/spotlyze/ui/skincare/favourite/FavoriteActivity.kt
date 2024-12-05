@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bangkit.spotlyze.ui.home.HomeAdapter
@@ -34,8 +36,18 @@ class FavoriteActivity : AppCompatActivity() {
         }
 
     private fun setupViewModel() {
-        viewModel.getFavoriteSkincare().observe(this) { data ->
-            adapter?.submitList(data)
+        viewModel.getFavorite().observe(this) { data ->
+            when (data) {
+                is Result.Error -> {
+                    Message.toast(this, data.error)
+                }
+                Result.Loading -> {
+
+                }
+                is Result.Success -> {
+                    adapter?.submitList(data.data)
+                }
+            }
         }
     }
 
