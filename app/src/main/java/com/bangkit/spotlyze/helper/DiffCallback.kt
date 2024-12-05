@@ -8,7 +8,7 @@ internal object DiffCallback : DiffUtil.ItemCallback<GetSkincareResponseItem>() 
         oldItem: GetSkincareResponseItem,
         newItem: GetSkincareResponseItem
     ): Boolean {
-        return oldItem == newItem
+        return oldItem.skincareId == newItem.skincareId
     }
 
     override fun areContentsTheSame(

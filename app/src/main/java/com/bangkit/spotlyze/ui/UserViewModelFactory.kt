@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.bangkit.spotlyze.data.di.Injection
 import com.bangkit.spotlyze.data.repository.UserRepository
 import com.bangkit.spotlyze.ui.auth.login.LoginViewModel
-import com.bangkit.spotlyze.ui.home.HomeViewModel
 import com.bangkit.spotlyze.ui.main.MainViewModel
 import com.bangkit.spotlyze.ui.profile.ProfileViewModel
 
@@ -21,8 +20,6 @@ class UserViewModelFactory private constructor(private val userRepo: UserReposit
             return MainViewModel(userRepo) as T
         } else if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
             return ProfileViewModel(userRepo) as T
-        } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(userRepo) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel Class: " + modelClass.name)

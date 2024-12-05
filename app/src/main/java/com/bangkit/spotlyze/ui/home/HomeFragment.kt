@@ -13,7 +13,7 @@ import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.helper.customView.MarginItemDecoration
-import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentHomeBinding
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     private var adapter: HomeAdapter? = null
 
     private val viewModel: HomeViewModel by viewModels {
-        UserViewModelFactory.getInstance(requireActivity())
+        SkincareViewModelFactory.getInstance(requireActivity())
     }
 
     override fun onCreateView(

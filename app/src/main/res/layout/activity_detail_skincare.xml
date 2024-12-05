@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/view_bg"
+    tools:context="com.bangkit.spotlyze.ui.skincare.DetailSkincareActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/detail_skincare" />
+
+        <ImageView
+            android:id="@+id/skincarePicture"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/skincare_picture"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolBar"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <ImageButton
+            android:id="@+id/btnFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/button_favourite"
+            android:src="@drawable/ic_unfav"
+            app:layout_constraintBottom_toBottomOf="@+id/skincarePicture"
+            app:layout_constraintEnd_toEndOf="@+id/skincarePicture"
+            app:layout_constraintTop_toTopOf="@+id/skincarePicture"
+            app:layout_constraintVertical_bias="0.9"
+            tools:ignore="RedundantDescriptionCheck" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/skincarePicture"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvName"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="Description" />
+
+        <TextView
+            android:id="@+id/tvIngredientsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/ingredients"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+            app:layout_constraintStart_toStartOf="@+id/tvDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+        <TextView
+            android:id="@+id/tvIngredients"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/tvIngredientsTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvIngredientsTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvIngredientsTitle"
+            tools:text="Ingredients" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

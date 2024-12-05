@@ -1,11 +1,13 @@
 package com.bangkit.spotlyze.ui.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.helper.DiffCallback
+import com.bangkit.spotlyze.ui.skincare.DetailSkincareActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ItemLayoutBinding
 
@@ -29,5 +31,10 @@ class HomeAdapter : ListAdapter<GetSkincareResponseItem, HomeAdapter.ViewHolder>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailSkincareActivity::class.java)
+            intent.putExtra(DetailSkincareActivity.EXTRA_ID, item.skincareId.toString())
+            holder.itemView.context.startActivity(intent)
+        }
     }
 }

@@ -7,7 +7,6 @@ import com.bangkit.spotlyze.data.local.pref.UserPreference
 import com.bangkit.spotlyze.data.local.pref.model.UserModel
 import com.bangkit.spotlyze.data.remote.request.LoginRequest
 import com.bangkit.spotlyze.data.remote.response.ErrorResponse
-import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetUserProfileResponse
 import com.bangkit.spotlyze.data.remote.response.LoginResponse
 import com.bangkit.spotlyze.data.remote.retrofit.ApiService
@@ -49,40 +48,6 @@ class UserRepository private constructor(
             emit(Result.Loading)
             try {
                 val response = apiService.getUserProfile("Bearer $token", id)
-                emit(Result.Success(response))
-            } catch (e: HttpException) {
-                val jsonInString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
-                emit(Result.Error(errorMessage!!))
-            } catch (e: Exception) {
-                emit(Result.Error(e.message.toString()))
-            }
-        }
-    }
-
-    fun getAllSkincare(): LiveData<Result<List<GetSkincareResponseItem>>> {
-        return liveData {
-            emit(Result.Loading)
-            try {
-                val response = apiService.getAllSkincare("Bearer $token")
-                emit(Result.Success(response))
-            } catch (e: HttpException) {
-                val jsonInString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
-                emit(Result.Error(errorMessage!!))
-            } catch (e: Exception) {
-                emit(Result.Error(e.message.toString()))
-            }
-        }
-    }
-
-    fun getSkincareById(id: String): LiveData<Result<GetSkincareResponseItem>> {
-        return liveData {
-            emit(Result.Loading)
-            try {
-                val response = apiService.getSkincareById("Bearer $token", id)
                 emit(Result.Success(response))
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
