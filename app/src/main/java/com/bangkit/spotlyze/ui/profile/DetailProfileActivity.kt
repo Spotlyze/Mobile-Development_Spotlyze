@@ -1,11 +1,9 @@
 package com.bangkit.spotlyze.ui.profile
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.ui.UserViewModelFactory
-import com.bangkit.spotlyze.ui.auth.login.LoginActivity
 import com.prayatna.spotlyze.databinding.ActivityDetailProfileBinding
 
 class DetailProfileActivity : AppCompatActivity() {
@@ -21,12 +19,6 @@ class DetailProfileActivity : AppCompatActivity() {
         binding = ActivityDetailProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnLogout.setOnClickListener {
-            viewModel.logOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 
     companion object {
