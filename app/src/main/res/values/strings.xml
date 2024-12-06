@@ -35,4 +35,7 @@
     <string name="button_favourite">Button Favourite</string>
     <string name="ingredients">Ingredients</string>
     <string name="back_button">Back Button</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="date_of_birth">Date of birth</string>
 </resources>
