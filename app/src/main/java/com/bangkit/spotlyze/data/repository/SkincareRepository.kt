@@ -113,7 +113,6 @@ class SkincareRepository private constructor(
         return liveData {
             try {
                 val response = apiService.getFavorite("Bearer $token", userId.toString())
-                    .sortedByDescending { it.favoriteId }
                 val skincareList = apiService.getAllSkincare("Bearer $token")
 
                 val favSkincareId = response.map { it.skincareId }
