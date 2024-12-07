@@ -3,6 +3,7 @@ package com.bangkit.spotlyze.ui.camera
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
+import com.bangkit.spotlyze.ui.SkinViewModelFactory
 import com.bangkit.spotlyze.ui.classificationResult.ResultActivity
 import com.bangkit.spotlyze.utils.createCustomTempFile
 import com.prayatna.spotlyze.R
@@ -31,7 +33,9 @@ class CameraFragment : Fragment() {
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
-    private val cameraViewModel: CameraViewModel by viewModels()
+    private val viewModel: CameraViewModel by viewModels{
+        SkinViewModelFactory.getInstance(requireActivity())
+    }
 
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
@@ -81,7 +85,25 @@ class CameraFragment : Fragment() {
         }
 
         setupAction()
+        setupViewModel()
 
+    }
+
+    private fun setupViewModel() {
+        viewModel.result.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is Result.Error -> {
+                    Log.d("okhttp", "classify error: ${data.error}")
+                }
+                Result.Loading -> {
+
+                }
+                is Result.Success -> {
+                    val result = data.data.message
+                    Log.d("okhttp", "classify data: $result")
+                }
+            }
+        }
     }
 
     private fun setupAction() {
@@ -119,9 +141,11 @@ class CameraFragment : Fragment() {
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    val result = outputFileResults.savedUri!!
+                    classifyImage(result)
+                    Log.d("okhttp", "result: $result")
                     val intent = Intent(requireActivity(), ResultActivity::class.java)
-                    val result = outputFileResults.savedUri.toString()
-                    intent.putExtra(EXTRA_RESULT, result)
+                    intent.putExtra(EXTRA_RESULT, result.toString())
                     requireActivity().startActivity(intent)
                     requireActivity().finish()
                 }
@@ -135,6 +159,10 @@ class CameraFragment : Fragment() {
                 }
             }
         )
+    }
+
+    private fun classifyImage(imageUri: Uri) {
+        viewModel.classifySkin("Test aja", imageUri, requireActivity())
     }
 
     private fun startCamera() {

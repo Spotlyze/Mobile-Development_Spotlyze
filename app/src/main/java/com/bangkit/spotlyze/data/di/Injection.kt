@@ -5,6 +5,7 @@ import com.bangkit.spotlyze.data.local.database.room.SkincareDatabase
 import com.bangkit.spotlyze.data.local.pref.UserPreference
 import com.bangkit.spotlyze.data.local.pref.dataStore
 import com.bangkit.spotlyze.data.remote.retrofit.ApiConfig
+import com.bangkit.spotlyze.data.repository.SkinRepository
 import com.bangkit.spotlyze.data.repository.SkincareRepository
 import com.bangkit.spotlyze.data.repository.UserRepository
 
@@ -20,5 +21,11 @@ object Injection {
         val apiService = ApiConfig.getInstance()
         val dao = SkincareDatabase.getInstance(context).skincareDao()
         return SkincareRepository.getInstance(pref, apiService, dao)
+    }
+
+    fun provideSkinRepository(context: Context): SkinRepository {
+        val pref = UserPreference.getInstance(context.dataStore)
+        val apiService = ApiConfig.getInstance()
+        return SkinRepository.getInstance(pref, apiService)
     }
 }
