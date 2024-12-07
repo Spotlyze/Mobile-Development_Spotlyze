@@ -101,6 +101,10 @@ class CameraFragment : Fragment() {
                 is Result.Success -> {
                     val result = data.data.message
                     Log.d("okhttp", "classify data: $result")
+                    val intent = Intent(requireActivity(), ResultActivity::class.java)
+                    intent.putExtra(EXTRA_RESULT, result.toString())
+                    requireActivity().startActivity(intent)
+                    requireActivity().finish()
                 }
             }
         }
@@ -144,10 +148,6 @@ class CameraFragment : Fragment() {
                     val result = outputFileResults.savedUri!!
                     classifyImage(result)
                     Log.d("okhttp", "result: $result")
-                    val intent = Intent(requireActivity(), ResultActivity::class.java)
-                    intent.putExtra(EXTRA_RESULT, result.toString())
-                    requireActivity().startActivity(intent)
-                    requireActivity().finish()
                 }
 
                 override fun onError(exception: ImageCaptureException) {

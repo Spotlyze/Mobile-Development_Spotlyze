@@ -6,6 +6,7 @@ import com.bangkit.spotlyze.data.remote.response.AddFavoriteResponse
 import com.bangkit.spotlyze.data.remote.response.ClassifySkinResponse
 import com.bangkit.spotlyze.data.remote.response.DeleteFavouriteResponse
 import com.bangkit.spotlyze.data.remote.response.GetFavoriteResponseItem
+import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetUserProfileResponse
 import com.bangkit.spotlyze.data.remote.response.LoginResponse
@@ -70,4 +71,10 @@ interface ApiService {
         @Part picture: MultipartBody.Part,
         @Part("recommendation") recommendation: RequestBody,
     ): ClassifySkinResponse
+
+    @GET("history/{id}")
+    suspend fun getAllHistory(
+        @Header("Authorization") token: String,
+        @Path("id") userId: String
+    ): List<GetHistoryResponseItem>
 }

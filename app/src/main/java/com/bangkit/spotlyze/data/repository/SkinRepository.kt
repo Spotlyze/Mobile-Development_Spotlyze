@@ -2,9 +2,13 @@ package com.bangkit.spotlyze.data.repository
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import com.bangkit.spotlyze.data.local.pref.UserPreference
 import com.bangkit.spotlyze.data.remote.response.ClassifySkinResponse
 import com.bangkit.spotlyze.data.remote.response.ErrorResponse
+import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
 import com.bangkit.spotlyze.data.remote.retrofit.ApiService
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.utils.reduceFileImage
@@ -59,8 +63,25 @@ class SkinRepository private constructor(
         } catch (e: Exception) {
             Result.Error(e.message.toString())
         }
-
     }
+
+    fun getAllHistory(): LiveData<Result<List<GetHistoryResponseItem>>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getAllHistory("Bearer $token", userId)
+                val test = response.last()
+                Log.d("okhttp", "detail history test: ${test.analyzeHistoryId}")
+                emit(Result.Success(response))
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error(errorMessage!!))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
 
     companion object {
         @Volatile
