@@ -5,20 +5,112 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bangkit.spotlyze.ui.auth.register.RegisterActivity">
+    android:padding="24dp"
+    tools:context="com.bangkit.spotlyze.ui.auth.login.LoginActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/tvRegister"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:fontFamily="@font/montserrat_bold"-->
-<!--        android:text="@string/create_an_account"-->
-<!--        android:textSize="36sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/create_an_account"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/emailConstraint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRegister">
+
+        <include
+            android:id="@+id/emailInput"
+            layout="@layout/email_input" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/usernameConstraint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/emailConstraint"
+        app:layout_constraintStart_toStartOf="@+id/emailConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/emailConstraint">
+
+        <include
+            android:id="@+id/usernameInput"
+            layout="@layout/username_input" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/passwordConstraint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/emailConstraint"
+        app:layout_constraintStart_toStartOf="@+id/emailConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/usernameConstraint">
+
+        <include
+            android:id="@+id/passwordInput"
+            layout="@layout/password_input" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/confirmPasswordConstraint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/emailConstraint"
+        app:layout_constraintStart_toStartOf="@+id/emailConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/passwordConstraint">
+
+        <include
+            android:id="@+id/confirmPasswordInput"
+            layout="@layout/password_input" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegister"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@drawable/btn_bg"
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="@+id/confirmPasswordConstraint"
+        app:layout_constraintStart_toStartOf="@+id/confirmPasswordConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordConstraint" />
+
+    <TextView
+        android:id="@+id/tvCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="@string/aready_have_an_account"
+        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+
+    <TextView
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textColor="@color/red_pink"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCreateAccount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@+id/tvCreateAccount"
+        app:layout_constraintTop_toTopOf="@+id/tvCreateAccount" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

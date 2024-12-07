@@ -9,12 +9,15 @@ import com.bangkit.spotlyze.data.remote.request.LoginRequest
 import com.bangkit.spotlyze.data.remote.response.ErrorResponse
 import com.bangkit.spotlyze.data.remote.response.GetUserProfileResponse
 import com.bangkit.spotlyze.data.remote.response.LoginResponse
+import com.bangkit.spotlyze.data.remote.response.RegisterResponse
 import com.bangkit.spotlyze.data.remote.retrofit.ApiService
 import com.bangkit.spotlyze.data.source.Result
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
 
 class UserRepository private constructor(
@@ -23,6 +26,24 @@ class UserRepository private constructor(
 ) {
 
     private val token = runBlocking { userPref.getSession().first().token }
+
+    suspend fun register(email: String, name: String, password: String): Result<RegisterResponse> {
+        val emailReqBody = email.toRequestBody("text/plain".toMediaTypeOrNull())
+        val nameReqBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
+        val passwordReqBody = password.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        return try {
+            val response = apiService.register(nameReqBody, emailReqBody, passwordReqBody)
+            Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            Result.Error(errorMessage!!)
+        } catch (e: Exception) {
+            Result.Error(e.message.toString())
+        }
+    }
 
     suspend fun login(email: String, password: String): Result<LoginResponse> {
         return try {

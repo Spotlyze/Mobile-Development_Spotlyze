@@ -39,4 +39,6 @@
     <string name="address">Address</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="failed_to_take_picture">Failed to take picture</string>
+    <string name="aready_have_an_account">Already have an account</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>
