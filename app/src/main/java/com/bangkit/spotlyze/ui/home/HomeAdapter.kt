@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
-import com.bangkit.spotlyze.helper.DiffCallback
+import com.bangkit.spotlyze.helper.SkincareDiffCallback
 import com.bangkit.spotlyze.ui.skincare.DetailSkincareActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ItemLayoutBinding
 
-class HomeAdapter : ListAdapter<GetSkincareResponseItem, HomeAdapter.ViewHolder>(DiffCallback) {
+class HomeAdapter : ListAdapter<GetSkincareResponseItem, HomeAdapter.ViewHolder>(SkincareDiffCallback) {
     class ViewHolder(private val binding: ItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(skincare: GetSkincareResponseItem) {
