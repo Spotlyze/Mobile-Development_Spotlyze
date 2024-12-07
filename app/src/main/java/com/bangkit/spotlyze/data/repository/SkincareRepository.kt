@@ -31,7 +31,8 @@ class SkincareRepository private constructor(
         return liveData {
             emit(Result.Loading)
             try {
-                val response = apiService.getAllSkincare("Bearer $token")
+                val response =
+                    apiService.getAllSkincare("Bearer $token")
                 val skincareList = response.map { skincare ->
                     val isFavorite = dao.isSkincareFavorite(skincare.skincareId!!)
                     SkincareEntity(
@@ -99,19 +100,20 @@ class SkincareRepository private constructor(
     }
 
     suspend fun isFavoriteSkincare(skincareId: Int): Boolean {
-            return try {
-                val listSkincare = apiService.getFavorite("Bearer $token", userId.toString())
-                val result = listSkincare.any { it.skincareId == skincareId }
-                result
-            } catch (e: Exception) {
-                false
-            }
+        return try {
+            val listSkincare = apiService.getFavorite("Bearer $token", userId.toString())
+            val result = listSkincare.any { it.skincareId == skincareId }
+            result
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun getFavorite(): LiveData<Result<List<GetSkincareResponseItem>>> {
         return liveData {
             try {
                 val response = apiService.getFavorite("Bearer $token", userId.toString())
+                    .sortedByDescending { it.favoriteId }
                 val skincareList = apiService.getAllSkincare("Bearer $token")
 
                 val favSkincareId = response.map { it.skincareId }

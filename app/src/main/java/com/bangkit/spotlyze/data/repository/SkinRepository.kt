@@ -70,6 +70,7 @@ class SkinRepository private constructor(
             emit(Result.Loading)
             try {
                 val response = apiService.getAllHistory("Bearer $token", userId)
+                    .sortedByDescending { it.analyzeHistoryId }
                 val test = response.last()
                 Log.d("okhttp", "detail history test: ${test.analyzeHistoryId}")
                 emit(Result.Success(response))
@@ -82,6 +83,7 @@ class SkinRepository private constructor(
                 emit(Result.Error(e.message.toString()))
             }
         }
+
     fun getDetailHistory(index: Int): LiveData<Result<GetHistoryResponseItem>> =
         liveData {
             emit(Result.Loading)
