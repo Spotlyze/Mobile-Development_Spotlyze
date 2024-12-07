@@ -6,4 +6,5 @@ import com.bangkit.spotlyze.data.repository.SkinRepository
 class HistoryViewModel(private val repository: SkinRepository) : ViewModel() {
 
     fun getHistory() = repository.getAllHistory()
+    fun getDetailHistory(index: Int) = repository.getDetailHistory(index)
 }

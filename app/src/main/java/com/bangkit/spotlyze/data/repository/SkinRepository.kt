@@ -82,6 +82,22 @@ class SkinRepository private constructor(
                 emit(Result.Error(e.message.toString()))
             }
         }
+    fun getDetailHistory(index: Int): LiveData<Result<GetHistoryResponseItem>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val listResponse = apiService.getAllHistory("Bearer $token", userId)
+                val response = listResponse[index - 1]
+                emit(Result.Success(response))
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error(errorMessage!!))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
 
     companion object {
         @Volatile
