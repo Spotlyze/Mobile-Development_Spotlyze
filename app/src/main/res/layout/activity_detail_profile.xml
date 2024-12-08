@@ -24,6 +24,19 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
+            android:fontFamily="@font/montserrat_bold"
+            android:id="@+id/btnEditImage"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/profilePicture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/edit_picture_profile"
+            app:layout_constraintBottom_toTopOf="@+id/tvName"
+            />
+
+        <TextView
             android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,7 +48,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+            app:layout_constraintTop_toBottomOf="@+id/btnEditImage" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/nameEditText"
@@ -93,6 +106,16 @@
             app:layout_constraintStart_toStartOf="@+id/tvPassword"
             app:layout_constraintTop_toBottomOf="@+id/tvPassword"
             tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnEditUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/passwordEditText"
+            app:layout_constraintStart_toStartOf="@+id/passwordEditText"
+            app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
