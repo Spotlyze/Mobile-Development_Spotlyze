@@ -41,4 +41,6 @@
     <string name="failed_to_take_picture">Failed to take picture</string>
     <string name="aready_have_an_account">Already have an account</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_picture_profile">Edit picture profile</string>
 </resources>
