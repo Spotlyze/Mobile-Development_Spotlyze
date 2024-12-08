@@ -37,6 +37,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("okhttp", "onViewCreated: ProfileFragment")
         setupView()
         setupAction()
         setupViewModel()
@@ -67,7 +68,7 @@ class ProfileFragment : Fragment() {
                     } else {
                         binding.userProfileImage.setImageResource(R.drawable.dummy_profile)
                     }
-                    Log.d("okhttp", "setupProfile: ${data.profilePicture}")
+                    Log.d("okhttp", "profile fetched: $data")
                 }
             }
         }
@@ -102,6 +103,11 @@ class ProfileFragment : Fragment() {
 
     private fun setupView() {
         binding.actionBar.btnSearch.visibility = View.GONE
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setupViewModel()
     }
 
     override fun onDestroy() {

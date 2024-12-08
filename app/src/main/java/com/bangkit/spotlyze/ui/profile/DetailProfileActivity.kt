@@ -46,6 +46,7 @@ class DetailProfileActivity : AppCompatActivity() {
                 Result.Loading -> {}
                 is Result.Success -> {
                     Log.d("okhttpEdit", "success: ${data.data}")
+                    finish()
                 }
             }
 
@@ -55,14 +56,11 @@ class DetailProfileActivity : AppCompatActivity() {
     private fun setupAction() {
         updateUser()
         openGallery()
-        setupProfilePicture()
     }
 
     private fun setupProfilePicture() {
-        profilePictureUri?.let {
             Glide.with(binding.profilePicture.context).load(profilePictureUri)
                 .into(binding.profilePicture)
-        }
     }
 
     private fun openGallery() {
@@ -75,8 +73,6 @@ class DetailProfileActivity : AppCompatActivity() {
         ActivityResultContracts.PickVisualMedia()
     ) {
         if (it != null) {
-            Log.d("pictureProfile", "Selected URI: $it")
-            Log.d("pictureProfile", "URI: $profilePictureUri")
             profilePictureUri = it
             setupProfilePicture()
         }
@@ -113,7 +109,6 @@ class DetailProfileActivity : AppCompatActivity() {
                 Result.Loading -> {}
                 is Result.Success -> {
                     val user = data.data
-                    Log.d("okhttp", "profile picture: $profilePictureUri")
                     binding.emailEditText.setText(user.email)
                     binding.nameEditText.setText(user.name)
                     Glide.with(binding.profilePicture.context).load(user.profilePicture)
