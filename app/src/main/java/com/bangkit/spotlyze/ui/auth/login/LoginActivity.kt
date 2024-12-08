@@ -9,13 +9,15 @@ import com.bangkit.spotlyze.data.local.pref.model.UserModel
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.bangkit.spotlyze.ui.auth.AuthViewModel
+import com.bangkit.spotlyze.ui.auth.register.RegisterActivity
 import com.bangkit.spotlyze.ui.main.MainActivity
 import com.prayatna.spotlyze.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel: LoginViewModel by viewModels {
+    private val viewModel: AuthViewModel by viewModels {
         UserViewModelFactory.getInstance(this)
     }
 
@@ -29,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel.loadingStatus.observe(this) { result ->
+        viewModel.loginStatus.observe(this) { result ->
             when (result) {
                 is Result.Error -> {
                     Message.toast(this, result.error)
@@ -57,11 +59,20 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction() {
         login()
+        goToRegister()
+    }
+
+    private fun goToRegister() {
+        binding.btnSignUp.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 
     private fun login() {
         binding.btnLogin.setOnClickListener {
-            val email = binding.emailInput.emailEditText.text.toString()
+            val email = binding.usernameInput.usernameEditText.text.toString()
             val password = binding.passwordInput.passwordEditText.text.toString()
             Log.d("okhttp", "email: $email, pass: $password")
             viewModel.login(email, password)

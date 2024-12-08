@@ -10,6 +10,7 @@ import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetUserProfileResponse
 import com.bangkit.spotlyze.data.remote.response.LoginResponse
+import com.bangkit.spotlyze.data.remote.response.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -22,6 +23,14 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
+
+    @Multipart
+    @POST("register")
+    suspend fun register(
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("password") password: RequestBody,
+    ): RegisterResponse
 
     @POST("login")
     suspend fun login(
@@ -72,7 +81,7 @@ interface ApiService {
         @Part("recommendation") recommendation: RequestBody,
     ): ClassifySkinResponse
 
-    @GET("history/{id}")
+    @GET("history/user/{id}")
     suspend fun getAllHistory(
         @Header("Authorization") token: String,
         @Path("id") userId: String

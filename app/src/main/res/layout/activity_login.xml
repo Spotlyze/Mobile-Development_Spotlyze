@@ -29,8 +29,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tvWelcome">
 
         <include
-            android:id="@+id/emailInput"
-            layout="@layout/email_input" />
+            android:id="@+id/usernameInput"
+            layout="@layout/username_input" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
