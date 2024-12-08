@@ -40,7 +40,6 @@ class ProfileFragment : Fragment() {
         Log.d("okhttp", "onViewCreated: ProfileFragment")
         setupView()
         setupAction()
-        setupViewModel()
     }
 
     private fun setupViewModel() {
