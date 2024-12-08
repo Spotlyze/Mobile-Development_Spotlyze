@@ -81,7 +81,7 @@ interface ApiService {
         @Part("recommendation") recommendation: RequestBody,
     ): ClassifySkinResponse
 
-    @GET("history/{id}")
+    @GET("history/user/{id}")
     suspend fun getAllHistory(
         @Header("Authorization") token: String,
         @Path("id") userId: String
