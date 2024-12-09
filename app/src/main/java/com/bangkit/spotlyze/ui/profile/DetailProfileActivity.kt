@@ -59,8 +59,8 @@ class DetailProfileActivity : AppCompatActivity() {
     }
 
     private fun setupProfilePicture() {
-            Glide.with(binding.profilePicture.context).load(profilePictureUri)
-                .into(binding.profilePicture)
+        Glide.with(binding.profilePicture.context).load(profilePictureUri)
+            .into(binding.profilePicture)
     }
 
     private fun openGallery() {
@@ -74,6 +74,7 @@ class DetailProfileActivity : AppCompatActivity() {
     ) {
         if (it != null) {
             profilePictureUri = it
+            Log.d("okhttpEdit", "uri: $profilePictureUri")
             setupProfilePicture()
         }
     }
@@ -86,8 +87,10 @@ class DetailProfileActivity : AppCompatActivity() {
         binding.btnEditUser.setOnClickListener {
             if (profilePictureUri != null) {
                 updateProfilePicture()
+                updateInfo()
+            } else {
+                updateInfo()
             }
-            updateInfo()
         }
     }
 
@@ -113,6 +116,7 @@ class DetailProfileActivity : AppCompatActivity() {
                     binding.nameEditText.setText(user.name)
                     Glide.with(binding.profilePicture.context).load(user.profilePicture)
                         .into(binding.profilePicture)
+                    Log.d("okhttpEdit", "${user.profilePicture}")
                 }
             }
         }

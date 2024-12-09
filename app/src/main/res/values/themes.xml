@@ -2,13 +2,22 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Spotlyze" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/onPrimary</item>
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorOnSecondary">@color/onSecondary</item>
 
         <item name="android:fontFamily">@font/montserrat_default</item>
     </style>
+
+    <style name="NoActiveIndicatorStyle">
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
+
+    <style name="CustomBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/NoActiveIndicatorStyle</item>
+    </style>
+
 
     <style name="Theme.Spotlyze" parent="Base.Theme.Spotlyze" />
 </resources>

@@ -43,4 +43,6 @@
     <string name="confirm_password">Confirm password</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="edit_picture_profile">Edit picture profile</string>
+    <string name="camera_button">Camera Button</string>
+    <string name="none" />
 </resources>

@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -49,18 +48,6 @@ class CameraFragment : Fragment() {
         } else {
             Toast.makeText(requireActivity(), "Permission request denied", Toast.LENGTH_LONG).show()
         }
-    }
-
-    private val launchGallery = registerForActivityResult(
-        ActivityResultContracts.PickVisualMedia()
-    ) {
-        if (it != null) {
-            Log.d(TAG, "Selected URI: $it")
-        }
-    }
-
-    private fun startGallery() {
-        launchGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     private fun allPermissionGranted() =
@@ -112,7 +99,6 @@ class CameraFragment : Fragment() {
 
     private fun setupAction() {
         switchCamera()
-        gallery()
         takePicture()
     }
 
@@ -125,12 +111,6 @@ class CameraFragment : Fragment() {
     private fun takePicture() {
         binding.imageCapture.setOnClickListener {
             setupTakePicture()
-        }
-    }
-
-    private fun gallery() {
-        binding.imageGallery.setOnClickListener {
-            startGallery()
         }
     }
 
@@ -213,7 +193,6 @@ class CameraFragment : Fragment() {
     }
 
     companion object {
-        private val TAG = CameraFragment::class.java.simpleName
         private const val REQUIRED_PERMISSIONS = Manifest.permission.CAMERA
         const val EXTRA_RESULT = "CameraX Result"
     }

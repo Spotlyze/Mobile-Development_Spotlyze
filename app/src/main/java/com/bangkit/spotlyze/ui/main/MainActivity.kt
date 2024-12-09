@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit.spotlyze.ui.UserViewModelFactory
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private val viewModel: MainViewModel by viewModels{
+    private val viewModel: MainViewModel by viewModels {
         UserViewModelFactory.getInstance(this)
     }
 
@@ -32,7 +33,14 @@ class MainActivity : AppCompatActivity() {
 
         setupView()
         setupViewModel()
+        setupCamera()
 
+    }
+
+    private fun setupCamera() {
+        binding.floatingCameraButton.setOnClickListener {
+            findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_camera)
+        }
     }
 
     private fun setupViewModel() {
@@ -55,12 +63,16 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
             if (nd.id == R.id.navigation_camera) {
                 navView.visibility = View.GONE
+                binding.floatingCameraButton.visibility = View.GONE
+                binding.bottomNavContainer.visibility = View.GONE
                 binding.navHostFragment.layoutParams =
                     (binding.navHostFragment.layoutParams as ViewGroup.MarginLayoutParams).apply {
                         bottomMargin = 0
                     }
             } else {
                 navView.visibility = View.VISIBLE
+                binding.floatingCameraButton.visibility = View.VISIBLE
+                binding.bottomNavContainer.visibility = View.VISIBLE
             }
         }
     }

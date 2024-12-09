@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
                     Log.e("okhttp", "homeFragment: ${data.error}")
                 }
                 is Result.Success -> {
-                    val skincare = data.data
+                    val skincare = data.data.take(5)
                     Log.d("okhttp", "setupViewModel: $skincare")
                     adapter?.submitList(skincare)
                 }
