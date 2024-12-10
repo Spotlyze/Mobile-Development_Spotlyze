@@ -38,7 +38,6 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("okhttp", "onViewCreated: ProfileFragment")
-        setupView()
         setupAction()
     }
 
@@ -98,10 +97,6 @@ class ProfileFragment : Fragment() {
             intent.putExtra(DetailProfileActivity.EXTRA_ID, id)
             startActivity(intent)
         }
-    }
-
-    private fun setupView() {
-        binding.actionBar.btnSearch.visibility = View.GONE
     }
 
     override fun onStart() {

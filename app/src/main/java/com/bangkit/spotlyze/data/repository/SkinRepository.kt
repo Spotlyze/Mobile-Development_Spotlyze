@@ -32,12 +32,17 @@ class SkinRepository private constructor(
     private val userId = runBlocking { userPref.getSession().first().id }.toString()
 
     suspend fun classifySkin(
-        recommendation: String,
+        skinType: String,
+        skinSensitivity: String,
+        concerns: List<String>,
         imageUri: Uri,
         context: Context
     ): Result<ClassifySkinResponse> {
         val idReqBody = userId.toRequestBody("text/plain".toMediaTypeOrNull())
-        val recommendationReqBody = recommendation.toRequestBody("text/plain".toMediaTypeOrNull())
+        val skinTypeReqBody = skinType.toRequestBody("text/plain".toMediaTypeOrNull())
+        val skinSensitivityReqBody = skinSensitivity.toRequestBody("text/plain".toMediaTypeOrNull())
+        val concernsString = concerns.joinToString(",")
+        val concernsReqBody = concernsString.toRequestBody("text/plain".toMediaTypeOrNull())
 
         val imageFile = uriToFile(imageUri, context).reduceFileImage()
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -52,7 +57,9 @@ class SkinRepository private constructor(
                 "Bearer $token",
                 userId = idReqBody,
                 picture = multiPartImage,
-                recommendation = recommendationReqBody
+                skinType = skinTypeReqBody,
+                skinSensitivity = skinSensitivityReqBody,
+                concerns = concernsReqBody
             )
             Result.Success(response)
         } catch (e: HttpException) {

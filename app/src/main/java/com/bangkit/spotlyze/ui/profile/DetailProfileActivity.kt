@@ -33,10 +33,28 @@ class DetailProfileActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         getProfileVM()
-        editUserVM()
+        editUserPictureVM()
+        editInfoUserVM()
     }
 
-    private fun editUserVM() {
+    private fun editInfoUserVM() {
+        viewModel.updateInfoState.observe(this) { data ->
+            when (data) {
+                is Result.Error -> {
+                    Log.e("okhttpEdit", "error: ${data.error}")
+                }
+
+                Result.Loading -> {
+                }
+
+                is Result.Success -> {
+                    Log.d("okhttpEdit", "success: ${data.data}")
+                }
+            }
+        }
+    }
+
+    private fun editUserPictureVM() {
         viewModel.updatePictureState.observe(this) { data ->
             when (data) {
                 is Result.Error -> {
@@ -90,6 +108,7 @@ class DetailProfileActivity : AppCompatActivity() {
                 updateInfo()
             } else {
                 updateInfo()
+                finish()
             }
         }
     }

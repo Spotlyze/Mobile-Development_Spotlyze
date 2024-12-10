@@ -3,7 +3,6 @@ package com.bangkit.spotlyze.ui.camera
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,11 +17,9 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
-import com.bangkit.spotlyze.ui.SkinViewModelFactory
-import com.bangkit.spotlyze.ui.classificationResult.ResultActivity
+import com.bangkit.spotlyze.ui.quiz.QuizActivity
 import com.bangkit.spotlyze.utils.createCustomTempFile
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentCameraBinding
@@ -31,10 +28,6 @@ class CameraFragment : Fragment() {
 
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
-
-    private val viewModel: CameraViewModel by viewModels{
-        SkinViewModelFactory.getInstance(requireActivity())
-    }
 
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
@@ -72,30 +65,30 @@ class CameraFragment : Fragment() {
         }
 
         setupAction()
-        setupViewModel()
+//        setupViewModel()
 
     }
 
-    private fun setupViewModel() {
-        viewModel.result.observe(viewLifecycleOwner) { data ->
-            when (data) {
-                is Result.Error -> {
-                    Log.d("okhttp", "classify error: ${data.error}")
-                }
-                Result.Loading -> {
-
-                }
-                is Result.Success -> {
-                    val result = data.data.message
-                    Log.d("okhttp", "classify data: $result")
-                    val intent = Intent(requireActivity(), ResultActivity::class.java)
-                    intent.putExtra(EXTRA_RESULT, result.toString())
-                    requireActivity().startActivity(intent)
-                    requireActivity().finish()
-                }
-            }
-        }
-    }
+//    private fun setupViewModel() {
+//        viewModel.result.observe(viewLifecycleOwner) { data ->
+//            when (data) {
+//                is Result.Error -> {
+//                    Log.d("okhttp", "classify error: ${data.error}")
+//                }
+//                Result.Loading -> {
+//
+//                }
+//                is Result.Success -> {
+//                    val result = data.data.message
+//                    Log.d("okhttp", "classify data: $result")
+//                    val intent = Intent(requireActivity(), ResultActivity::class.java)
+//                    intent.putExtra(EXTRA_RESULT, result.toString())
+//                    requireActivity().startActivity(intent)
+//                    requireActivity().finish()
+//                }
+//            }
+//        }
+//    }
 
     private fun setupAction() {
         switchCamera()
@@ -126,7 +119,10 @@ class CameraFragment : Fragment() {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     val result = outputFileResults.savedUri!!
-                    classifyImage(result)
+                    val intent = Intent(requireActivity(), QuizActivity::class.java)
+                    intent.putExtra(EXTRA_RESULT, result.toString())
+                    requireActivity().startActivity(intent)
+                    requireActivity().finish()
                     Log.d("okhttp", "result: $result")
                 }
 
@@ -141,9 +137,9 @@ class CameraFragment : Fragment() {
         )
     }
 
-    private fun classifyImage(imageUri: Uri) {
-        viewModel.classifySkin("Test aja", imageUri, requireActivity())
-    }
+//    private fun classifyImage(imageUri: Uri) {
+//        viewModel.classifySkin("Test aja", imageUri, requireActivity())
+//    }
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())

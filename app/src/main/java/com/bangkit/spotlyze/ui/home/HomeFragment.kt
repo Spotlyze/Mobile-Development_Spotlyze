@@ -15,6 +15,7 @@ import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.helper.customView.MarginItemDecoration
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
+import com.bangkit.spotlyze.ui.quiz.QuizActivity
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentHomeBinding
 
@@ -42,6 +43,14 @@ class HomeFragment : Fragment() {
 
         setupAdapter()
         setupViewModel()
+        setupTest()
+    }
+
+    private fun setupTest() {
+        binding.btnProfile.setOnClickListener {
+            val intent = Intent(requireActivity(), QuizActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupViewModel() {

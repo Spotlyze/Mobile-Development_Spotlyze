@@ -97,7 +97,9 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Part("user_id") userId: RequestBody,
         @Part picture: MultipartBody.Part,
-        @Part("recommendation") recommendation: RequestBody,
+        @Part("skin_type") skinType: RequestBody,
+        @Part("skin_sensitivity") skinSensitivity: RequestBody,
+        @Part("concerns") concerns: RequestBody
     ): ClassifySkinResponse
 
     @GET("history/user/{id}")

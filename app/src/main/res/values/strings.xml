@@ -45,4 +45,23 @@
     <string name="edit_picture_profile">Edit picture profile</string>
     <string name="camera_button">Camera Button</string>
     <string name="none" />
+    <string name="search_here">Search here...</string>
+    <string name="what_best_describes_your_skin_type">What best describes your skin type?</string>
+    <string name="dry">Dry</string>
+    <string name="oily">Oily</string>
+    <string name="combination">Combination</string>
+    <string name="how_would_you_describe_your_skin_s_sensitivity">How would you describe your skin\'s sensitivity?</string>
+    <string name="normal_resilient_rarely_reacts_to_new_products">Normal (resilient, rarely reacts to new products)</string>
+    <string name="sensitive_prone_to_irritation_or_redness">Sensitive (prone to irritation or redness)</string>
+    <string name="what_specific_skin_concerns_would_you_like_to_address">What specific skin concerns would you like to address?</string>
+    <string name="skin_brightening">Skin Brightening</string>
+    <string name="uneven_skin_texture">Uneven Skin Texture</string>
+    <string name="skin_dullness">Skin Dullness</string>
+    <string name="hydration_and_nourishment">Hydration and Nourishment</string>
+    <string name="acne_and_breakouts">Acne and Breakouts</string>
+    <string name="fine_lines_and_wrinkles">Fine Lines and Wrinkles</string>
+    <string name="dark_circles_and_eye_bags">Dark Circles and Eye Bags</string>
+    <string name="submit">Submit</string>
+    <string name="quiz">Quiz</string>
+    <string name="analyze">Analyze</string>
 </resources>
