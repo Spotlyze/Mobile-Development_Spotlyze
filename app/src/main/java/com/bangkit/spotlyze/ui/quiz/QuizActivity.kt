@@ -42,6 +42,7 @@ class QuizActivity : AppCompatActivity() {
         intent.putStringArrayListExtra(CONCERN, getConcerns())
         intent.putExtra(IMAGE_URI, pictureUri)
         startActivity(intent)
+        Log.d("okhttp", "goAnalyze: ${getSkinType()}\n ${getSkinSensitivity()}\n ${getConcerns()}")
         finish()
     }
 
@@ -53,6 +54,7 @@ class QuizActivity : AppCompatActivity() {
             else -> null
         }
     }
+
     private fun getSkinSensitivity(): String? {
         return when (binding.questionSkinSensitivity.checkedRadioButtonId) {
             binding.radioNormal.id -> "Normal"
