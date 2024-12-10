@@ -2,7 +2,6 @@ package com.bangkit.spotlyze.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,12 +53,10 @@ class HomeFragment : Fragment() {
                         requireActivity().finish()
                     }
                     Message.toast(requireActivity(), data.error)
-                    Log.e("okhttp", "homeFragment: ${data.error}")
                 }
 
                 is Result.Success -> {
                     val skincare = data.data
-                    Log.d("okhttp", "setupViewModel: $skincare")
                     adapter?.submitList(skincare)
                 }
             }

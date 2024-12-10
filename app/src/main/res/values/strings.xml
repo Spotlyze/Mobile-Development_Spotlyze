@@ -70,4 +70,9 @@
     <string name="for_skin_type">For skin type</string>
     <string name="how_to_use">How to use</string>
     <string name="category">Category</string>
+    <string name="treatment">Treatment</string>
+    <string name="cleanser">Cleanser</string>
+    <string name="mask">Mask</string>
+    <string name="moisturizer">Moisturizer</string>
+    <string name="yeay_here_are_our_recommendations_to_you">Yeay, here are our recommendations to you!</string>
 </resources>

@@ -1,17 +1,22 @@
 package com.bangkit.spotlyze.ui.quiz
 
 import android.animation.PropertyValuesHolder
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.spotlyze.data.source.RecommendationItem
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
-import com.bangkit.spotlyze.ui.history.DetailHistoryActivity
+import com.bangkit.spotlyze.ui.adapter.RecommendationAdapter
+import com.bangkit.spotlyze.utils.flattenRecommendations
+import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.prayatna.spotlyze.databinding.ActivityAnalyzeBinding
+import com.prayatna.spotlyze.databinding.BottomSheetLayoutBinding
 
 class AnalyzeActivity : AppCompatActivity() {
 
@@ -33,7 +38,11 @@ class AnalyzeActivity : AppCompatActivity() {
     private fun setupAnimation() {
         val scaleX = PropertyValuesHolder.ofFloat("scaleX", 1f, 1.2f)
         val scaleY = PropertyValuesHolder.ofFloat("scaleY", 1f, 1.2f)
-        val animator = android.animation.ObjectAnimator.ofPropertyValuesHolder(binding.imageAnimation, scaleX, scaleY).apply {
+        val animator = android.animation.ObjectAnimator.ofPropertyValuesHolder(
+            binding.verifyImage,
+            scaleX,
+            scaleY
+        ).apply {
             duration = 1000
             repeatCount = android.animation.ValueAnimator.INFINITE
             repeatMode = android.animation.ValueAnimator.REVERSE
@@ -61,25 +70,72 @@ class AnalyzeActivity : AppCompatActivity() {
         viewModel.analyzeState.observe(this) { data ->
             when (data) {
                 is Result.Error -> {
-                    Log.e("okhttp", "error: ${data.error}")
+                    Log.e("analyzer", "error: ${data.error}")
                 }
+
                 Result.Loading -> {
-                    binding.progressIndicator.visibility = View.VISIBLE
                     binding.btnAnalyze.visibility = View.GONE
                 }
+
                 is Result.Success -> {
-                    Log.d("okhttp", "success: ${data.data}")
-                    val intent = Intent(this, DetailHistoryActivity::class.java)
-                    intent.putExtra(CLASSIFY_RESULT, data.data.historyId.toString())
-                    Log.d("okhttp", "history id: ${data.data.historyId}")
-                    startActivity(intent)
-                    finish()
+                    val recommend = flattenRecommendations(data.data.recommend!!)
+                    Log.d("analyzer", "success: $recommend")
+                    stopAnimation()
+                    showResult(data.data.publicUrl)
+//                    showBottomSheetDialog(recommend)
+                    setupAdapter(recommend)
                 }
             }
         }
     }
 
+    private fun showResult(publicUrl: String?) {
+        Glide.with(binding.facePicture.context).load(publicUrl).into(binding.facePicture)
+        binding.facePicture.visibility = View.VISIBLE
+        binding.tvYeay.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.scrollView.visibility = View.VISIBLE
+    }
+
+    private fun setupAdapter(recommend: List<RecommendationItem>) {
+        binding.recyclerView.visibility = View.VISIBLE
+        val adapter = RecommendationAdapter(recommend)
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@AnalyzeActivity)
+            this.adapter = adapter
+        }
+    }
+
+    private fun stopAnimation() {
+        binding.verifyImage.animate()
+            .alpha(0f)
+            .setDuration(500)
+            .withEndAction {
+                binding.verifyImage.visibility = View.GONE
+            }
+
+        binding.tvThanks.animate()
+            .alpha(0f)
+            .setDuration(500)
+            .withEndAction {
+                binding.tvThanks.visibility = View.GONE
+            }
+    }
+
+    private fun showBottomSheetDialog(recommend: List<RecommendationItem>) {
+        val dialog = BottomSheetDialog(this)
+        val mBinding = BottomSheetLayoutBinding.inflate(layoutInflater)
+        dialog.setContentView(mBinding.root)
+        val adapter = RecommendationAdapter(recommend)
+        mBinding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@AnalyzeActivity)
+            this.adapter = adapter
+        }
+        dialog.show()
+    }
+
     companion object {
         const val CLASSIFY_RESULT = "classify_result"
+        const val EXTRA_RECOMMEND = "extra_recommend"
     }
 }
