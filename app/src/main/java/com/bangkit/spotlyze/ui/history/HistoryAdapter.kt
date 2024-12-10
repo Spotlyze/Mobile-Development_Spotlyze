@@ -1,11 +1,13 @@
 package com.bangkit.spotlyze.ui.history
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
 import com.bangkit.spotlyze.helper.SkinDiffCallback
+import com.bangkit.spotlyze.ui.quiz.AnalyzeActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.HistoryItemLayoutBinding
 
@@ -29,5 +31,10 @@ class HistoryAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailHistoryActivity::class.java)
+            intent.putExtra(AnalyzeActivity.CLASSIFY_RESULT, item.analyzeHistoryId.toString())
+            holder.itemView.context.startActivity(intent)
+        }
     }
 }

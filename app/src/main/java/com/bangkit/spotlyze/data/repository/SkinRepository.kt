@@ -91,12 +91,11 @@ class SkinRepository private constructor(
             }
         }
 
-    fun getDetailHistory(index: Int): LiveData<Result<GetHistoryResponseItem>> =
+    fun getDetailHistory(id: String): LiveData<Result<List<GetHistoryResponseItem>>> =
         liveData {
             emit(Result.Loading)
             try {
-                val listResponse = apiService.getAllHistory("Bearer $token", userId)
-                val response = listResponse[index - 1]
+                val response = apiService.getDetailHistory("Bearer $token", id)
                 emit(Result.Success(response))
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()

@@ -107,4 +107,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") userId: String
     ): List<GetHistoryResponseItem>
+
+    @GET("history/{id}")
+    suspend fun getDetailHistory(
+        @Header("Authorization") token: String,
+        @Path("id") historyId: String
+    ): List<GetHistoryResponseItem>
 }

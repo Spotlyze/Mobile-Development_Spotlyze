@@ -2,6 +2,12 @@ package com.bangkit.spotlyze.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
+data class GetHistoryResponse(
+
+	@field:SerializedName("GetHistoryResponse")
+	val getHistoryResponse: List<GetHistoryResponseItem?>? = null
+)
+
 data class GetHistoryResponseItem(
 
 	@field:SerializedName("date")

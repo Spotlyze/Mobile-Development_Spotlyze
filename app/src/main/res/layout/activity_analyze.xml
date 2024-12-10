@@ -7,11 +7,76 @@
     android:layout_height="match_parent"
     tools:context="com.bangkit.spotlyze.ui.quiz.AnalyzeActivity">
 
-    <Button
-        android:id="@+id/btnAnalyze"
+    <TextView
+        android:id="@+id/tvThanks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/analyze"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/thanks_for_filling_the_questions"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <ImageView
+        android:id="@+id/imageAnimation"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintVertical_bias="0.9"
+        app:tint="@color/primary"
+        android:contentDescription="@string/verified_image"
+        android:src="@drawable/analog_success"
+        app:layout_constraintEnd_toEndOf="@+id/verifyImage"
+        app:layout_constraintStart_toStartOf="@+id/verifyImage"
+        app:layout_constraintTop_toTopOf="@+id/verifyImage"
+        app:layout_constraintBottom_toBottomOf="@+id/verifyImage"
+        />
+
+    <ImageView
+        android:id="@+id/verifyImage"
+        android:layout_width="213dp"
+        android:layout_height="213dp"
+        android:layout_marginTop="64dp"
+        android:contentDescription="@string/verified_image"
+        android:src="@drawable/analog_success"
+        app:layout_constraintEnd_toEndOf="@+id/tvThanks"
+        app:layout_constraintStart_toStartOf="@+id/tvThanks"
+        app:layout_constraintTop_toBottomOf="@+id/tvThanks" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="32dp"
+        android:visibility="gone"
+        app:trackColor="@color/white"
+        app:indicatorColor="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvThanks"
+        app:layout_constraintStart_toStartOf="@+id/tvThanks"
+        app:layout_constraintTop_toBottomOf="@+id/verifyImage"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintVertical_bias="0.4"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAnalyze"
+        style="@style/ShapeAppearanceOverlay.Material3.Button"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:padding="15dp"
+        android:text="@string/get_the_scan_result"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvThanks"
+        app:layout_constraintStart_toStartOf="@+id/tvThanks"
+        app:layout_constraintTop_toBottomOf="@+id/verifyImage"
+        app:layout_constraintVertical_bias="0.4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

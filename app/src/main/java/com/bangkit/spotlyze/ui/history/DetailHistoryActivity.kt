@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
+import com.bangkit.spotlyze.ui.quiz.AnalyzeActivity
 import com.prayatna.spotlyze.databinding.ActivityDetailHistoryBinding
 
 class DetailHistoryActivity : AppCompatActivity() {
@@ -14,8 +15,6 @@ class DetailHistoryActivity : AppCompatActivity() {
     private val viewModel: HistoryViewModel by viewModels{
         SkinViewModelFactory.getInstance(this)
     }
-    private val index = intent.getIntExtra(EXTRA_INDEX, 0)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailHistoryBinding.inflate(layoutInflater)
@@ -25,20 +24,20 @@ class DetailHistoryActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel.getDetailHistory(index).observe(this) { data ->
+        val id = intent.getStringExtra(AnalyzeActivity.CLASSIFY_RESULT)
+        viewModel.getDetailHistory(id!!).observe(this) { data ->
             when (data) {
                 is Result.Error -> {
                     Log.e("okhttp", "detail history: ${data.error}")
                 }
-                Result.Loading -> {}
+                Result.Loading -> {
+                    Log.d("okhttp", "detail history: loading")
+                }
                 is Result.Success -> {
-                    binding.tvTest.text = data.data.results.toString()
+                    binding.tvTest.text = data.data[0].recommendation
+                    Log.d("okhttp", "detail history: ${data.data}")
                 }
             }
         }
-    }
-
-    companion object {
-        const val EXTRA_INDEX = "extra_index"
     }
 }
