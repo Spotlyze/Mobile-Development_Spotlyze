@@ -34,7 +34,6 @@ class DetailHistoryActivity : AppCompatActivity() {
                     Log.d("okhttp", "detail history: loading")
                 }
                 is Result.Success -> {
-                    binding.tvTest.text = data.data[0].recommendation
                     Log.d("okhttp", "detail history: ${data.data}")
                 }
             }

@@ -27,7 +27,7 @@ class SkincareRepository private constructor(
     private val token = runBlocking { userPref.getSession().first().token }
     private val userId = runBlocking { userPref.getSession().first().id }
 
-    fun getAllSkincare(): LiveData<Result<List<GetSkincareResponseItem>>> {
+    fun getAllSkincare(): LiveData<Result<List<SkincareEntity>>> {
         return liveData {
             emit(Result.Loading)
             try {
@@ -38,17 +38,20 @@ class SkincareRepository private constructor(
                     SkincareEntity(
                         skincareId = skincare.skincareId,
                         name = skincare.name,
-                        type = skincare.type,
+                        brand = skincare.brand,
+                        category = skincare.category,
+                        rating = skincare.starRating,
+                        isRecommend = skincare.isRecommend == 1,
+                        description = skincare.descriptionProcessed,
+                        skinType = skincare.skinType,
                         price = skincare.price,
                         skincarePicture = skincare.skincarePicture,
                         ingredients = skincare.ingredients,
-                        explanation = skincare.explanation,
                         isFavorite = isFavorite
                     )
                 }
                 dao.deleteAll()
                 dao.insertSkincare(skincareList)
-                emit(Result.Success(response))
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
@@ -57,6 +60,9 @@ class SkincareRepository private constructor(
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
             }
+            val localData: LiveData<Result<List<SkincareEntity>>> =
+                dao.getAllSkincare().map { Result.Success(it) }
+            emitSource(localData)
         }
     }
 
@@ -78,11 +84,13 @@ class SkincareRepository private constructor(
                 SkincareEntity(
                     skincareId = response[0].skincareId,
                     name = response[0].name,
-                    type = response[0].type,
+                    skinType = response[0].skinType,
                     price = response[0].price,
                     skincarePicture = response[0].skincarePicture,
                     ingredients = response[0].ingredients,
-                    explanation = response[0].explanation,
+                    explanation = response[0].descriptionProcessed,
+                    rating = response[0].starRating,
+
                     isFavorite = isFavorite,
                 )
             } catch (e: HttpException) {
@@ -98,6 +106,7 @@ class SkincareRepository private constructor(
             emitSource(localData)
         }
     }
+
 
     suspend fun isFavoriteSkincare(skincareId: Int): Boolean {
         return try {

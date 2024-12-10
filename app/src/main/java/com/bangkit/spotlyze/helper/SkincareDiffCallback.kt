@@ -1,6 +1,7 @@
 package com.bangkit.spotlyze.helper
 
 import androidx.recyclerview.widget.DiffUtil
+import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 
@@ -32,6 +33,16 @@ internal object SkinDiffCallback : DiffUtil.ItemCallback<GetHistoryResponseItem>
         oldItem: GetHistoryResponseItem,
         newItem: GetHistoryResponseItem
     ): Boolean {
+        return oldItem == newItem
+    }
+}
+
+internal object SkincareLocalDiffCallback : DiffUtil.ItemCallback<SkincareEntity>() {
+    override fun areItemsTheSame(oldItem: SkincareEntity, newItem: SkincareEntity): Boolean {
+        return oldItem.skincareId == newItem.skincareId
+    }
+
+    override fun areContentsTheSame(oldItem: SkincareEntity, newItem: SkincareEntity): Boolean {
         return oldItem == newItem
     }
 

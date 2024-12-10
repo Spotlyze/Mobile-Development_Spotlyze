@@ -67,4 +67,7 @@
     <string name="thanks_for_filling_the_questions">Thanks for Filling The Questions</string>
     <string name="verified_image">Verified Image</string>
     <string name="get_the_scan_result">Get The Scan Result</string>
+    <string name="for_skin_type">For skin type</string>
+    <string name="how_to_use">How to use</string>
+    <string name="category">Category</string>
 </resources>

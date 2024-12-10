@@ -1,24 +1,24 @@
-package com.bangkit.spotlyze.ui.home
+package com.bangkit.spotlyze.ui.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
-import com.bangkit.spotlyze.helper.SkincareDiffCallback
+import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
+import com.bangkit.spotlyze.helper.SkincareLocalDiffCallback
 import com.bangkit.spotlyze.ui.skincare.DetailSkincareActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ItemLayoutBinding
 
-class HomeAdapter : ListAdapter<GetSkincareResponseItem, HomeAdapter.ViewHolder>(SkincareDiffCallback) {
+class SkincareAdapter : ListAdapter<SkincareEntity, SkincareAdapter.ViewHolder>(SkincareLocalDiffCallback) {
     class ViewHolder(private val binding: ItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(skincare: GetSkincareResponseItem) {
+        fun bind(skincare: SkincareEntity) {
             Glide.with(binding.skincareImage.context).load(skincare.skincarePicture)
                 .into(binding.skincareImage)
             binding.tvSkincareName.text = skincare.name
-            binding.tvProcess.text = skincare.price.toString()
+            binding.tvProcess.text = skincare.ingredients
         }
     }
 

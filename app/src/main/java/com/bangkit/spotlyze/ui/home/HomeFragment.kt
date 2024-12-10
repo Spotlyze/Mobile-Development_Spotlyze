@@ -8,15 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
-import com.bangkit.spotlyze.helper.customView.MarginItemDecoration
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
+import com.bangkit.spotlyze.ui.adapter.SkincareAdapter
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
-import com.bangkit.spotlyze.ui.quiz.QuizActivity
-import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -24,7 +22,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var adapter: HomeAdapter? = null
+    private var adapter: SkincareAdapter? = null
 
     private val viewModel: HomeViewModel by viewModels {
         SkincareViewModelFactory.getInstance(requireActivity())
@@ -43,19 +41,11 @@ class HomeFragment : Fragment() {
 
         setupAdapter()
         setupViewModel()
-        setupTest()
-    }
-
-    private fun setupTest() {
-        binding.btnProfile.setOnClickListener {
-            val intent = Intent(requireActivity(), QuizActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun setupViewModel() {
         viewModel.getAllSkincare().observe(viewLifecycleOwner) { data ->
-            when(data) {
+            when (data) {
                 is Result.Loading -> {}
                 is Result.Error -> {
                     if (data.error == "Invalid token") {
@@ -66,8 +56,9 @@ class HomeFragment : Fragment() {
                     Message.toast(requireActivity(), data.error)
                     Log.e("okhttp", "homeFragment: ${data.error}")
                 }
+
                 is Result.Success -> {
-                    val skincare = data.data.take(5)
+                    val skincare = data.data
                     Log.d("okhttp", "setupViewModel: $skincare")
                     adapter?.submitList(skincare)
                 }
@@ -76,12 +67,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = HomeAdapter()
-        val marginStart = resources.getDimensionPixelSize(R.dimen.margin)
-        val marginEnd = resources.getDimensionPixelSize(R.dimen.margin)
-        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        adapter = SkincareAdapter()
+        val layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(MarginItemDecoration(marginStart, marginEnd))
         binding.recyclerView.edgeEffectFactory = BoundEdgeEffect(requireActivity())
         binding.recyclerView.layoutManager = layoutManager
     }
