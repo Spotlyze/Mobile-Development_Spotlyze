@@ -17,6 +17,7 @@ import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bangkit.spotlyze.ui.adapter.SkincareAdapter
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
+import com.bangkit.spotlyze.ui.history.HistoryActivity
 import com.prayatna.spotlyze.databinding.FragmentHomeBinding
 import java.util.Locale
 
@@ -47,6 +48,18 @@ class HomeFragment : Fragment() {
 
         setupAdapter()
         setupViewModel()
+        setupAction()
+    }
+
+    private fun setupAction() {
+        goToHistory()
+    }
+
+    private fun goToHistory() {
+        binding.btnHistory.setOnClickListener {
+            val intent = Intent(requireActivity(), HistoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupSearchView(data: List<SkincareEntity>) {
@@ -62,6 +75,11 @@ class HomeFragment : Fragment() {
 
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
+
+                if (newText.isNullOrEmpty()) {
+                    binding.recyclerView.scrollToPosition(0)
+                }
+
                 searchList.clear()
                 val searchText = newText?.lowercase(Locale.getDefault()) ?: ""
                 if (searchText.isNotEmpty()) {
@@ -74,12 +92,10 @@ class HomeFragment : Fragment() {
                     searchList.addAll(dataList)
                 }
 
-                // Check if the list is not empty before calling submitList
                 if (searchList.isNotEmpty()) {
-                    adapter?.submitList(ArrayList(searchList))  // Submit the list safely
+                    adapter?.submitList(ArrayList(searchList))
                 } else {
-                    // If no data found, you could show an empty state or handle it
-                    adapter?.submitList(emptyList())  // Optionally show an empty list
+                    adapter?.submitList(emptyList())
                 }
                 return false
             }
@@ -101,9 +117,9 @@ class HomeFragment : Fragment() {
                 }
 
                 is Result.Success -> {
-                    val skincare = data.data
-                    setupSearchView(skincare)  // Initialize search view with skincare data
-                    adapter?.submitList(skincare)  // Set the list to the adapter
+                    val skincare = data.data.take(10)
+                    setupSearchView(skincare)
+                    adapter?.submitList(skincare)
                 }
             }
         }

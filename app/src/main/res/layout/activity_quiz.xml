@@ -12,10 +12,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:overScrollMode="never"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,25 +24,31 @@
             android:padding="16dp">
 
             <TextView
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/quiz"
-                android:textSize="24sp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:layout_marginBottom="16dp" />
+                android:text="@string/quiz"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/question_1_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/what_best_describes_your_skin_type"
-                android:textSize="14sp"
-                android:layout_marginBottom="8dp" />
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/question_skin_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -50,118 +56,139 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/dry" />
+                    android:text="@string/dry"
+                    android:textColor="@android:color/black" />
 
                 <RadioButton
                     android:id="@+id/radio_oily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/oily" />
+                    android:text="@string/oily"
+                    android:textColor="@android:color/black" />
 
                 <RadioButton
                     android:id="@+id/radio_combination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/combination" />
+                    android:text="@string/combination"
+                    android:textColor="@android:color/black" />
             </RadioGroup>
 
             <TextView
                 android:id="@+id/question_2_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/how_would_you_describe_your_skin_s_sensitivity"
-                android:textSize="14sp"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/how_would_you_describe_your_skin_s_sensitivity"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/question_skin_sensitivity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
                 <RadioButton
                     android:id="@+id/radio_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/normal_resilient_rarely_reacts_to_new_products" />
+                    android:text="@string/normal_resilient_rarely_reacts_to_new_products"
+                    android:textColor="@android:color/black" />
 
                 <RadioButton
                     android:id="@+id/radio_sensitive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sensitive_prone_to_irritation_or_redness" />
+                    android:layout_marginTop="12dp"
+                    android:text="@string/sensitive_prone_to_irritation_or_redness"
+                    android:textColor="@android:color/black" />
             </RadioGroup>
 
             <TextView
                 android:id="@+id/question_3_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/what_specific_skin_concerns_would_you_like_to_address"
-                android:textSize="14sp"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/what_specific_skin_concerns_would_you_like_to_address"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/question_3_options"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="16dp"
-                >
+                android:orientation="vertical">
 
                 <CheckBox
                     android:id="@+id/checkbox_brightening"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/skin_brightening" />
+                    android:text="@string/skin_brightening"
+                    android:textColor="@android:color/black" />
 
                 <CheckBox
                     android:id="@+id/checkbox_texture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/uneven_skin_texture" />
+                    android:text="@string/uneven_skin_texture"
+                    android:textColor="@android:color/black" />
 
                 <CheckBox
                     android:id="@+id/checkbox_dullness"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/skin_dullness" />
+                    android:text="@string/skin_dullness"
+                    android:textColor="@android:color/black" />
 
                 <CheckBox
                     android:id="@+id/checkbox_hydration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/hydration_and_nourishment" />
+                    android:text="@string/hydration_and_nourishment"
+                    android:textColor="@android:color/black" />
 
                 <CheckBox
                     android:id="@+id/checkbox_acne"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/acne_and_breakouts" />
+                    android:text="@string/acne_and_breakouts"
+                    android:textColor="@android:color/black" />
 
                 <CheckBox
                     android:id="@+id/checkbox_wrinkles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fine_lines_and_wrinkles" />
+                    android:text="@string/fine_lines_and_wrinkles"
+                    android:textColor="@android:color/black" />
 
                 <CheckBox
                     android:id="@+id/checkbox_dark_circles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/dark_circles_and_eye_bags" />
+                    android:text="@string/dark_circles_and_eye_bags"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:background="@color/primary"
                 android:text="@string/analyze"
-                android:layout_margin="16dp"
+                android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

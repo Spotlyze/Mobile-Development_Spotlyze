@@ -9,18 +9,33 @@
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
         android:background="@drawable/search_bg"
         android:elevation="0dp"
         android:focusable="false"
         app:closeIcon="@drawable/ic_close"
         app:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnHistory"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:queryHint="@string/search_here"
         app:searchHintIcon="@null"
         app:searchIcon="@drawable/ic_search" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/history"
+        android:src="@drawable/ic_history"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchView"
+        app:layout_constraintBottom_toBottomOf="@id/searchView"
+        android:id="@+id/btnHistory"
+        android:layout_marginEnd="12dp"
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

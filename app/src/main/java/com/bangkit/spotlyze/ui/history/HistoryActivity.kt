@@ -14,7 +14,7 @@ class HistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHistoryBinding
     private var adapter: HistoryAdapter? = null
-    private val viewModel: HistoryViewModel by viewModels{
+    private val viewModel: HistoryViewModel by viewModels {
         SkinViewModelFactory.getInstance(this)
     }
 
@@ -25,6 +25,17 @@ class HistoryActivity : AppCompatActivity() {
 
         setupAdapter()
         setupViewModel()
+        setupAction()
+    }
+
+    private fun setupAction() {
+        backButtonPressed()
+    }
+
+    private fun backButtonPressed() {
+        binding.toolBar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun setupViewModel() {
@@ -33,9 +44,11 @@ class HistoryActivity : AppCompatActivity() {
                 is Result.Error -> {
                     Log.e("okhttp", "setupViewModel: ${data.error}")
                 }
+
                 Result.Loading -> {
 
                 }
+
                 is Result.Success -> {
                     val history = data.data
                     Log.d("okhttp", "histories: $history")
