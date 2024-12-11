@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
 import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
+import com.bangkit.spotlyze.ui.home.HomeAdapter
 import com.bangkit.spotlyze.ui.quiz.AnalyzeActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ActivityDetailHistoryBinding
@@ -17,6 +20,7 @@ class DetailHistoryActivity : AppCompatActivity() {
     private val viewModel: HistoryViewModel by viewModels {
         SkinViewModelFactory.getInstance(this)
     }
+    private var adapter: HomeAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +29,15 @@ class DetailHistoryActivity : AppCompatActivity() {
 
         setupViewModel()
         setupAction()
+        setupAdapter()
+    }
+
+    private fun setupAdapter() {
+        adapter = HomeAdapter()
+        val layoutManager = GridLayoutManager(this, 2 )
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.edgeEffectFactory = BoundEdgeEffect(this)
+        binding.recyclerView.layoutManager = layoutManager
     }
 
     private fun setupAction() {
@@ -53,15 +66,31 @@ class DetailHistoryActivity : AppCompatActivity() {
                     Log.d("okhttp", "detail history: ${data.data}")
                     val result = data.data
                     setupView(result)
+                    setupSkincare()
+                }
+            }
+        }
+    }
+
+    private fun setupSkincare() {
+        val id = intent.getStringExtra(AnalyzeActivity.CLASSIFY_RESULT)
+        viewModel.getFilteredHistory(id!!).observe(this) { data ->
+            when (data) {
+                is Result.Error -> {
+                    Log.e("okhttp", "detail history: ${data.error}")
+                }
+                Result.Loading -> {}
+                is Result.Success -> {
+                    val result = data.data
+                    adapter?.submitList(result)
                 }
             }
         }
     }
 
     private fun setupView(result: List<GetHistoryResponseItem>) {
-        binding.tvResult.text = result[0].results
-        binding.tvRecommend.text = result[0].recommendation
-        Glide.with(binding.imageProfile.context).load(result[0].historyPicture)
-            .into(binding.imageProfile)
+        binding.tvSkinType.text = result[0].results
+        Glide.with(binding.facePicture.context).load(result[0].historyPicture)
+            .into(binding.facePicture)
     }
 }

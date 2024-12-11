@@ -7,4 +7,6 @@ class HistoryViewModel(private val repository: SkinRepository) : ViewModel() {
 
     fun getHistory() = repository.getAllHistory()
     fun getDetailHistory(id: String) = repository.getDetailHistory(id)
+    fun getFilteredHistory(id: String) = repository.getFilteredHistory(id)
+
 }

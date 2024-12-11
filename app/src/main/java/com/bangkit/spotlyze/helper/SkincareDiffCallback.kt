@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.DiffUtil
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
-import com.bangkit.spotlyze.data.remote.response.Recommend
 
 internal object SkincareDiffCallback : DiffUtil.ItemCallback<GetSkincareResponseItem>() {
     override fun areItemsTheSame(
@@ -46,16 +45,4 @@ internal object SkincareLocalDiffCallback : DiffUtil.ItemCallback<SkincareEntity
     override fun areContentsTheSame(oldItem: SkincareEntity, newItem: SkincareEntity): Boolean {
         return oldItem == newItem
     }
-
-}
-
-internal object RecommendDiffUtil : DiffUtil.ItemCallback<Recommend>() {
-    override fun areItemsTheSame(oldItem: Recommend, newItem: Recommend): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(oldItem: Recommend, newItem: Recommend): Boolean {
-        return oldItem == newItem
-    }
-
 }
