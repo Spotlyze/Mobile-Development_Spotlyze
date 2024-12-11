@@ -82,6 +82,7 @@ class AnalyzeActivity : AppCompatActivity() {
                     Log.d("analyzer", "success: $recommend")
                     stopAnimation()
                     showResult(data.data.publicUrl)
+                    binding.tvSkinType.text = data.data.predict
 //                    showBottomSheetDialog(recommend)
                     setupAdapter(recommend)
                 }
@@ -94,7 +95,15 @@ class AnalyzeActivity : AppCompatActivity() {
         binding.facePicture.visibility = View.VISIBLE
         binding.tvYeay.visibility = View.VISIBLE
         binding.recyclerView.visibility = View.VISIBLE
-        binding.scrollView.visibility = View.VISIBLE
+        binding.tvSkinType.visibility = View.VISIBLE
+        showBackButton()
+    }
+
+    private fun showBackButton() {
+        binding.toolBar.visibility = View.VISIBLE
+        binding.toolBar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun setupAdapter(recommend: List<RecommendationItem>) {
