@@ -10,7 +10,6 @@ import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
 import com.bangkit.spotlyze.ui.home.HomeAdapter
-import com.bangkit.spotlyze.ui.quiz.AnalyzeActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ActivityDetailHistoryBinding
 
@@ -51,7 +50,7 @@ class DetailHistoryActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        val id = intent.getStringExtra(AnalyzeActivity.CLASSIFY_RESULT)
+        val id = intent.getStringExtra(EXTRA_ID)
         viewModel.getDetailHistory(id!!).observe(this) { data ->
             when (data) {
                 is Result.Error -> {
@@ -63,7 +62,6 @@ class DetailHistoryActivity : AppCompatActivity() {
                 }
 
                 is Result.Success -> {
-                    Log.d("okhttp", "detail history: ${data.data}")
                     val result = data.data
                     setupView(result)
                     setupSkincare()
@@ -73,15 +71,19 @@ class DetailHistoryActivity : AppCompatActivity() {
     }
 
     private fun setupSkincare() {
-        val id = intent.getStringExtra(AnalyzeActivity.CLASSIFY_RESULT)
+        val id = intent.getStringExtra(EXTRA_ID)
+        Log.d("okhttp", "setupSkincare: $id")
         viewModel.getFilteredHistory(id!!).observe(this) { data ->
             when (data) {
                 is Result.Error -> {
                     Log.e("okhttp", "detail history: ${data.error}")
                 }
-                Result.Loading -> {}
+                Result.Loading -> {
+                    Log.d("okhttp", "detail history: loading")
+                }
                 is Result.Success -> {
                     val result = data.data
+                    Log.d("okhttp", "setupSkincare: $result")
                     adapter?.submitList(result)
                 }
             }
@@ -92,5 +94,8 @@ class DetailHistoryActivity : AppCompatActivity() {
         binding.tvSkinType.text = result[0].results
         Glide.with(binding.facePicture.context).load(result[0].historyPicture)
             .into(binding.facePicture)
+    }
+    companion object {
+        const val EXTRA_ID = "extra_id"
     }
 }

@@ -76,4 +76,6 @@
     <string name="moisturizer">Moisturizer</string>
     <string name="yeay_here_are_our_recommendations_to_you">Yeay, here are our recommendations to you!</string>
     <string name="summary">Summary</string>
+    <string name="cancel">Cancel</string>
+    <string name="your_information">Your Information</string>
 </resources>

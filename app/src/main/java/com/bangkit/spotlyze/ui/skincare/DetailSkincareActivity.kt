@@ -87,7 +87,7 @@ class DetailSkincareActivity : AppCompatActivity() {
     private fun setupView(skincare: SkincareEntity) {
         binding.tvName.text = skincare.name
         binding.tvCategory.text = skincare.category
-        binding.tvSkinType.text = skincare.ingredients
+        binding.tvSkinType.text = skincare.skinType
         Glide.with(binding.skincarePicture.context).load(skincare.skincarePicture)
             .into(binding.skincarePicture)
     }

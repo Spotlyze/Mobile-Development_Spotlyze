@@ -123,6 +123,7 @@ class SkinRepository private constructor(
                 val filteredSkincare = allSkincareResponse.filter { skincareItem ->
                     recId.contains(skincareItem.skincareId)
                 }
+                Log.d("okhttp", "filtered history: $filteredSkincare")
                 emit(Result.Success(filteredSkincare))
 
             } catch (e: HttpException) {

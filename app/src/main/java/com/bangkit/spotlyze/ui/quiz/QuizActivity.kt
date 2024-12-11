@@ -3,9 +3,11 @@ package com.bangkit.spotlyze.ui.quiz
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.camera.CameraFragment
+import com.bangkit.spotlyze.ui.main.MainActivity
 import com.prayatna.spotlyze.databinding.ActivityQuizBinding
 
 class QuizActivity : AppCompatActivity() {
@@ -17,10 +19,30 @@ class QuizActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupAction()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@QuizActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+        })
+
     }
 
     private fun setupAction() {
         goAnalyze()
+        backButton()
+    }
+
+    private fun backButton() {
+        binding.toolBar.setNavigationOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun goAnalyze() {

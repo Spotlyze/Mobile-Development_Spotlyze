@@ -74,6 +74,13 @@ class DetailProfileActivity : AppCompatActivity() {
     private fun setupAction() {
         updateUser()
         openGallery()
+        backButton()
+    }
+
+    private fun backButton() {
+        binding.toolBar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun setupProfilePicture() {

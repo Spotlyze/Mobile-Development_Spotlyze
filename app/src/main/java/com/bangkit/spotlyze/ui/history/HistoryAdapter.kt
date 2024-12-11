@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
 import com.bangkit.spotlyze.helper.SkinDiffCallback
-import com.bangkit.spotlyze.ui.quiz.AnalyzeActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.HistoryItemLayoutBinding
 
@@ -33,7 +32,7 @@ class HistoryAdapter :
         holder.bind(item)
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailHistoryActivity::class.java)
-            intent.putExtra(AnalyzeActivity.CLASSIFY_RESULT, item.analyzeHistoryId.toString())
+            intent.putExtra(DetailHistoryActivity.EXTRA_ID, item.analyzeHistoryId.toString())
             holder.itemView.context.startActivity(intent)
         }
     }

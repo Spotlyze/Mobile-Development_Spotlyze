@@ -25,9 +25,20 @@ class FavoriteActivity : AppCompatActivity() {
 
         setupViewModel()
         setupAdapter()
+        setupAction()
     }
 
-        private fun setupAdapter() {
+    private fun setupAction() {
+        backButton()
+    }
+
+    private fun backButton() {
+        binding.toolBar.setNavigationOnClickListener {
+            finish()
+        }
+    }
+
+    private fun setupAdapter() {
             adapter = HomeAdapter()
             val layoutManager = GridLayoutManager(this, 2 )
             binding.recyclerView.adapter = adapter

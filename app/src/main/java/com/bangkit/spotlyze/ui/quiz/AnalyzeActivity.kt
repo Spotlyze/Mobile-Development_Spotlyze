@@ -1,9 +1,11 @@
 package com.bangkit.spotlyze.ui.quiz
 
 import android.animation.PropertyValuesHolder
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -12,6 +14,7 @@ import com.bangkit.spotlyze.data.source.RecommendationItem
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
 import com.bangkit.spotlyze.ui.adapter.RecommendationAdapter
+import com.bangkit.spotlyze.ui.main.MainActivity
 import com.bangkit.spotlyze.utils.flattenRecommendations
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -33,6 +36,16 @@ class AnalyzeActivity : AppCompatActivity() {
         setupViewModel()
         setupAction()
         setupAnimation()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@AnalyzeActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+        })
+
     }
 
     private fun setupAnimation() {
@@ -79,11 +92,10 @@ class AnalyzeActivity : AppCompatActivity() {
 
                 is Result.Success -> {
                     val recommend = flattenRecommendations(data.data.recommend!!)
-                    Log.d("analyzer", "success: $recommend")
                     stopAnimation()
                     showResult(data.data.publicUrl)
                     binding.tvSkinType.text = data.data.predict
-//                    showBottomSheetDialog(recommend)
+                    showBottomSheetDialog(recommend)
                     setupAdapter(recommend)
                 }
             }
