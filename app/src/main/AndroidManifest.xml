@@ -31,9 +31,6 @@
             android:name="com.bangkit.spotlyze.ui.history.DetailHistoryActivity"
             android:exported="false" />
         <activity
-            android:name="com.bangkit.spotlyze.ui.classificationResult.ResultActivity"
-            android:exported="false" />
-        <activity
             android:name="com.bangkit.spotlyze.ui.auth.register.RegisterActivity"
             android:exported="false" />
         <activity

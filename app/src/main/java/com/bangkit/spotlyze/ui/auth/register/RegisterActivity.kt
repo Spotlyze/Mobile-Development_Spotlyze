@@ -3,6 +3,7 @@ package com.bangkit.spotlyze.ui.auth.register
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.source.Result
@@ -27,29 +28,37 @@ class RegisterActivity : AppCompatActivity() {
         setupEditText()
         setupAction()
         setupViewModel()
-        setupLogic()
-    }
-
-    private fun setupLogic() {
-        if (binding.passwordInput.passwordEditText.text.toString() != binding.confirmPasswordInput.passwordEditText.text.toString()) {
-            binding.confirmPasswordInput.passwordTextLayout.error =
-                getString(R.string.password_not_match)
-        }
     }
 
     private fun isPasswordMatch(): Boolean {
-        return binding.passwordInput.passwordEditText.text.toString() == binding.confirmPasswordInput.passwordEditText.text.toString()
+        val password = binding.passwordInput.passwordEditText.text.toString()
+        val confirmPassword = binding.confirmPasswordInput.passwordEditText.text.toString()
+        return password == confirmPassword
+    }
+
+    private fun isEmailValid(): Boolean {
+        val email = binding.emailInput.emailEditText.text.toString()
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun isPasswordValid(): Boolean {
+        val password = binding.passwordInput.passwordEditText.text.toString()
+        return password.length >= 8
     }
 
     private fun setupViewModel() {
         viewModel.registerStatus.observe(this) { status ->
             when (status) {
-                is Result.Error -> {}
-                Result.Loading -> {}
+                is Result.Error -> {
+                }
+                Result.Loading -> {
+                    binding.btnRegister.isEnabled = false
+                }
                 is Result.Success -> {
                     val user = status.data
                     Log.d("okhttp", "user: $user")
                     val intent = Intent(this, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
                     finish()
                 }
@@ -59,16 +68,47 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupAction() {
         goToLogin()
-        validateRegister()
+        setupRegisterButton()
+        validateFields()
     }
 
-    private fun validateRegister() {
-        if (isPasswordMatch()) {
-            register()
-        } else {
-            binding.confirmPasswordInput.passwordTextLayout.error =
-                getString(R.string.password_not_match)
+    private fun setupRegisterButton() {
+        binding.btnRegister.setOnClickListener {
+            if (validateFields()) {
+                val email = binding.emailInput.emailEditText.text.toString()
+                val name = binding.usernameInput.usernameEditText.text.toString()
+                val password = binding.passwordInput.passwordEditText.text.toString()
+
+                viewModel.register(email = email, name = name, password = password)
+            }
         }
+    }
+
+    private fun validateFields(): Boolean {
+        var isValid = true
+
+        if (!isPasswordMatch()) {
+            binding.confirmPasswordInput.passwordTextLayout.error = getString(R.string.password_not_match)
+            isValid = false
+        } else {
+            binding.confirmPasswordInput.passwordTextLayout.error = null
+        }
+
+        if (!isEmailValid()) {
+            binding.emailInput.emailTextLayout.error = getString(R.string.invalid_email)
+            isValid = false
+        } else {
+            binding.emailInput.emailTextLayout.error = null
+        }
+
+        if (!isPasswordValid()) {
+            binding.passwordInput.passwordTextLayout.error = getString(R.string.password_must_have_8_characters)
+            isValid = false
+        } else {
+            binding.passwordInput.passwordTextLayout.error = null
+        }
+
+        return isValid
     }
 
     private fun goToLogin() {
@@ -77,21 +117,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun register() {
-        binding.btnRegister.setOnClickListener {
-            val email = binding.emailInput.emailEditText.text.toString()
-            val name = binding.usernameInput.usernameEditText.text.toString()
-            val password = binding.passwordInput.passwordEditText.text.toString()
-            viewModel.register(
-                email = email,
-                name = name,
-                password = password
-            )
-        }
-    }
-
     private fun setupEditText() {
-        binding.confirmPasswordInput.passwordTextLayout.hint =
-            getString(R.string.confirm_password)
+        binding.confirmPasswordInput.passwordTextLayout.hint = getString(R.string.confirm_password)
     }
 }

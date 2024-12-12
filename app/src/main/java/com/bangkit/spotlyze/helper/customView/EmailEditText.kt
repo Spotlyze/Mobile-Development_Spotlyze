@@ -16,6 +16,7 @@ class EmailEditText @JvmOverloads constructor(
     init {
         setupInputValidation()
         setupAttributes()
+        setupFocusListener()
     }
 
     private fun setupAttributes() {
@@ -48,6 +49,17 @@ class EmailEditText @JvmOverloads constructor(
                     parent.error = context.getString(R.string.invalid_email)
                 }
                 else -> {
+                    parent.error = null
+                }
+            }
+        }
+    }
+
+    private fun setupFocusListener() {
+        this.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                val parent = this@EmailEditText.parent.parent
+                if (parent is TextInputLayout) {
                     parent.error = null
                 }
             }

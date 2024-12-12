@@ -97,4 +97,7 @@ dependencies {
     //paging
     implementation(libs.androidx.paging.runtime.ktx)
 
+    //splash screen
+    implementation(libs.androidx.core.splashscreen)
+
 }

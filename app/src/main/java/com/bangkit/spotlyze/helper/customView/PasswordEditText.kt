@@ -16,26 +16,37 @@ class PasswordEditText @JvmOverloads constructor(
         setupValidation()
         hint = context.getString(R.string.password)
         inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+        setupFocusListener()
     }
 
     private fun setupValidation() {
         this.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val parent = this@PasswordEditText.parent.parent
                 if (parent is TextInputLayout) {
                     if (s.toString().length < 8) {
                         parent.error = context.getString(R.string.password_must_have_8_characters)
+                        parent.errorIconDrawable = null
                     } else {
                         parent.error = null
                     }
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {
-            }
+            override fun afterTextChanged(s: Editable?) {}
         })
+    }
+
+    private fun setupFocusListener() {
+        this.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                val parent = this@PasswordEditText.parent.parent
+                if (parent is TextInputLayout) {
+                    parent.error = null
+                }
+            }
+        }
     }
 }
