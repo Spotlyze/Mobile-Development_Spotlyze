@@ -17,6 +17,7 @@ import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bangkit.spotlyze.ui.adapter.SkincareByTypeAdapter
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
 import com.bangkit.spotlyze.ui.skincare.SkincareActivity
+import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -48,6 +49,25 @@ class HomeFragment : Fragment() {
 
     private fun setupAction() {
         goToSkincare()
+        stickyView()
+    }
+
+    private fun stickyView() {
+        val stickyLayout = binding.stickyLayout
+        val nestedScrollView = binding.nestedScrollView
+
+        nestedScrollView.viewTreeObserver.addOnScrollChangedListener {
+            val scrollY = nestedScrollView.scrollY
+            val stickyLayoutTop = stickyLayout.top
+
+            if (scrollY >= stickyLayoutTop) {
+                stickyLayout.elevation = resources.getDimension(R.dimen.margin)
+                stickyLayout.translationY = (scrollY - stickyLayoutTop).toFloat()
+            } else {
+                stickyLayout.elevation = resources.getDimension(R.dimen.zero)
+                stickyLayout.translationY = 0f
+            }
+        }
     }
 
     private fun goToSkincare() {

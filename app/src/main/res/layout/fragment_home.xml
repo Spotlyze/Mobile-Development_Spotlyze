@@ -2,6 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -31,6 +32,7 @@
                     android:id="@+id/imageLogo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/desc"
                     android:src="@drawable/ic_logo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,10 +81,14 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/white"
+            android:id="@+id/stickyLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp">
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="12dp"
+            android:elevation="0.1dp"
+            >
 
             <TextView
                 android:id="@+id/tvExploreSkincare"
@@ -113,20 +119,20 @@
                 android:text="@string/see_all"
                 android:textStyle="bold"
                 android:textColor="@color/primary"
-                android:textSize="14sp" />
-
+                android:textSize="14sp"
+                android:layout_marginTop="8dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
-            android:foregroundGravity="center"
-            android:gravity="center"
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            />
+            android:visibility="gone"
+            android:indeterminate="true" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:elevation="0dp"
             android:id="@+id/recyclerView"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
