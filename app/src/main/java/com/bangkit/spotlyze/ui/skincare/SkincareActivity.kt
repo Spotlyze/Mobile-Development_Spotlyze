@@ -1,17 +1,14 @@
-package com.bangkit.spotlyze.ui.home
+package com.bangkit.spotlyze.ui.skincare
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.data.source.Result
@@ -21,35 +18,26 @@ import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bangkit.spotlyze.ui.adapter.SkincareAdapter
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
-import com.bangkit.spotlyze.ui.skincare.SkincareActivity
 import com.prayatna.spotlyze.R
-import com.prayatna.spotlyze.databinding.FragmentHomeBinding
+import com.prayatna.spotlyze.databinding.ActivitySkincareBinding
 import java.util.Locale
 
-class HomeFragment : Fragment() {
+class SkincareActivity : AppCompatActivity() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivitySkincareBinding
 
-    private var adapter: SkincareAdapter? = null
-
-    private val viewModel: HomeViewModel by viewModels {
-        SkincareViewModelFactory.getInstance(requireActivity())
+    private val viewModel: SkincareViewModel by viewModels {
+        SkincareViewModelFactory.getInstance(this)
     }
 
+    private lateinit var adapter: SkincareAdapter
     private lateinit var dataList: ArrayList<SkincareEntity>
     private lateinit var searchList: ArrayList<SkincareEntity>
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySkincareBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupAdapter()
         setupViewModel()
@@ -58,25 +46,20 @@ class HomeFragment : Fragment() {
 
     private fun setupMenu() {
         binding.btnFilter.setOnClickListener {
-            val intent = Intent(requireActivity(), SkincareActivity::class.java)
-            startActivity(intent)
+            val popupMenu = PopupMenu(this, it)
+            popupMenu.menuInflater.inflate(R.menu.menu_sort, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                handleFilterSelection(menuItem)
+                popupMenu.dismiss()
+                true
+            }
+            popupMenu.show()
         }
     }
 
-    private fun showFilterMenu(view: View) {
-        val popupMenu = PopupMenu(requireActivity(), view)
-        popupMenu.menuInflater.inflate(R.menu.menu_sort, popupMenu.menu)
-
-        popupMenu.setOnMenuItemClickListener { menu ->
-            handleFilterSelection(menu)
-            popupMenu.dismiss()
-            true
-        }
-        popupMenu.show()
-    }
-
-    private fun handleFilterSelection(menu: MenuItem) {
-        when (menu.itemId) {
+    private fun handleFilterSelection(menuItem: MenuItem) {
+        when (menuItem.itemId) {
             R.id.sort_random -> {
                 viewModel.changeSortType(SortType.RANDOM)
             }
@@ -102,7 +85,6 @@ class HomeFragment : Fragment() {
                 return true
             }
 
-            @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
 
                 if (newText.isNullOrEmpty()) {
@@ -122,39 +104,39 @@ class HomeFragment : Fragment() {
                 }
 
                 if (searchList.isNotEmpty()) {
-                    adapter?.submitList(ArrayList(searchList))
+                    adapter.submitList(ArrayList(searchList))
                 } else {
-                    adapter?.submitList(emptyList())
+                    adapter.submitList(emptyList())
                 }
                 return false
             }
         })
     }
 
-
     private fun setupViewModel() {
-        viewModel.getAllSkincare().observe(viewLifecycleOwner) { data ->
+        viewModel.getAllSkincare().observe(this) { data ->
             when (data) {
                 is Result.Loading -> {
                     Log.d("okhttp", "loading")
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Result.Error -> {
-                    Message.offlineDialog(requireActivity())
+                    Message.offlineDialog(this)
                     binding.progressBar.visibility = View.GONE
                     if (data.error == "Invalid token") {
-                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
-                        requireActivity().finish()
+                        finish()
                     }
-                    Message.toast(requireActivity(), data.error)
+                    Message.toast(this, data.error)
                 }
 
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
                     val skincare = data.data.take(10)
+                    dataList = ArrayList(skincare)
                     setupSearchView(skincare)
-                    adapter?.submitList(skincare)
+                    adapter.submitList(skincare)
                 }
             }
         }
@@ -162,19 +144,15 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapter() {
         adapter = SkincareAdapter()
-        val layoutManager = GridLayoutManager(requireActivity(), 2)
+        val layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.edgeEffectFactory = BoundEdgeEffect(requireActivity())
+        binding.recyclerView.edgeEffectFactory = BoundEdgeEffect(this)
         binding.recyclerView.layoutManager = layoutManager
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     override fun onResume() {
         super.onResume()
         setupViewModel()
     }
+
 }

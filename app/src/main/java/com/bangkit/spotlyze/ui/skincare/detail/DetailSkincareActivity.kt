@@ -1,12 +1,15 @@
-package com.bangkit.spotlyze.ui.skincare
+package com.bangkit.spotlyze.ui.skincare.detail
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
+import com.bangkit.spotlyze.ui.skincare.SkincareViewModel
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.ActivityDetailSkincareBinding
@@ -46,11 +49,15 @@ class DetailSkincareActivity : AppCompatActivity() {
         viewModel.getSkincareById(id!!).observe(this) { data ->
             when (data) {
                 is Result.Error -> {
+                    Message.offlineDialog(this)
+                    showLoading(false)
                     Log.e("okhttp", "error detail skincare:${data.error}")
                 }
-
-                Result.Loading -> {}
+                Result.Loading -> {
+                    showLoading(true)
+                }
                 is Result.Success -> {
+                    showLoading(false)
                     val skincare = data.data[0]
                     setupView(skincare)
                     setupFavorite(skincare.skincareId!!)
@@ -58,6 +65,10 @@ class DetailSkincareActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setupFavorite(skincareId: Int) {

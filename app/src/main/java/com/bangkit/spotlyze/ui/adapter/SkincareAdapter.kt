@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.helper.SkincareLocalDiffCallback
-import com.bangkit.spotlyze.ui.skincare.DetailSkincareActivity
+import com.bangkit.spotlyze.ui.skincare.detail.DetailSkincareActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ItemLayoutBinding
 

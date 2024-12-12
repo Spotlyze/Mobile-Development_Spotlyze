@@ -51,6 +51,7 @@ class ProfileFragment : Fragment() {
         viewModel.getUserProfile(id.toString()).observe(viewLifecycleOwner) { user ->
             when (user) {
                 is Result.Error -> {
+                    Message.offlineDialog(requireActivity())
                     Message.toast(requireActivity(), user.error)
                 }
 

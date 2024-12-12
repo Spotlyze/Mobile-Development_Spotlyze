@@ -78,4 +78,9 @@
     <string name="summary">Summary</string>
     <string name="cancel">Cancel</string>
     <string name="your_information">Your Information</string>
+    <string name="offline">You are Offline</string>
+    <string name="filter">Filter</string>
+    <string name="all">All</string>
+    <string name="desc">Descending</string>
+    <string name="asc">Ascending</string>
 </resources>

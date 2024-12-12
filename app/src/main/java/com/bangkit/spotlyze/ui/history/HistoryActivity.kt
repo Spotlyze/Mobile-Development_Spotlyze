@@ -2,10 +2,12 @@ package com.bangkit.spotlyze.ui.history
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
 import com.prayatna.spotlyze.databinding.ActivityHistoryBinding
@@ -42,6 +44,8 @@ class HistoryActivity : AppCompatActivity() {
         viewModel.getHistory().observe(this) { data ->
             when (data) {
                 is Result.Error -> {
+                    Message.offlineDialog(this)
+                    binding.progressBar.visibility = View.GONE
                     Log.e("okhttp", "setupViewModel: ${data.error}")
                 }
 
@@ -50,6 +54,7 @@ class HistoryActivity : AppCompatActivity() {
                 }
 
                 is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     val history = data.data
                     Log.d("okhttp", "histories: $history")
                     adapter?.submitList(history)

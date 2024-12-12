@@ -22,6 +22,9 @@
             android:name="com.bangkit.spotlyze.ui.quiz.AnalyzeActivity"
             android:exported="false" />
         <activity
+            android:name="com.bangkit.spotlyze.ui.skincare.SkincareActivity"
+            android:exported="false" />
+        <activity
             android:name="com.bangkit.spotlyze.ui.quiz.QuizActivity"
             android:exported="false" />
         <activity
@@ -37,7 +40,7 @@
             android:name="com.bangkit.spotlyze.ui.skincare.favourite.FavoriteActivity"
             android:exported="false" />
         <activity
-            android:name="com.bangkit.spotlyze.ui.skincare.DetailSkincareActivity"
+            android:name="com.bangkit.spotlyze.ui.skincare.detail.DetailSkincareActivity"
             android:exported="false" />
         <activity
             android:name="com.bangkit.spotlyze.ui.history.HistoryActivity"
@@ -50,8 +53,8 @@
             android:exported="false" />
         <activity
             android:name="com.bangkit.spotlyze.ui.main.MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

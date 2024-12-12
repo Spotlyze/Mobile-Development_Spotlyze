@@ -17,9 +17,7 @@ import com.bangkit.spotlyze.ui.adapter.RecommendationAdapter
 import com.bangkit.spotlyze.ui.main.MainActivity
 import com.bangkit.spotlyze.utils.flattenRecommendations
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.prayatna.spotlyze.databinding.ActivityAnalyzeBinding
-import com.prayatna.spotlyze.databinding.BottomSheetLayoutBinding
 
 class AnalyzeActivity : AppCompatActivity() {
 
@@ -95,7 +93,6 @@ class AnalyzeActivity : AppCompatActivity() {
                     stopAnimation()
                     showResult(data.data.publicUrl)
                     binding.tvSkinType.text = data.data.predict
-                    showBottomSheetDialog(recommend)
                     setupAdapter(recommend)
                 }
             }
@@ -141,18 +138,6 @@ class AnalyzeActivity : AppCompatActivity() {
             .withEndAction {
                 binding.tvThanks.visibility = View.GONE
             }
-    }
-
-    private fun showBottomSheetDialog(recommend: List<RecommendationItem>) {
-        val dialog = BottomSheetDialog(this)
-        val mBinding = BottomSheetLayoutBinding.inflate(layoutInflater)
-        dialog.setContentView(mBinding.root)
-        val adapter = RecommendationAdapter(recommend)
-        mBinding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@AnalyzeActivity)
-            this.adapter = adapter
-        }
-        dialog.show()
     }
 
     companion object {

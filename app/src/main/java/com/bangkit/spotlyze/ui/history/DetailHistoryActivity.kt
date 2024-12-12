@@ -2,6 +2,7 @@ package com.bangkit.spotlyze.ui.history
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,9 +27,9 @@ class DetailHistoryActivity : AppCompatActivity() {
         binding = ActivityDetailHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupViewModel()
         setupAction()
         setupAdapter()
+        setupSkincare()
     }
 
     private fun setupAdapter() {
@@ -64,7 +65,6 @@ class DetailHistoryActivity : AppCompatActivity() {
                 is Result.Success -> {
                     val result = data.data
                     setupView(result)
-                    setupSkincare()
                 }
             }
         }
@@ -79,14 +79,25 @@ class DetailHistoryActivity : AppCompatActivity() {
                     Log.e("okhttp", "detail history: ${data.error}")
                 }
                 Result.Loading -> {
+                    showLoading(true)
                     Log.d("okhttp", "detail history: loading")
                 }
                 is Result.Success -> {
+                    showLoading(false)
+                    setupViewModel()
                     val result = data.data
                     Log.d("okhttp", "setupSkincare: $result")
                     adapter?.submitList(result)
                 }
             }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

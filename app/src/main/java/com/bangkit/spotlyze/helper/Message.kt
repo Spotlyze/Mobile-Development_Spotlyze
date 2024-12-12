@@ -1,8 +1,12 @@
 package com.bangkit.spotlyze.helper
 
+import android.app.Activity
 import android.content.Context
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat.finishAffinity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.prayatna.spotlyze.R
 
 object Message {
@@ -19,5 +23,16 @@ object Message {
             create()
             show()
         }
+    }
+
+    fun offlineDialog(context: Context) {
+        val bottomSheetDialog = BottomSheetDialog(context)
+        val view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_layout, null)
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog.show()
+        bottomSheetDialog.setOnDismissListener {
+            finishAffinity(context as Activity)
+        }
+
     }
 }

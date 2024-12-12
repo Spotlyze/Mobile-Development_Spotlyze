@@ -1,6 +1,7 @@
 package com.bangkit.spotlyze.ui.skincare.favourite
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -50,12 +51,14 @@ class FavoriteActivity : AppCompatActivity() {
         viewModel.getFavorite().observe(this) { data ->
             when (data) {
                 is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
                     Message.toast(this, data.error)
                 }
                 Result.Loading -> {
 
                 }
                 is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     adapter?.submitList(data.data)
                 }
             }
