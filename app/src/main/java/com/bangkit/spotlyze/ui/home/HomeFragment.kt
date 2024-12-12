@@ -16,6 +16,7 @@ import com.bangkit.spotlyze.helper.customView.BoundEdgeEffect
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bangkit.spotlyze.ui.adapter.SkincareByTypeAdapter
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
+import com.bangkit.spotlyze.ui.skincare.SkincareActivity
 import com.prayatna.spotlyze.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -42,14 +43,28 @@ class HomeFragment : Fragment() {
 
         setupAdapter()
         setupViewModel()
+        setupAction()
+    }
+
+    private fun setupAction() {
+        goToSkincare()
+    }
+
+    private fun goToSkincare() {
+        binding.btnSkincare.setOnClickListener {
+            val intent = Intent(requireActivity(), SkincareActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupViewModel() {
         viewModel.getAllSkincare().observe(viewLifecycleOwner) { data ->
             when (data) {
                 is Result.Loading -> {
+                    showLoading(true)
                 }
                 is Result.Error -> {
+                    showLoading(false)
                     Message.offlineDialog(requireActivity())
                     if (data.error == "Invalid token") {
                         val intent = Intent(requireActivity(), LoginActivity::class.java)
@@ -60,12 +75,30 @@ class HomeFragment : Fragment() {
                 }
 
                 is Result.Success -> {
+                    showLoading(false)
                     val skincare = processData(data.data)
                     Log.d("okhttp", "$skincare")
                     adapter?.submitList(skincare)
                 }
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.btnSkincare.visibility = View.GONE
+            binding.tvExploreSkincare.visibility = View.GONE
+            binding.tvMadeInIndonesia.visibility = View.GONE
+            binding.cardView.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.btnSkincare.visibility = View.VISIBLE
+            binding.tvExploreSkincare.visibility = View.VISIBLE
+            binding.tvMadeInIndonesia.visibility = View.VISIBLE
+            binding.cardView.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+        }
+
     }
 
     private fun processData(skincareList: List<SkincareEntity>): List<SkincareByTypeAdapter.SkincareItem> {
