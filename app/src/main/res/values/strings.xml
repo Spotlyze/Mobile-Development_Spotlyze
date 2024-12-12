@@ -83,4 +83,6 @@
     <string name="all">All</string>
     <string name="desc">Descending</string>
     <string name="asc">Ascending</string>
+    <string name="tv_home_desc">Analyze your skin and give you what you need</string>
+    <string name="try_now">Try now</string>
 </resources>

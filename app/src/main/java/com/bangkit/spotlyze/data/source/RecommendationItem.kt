@@ -9,8 +9,8 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 sealed class RecommendationItem : Parcelable {
-//    @Parcelize
-//    data class SectionTitle(val title: String) : RecommendationItem()
+    @Parcelize
+    data class SectionTitle(val title: String) : RecommendationItem()
 
     @Parcelize
     data class Treatment(val item: @RawValue TreatmentItem) : RecommendationItem()

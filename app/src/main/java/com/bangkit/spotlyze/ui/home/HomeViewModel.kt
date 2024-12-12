@@ -6,7 +6,7 @@ import androidx.lifecycle.switchMap
 import com.bangkit.spotlyze.data.repository.SkincareRepository
 import com.bangkit.spotlyze.data.source.SortType
 
-class HomeViewModel(private val repository: SkincareRepository): ViewModel() {
+class HomeViewModel(private val repository: SkincareRepository) : ViewModel() {
 
     private val _sort = MutableLiveData<SortType>()
 
@@ -21,5 +21,7 @@ class HomeViewModel(private val repository: SkincareRepository): ViewModel() {
     fun getAllSkincare() = _sort.switchMap {
         repository.getAllSkincare(it)
     }
+
+    fun getSkincareByType(type: String) = repository.getSkincareByType(type)
 
 }

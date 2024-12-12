@@ -18,6 +18,9 @@ interface SkincareDao {
     @Query("SELECT * FROM skincare WHERE favorite = 1")
     fun getFavoriteSkincare(): LiveData<List<SkincareEntity>>
 
+    @Query("SELECT * FROM skincare WHERE type = :type")
+    fun getSkincareByType(type: String): LiveData<List<SkincareEntity>>
+
     @Query("SELECT * FROM skincare WHERE skincare_id = :id")
     fun getSkincareById(id: Int): LiveData<List<SkincareEntity>>
 

@@ -84,6 +84,10 @@ class SkincareRepository private constructor(
         val response: LiveData<Result<List<SkincareEntity>>> = dao.getSkincareById(id.toInt()).map { Result.Success(it) }
         return response
     }
+    fun getSkincareByType(type: String): LiveData<Result<List<SkincareEntity>>> {
+        val response: LiveData<Result<List<SkincareEntity>>> = dao.getSkincareByType(type).map { Result.Success(it) }
+        return response
+    }
 
 //    fun getSkincareById(id: String): LiveData<Result<List<SkincareEntity>>> {
 //        return liveData {

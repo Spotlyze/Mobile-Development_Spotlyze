@@ -11,6 +11,7 @@ import com.bangkit.spotlyze.data.remote.response.TreatmentItem
 import com.bangkit.spotlyze.data.source.RecommendationItem
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ItemAnalyzeResultBinding
+import com.prayatna.spotlyze.databinding.TitleLayoutBinding
 
 class RecommendationAdapter(private val items: List<RecommendationItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -25,7 +26,7 @@ class RecommendationAdapter(private val items: List<RecommendationItem>) :
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-//            is RecommendationItem.SectionTitle -> VIEW_TYPE_TITLE
+            is RecommendationItem.SectionTitle -> VIEW_TYPE_TITLE
             is RecommendationItem.Treatment -> VIEW_TYPE_TREATMENT
             is RecommendationItem.Cleanser -> VIEW_TYPE_CLEANSER
             is RecommendationItem.Mask -> VIEW_TYPE_MASK
@@ -35,10 +36,10 @@ class RecommendationAdapter(private val items: List<RecommendationItem>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-//            VIEW_TYPE_TITLE -> {
-//                val binding = TitleLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//                SectionTitleViewHolder(binding)
-//            }
+            VIEW_TYPE_TITLE -> {
+                val binding = TitleLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                SectionTitleViewHolder(binding)
+            }
 
             VIEW_TYPE_TREATMENT,
             VIEW_TYPE_CLEANSER,
@@ -54,7 +55,7 @@ class RecommendationAdapter(private val items: List<RecommendationItem>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
-//            is RecommendationItem.SectionTitle -> (holder as SectionTitleViewHolder).bind(item)
+            is RecommendationItem.SectionTitle -> (holder as SectionTitleViewHolder).bind(item)
             is RecommendationItem.Treatment -> (holder as RecommendationViewHolder).bind(item.item)
             is RecommendationItem.Cleanser -> (holder as RecommendationViewHolder).bind(item.item)
             is RecommendationItem.Mask -> (holder as RecommendationViewHolder).bind(item.item)
@@ -64,12 +65,12 @@ class RecommendationAdapter(private val items: List<RecommendationItem>) :
 
     override fun getItemCount(): Int = items.size
 
-//    class SectionTitleViewHolder(private val binding: TitleLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-//
-//        fun bind(item: RecommendationItem.SectionTitle) {
-//            binding.tvTitle.text = item.title
-//        }
-//    }
+    class SectionTitleViewHolder(private val binding: TitleLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: RecommendationItem.SectionTitle) {
+            binding.tvTitle.text = item.title
+        }
+    }
 
     class RecommendationViewHolder(private val binding: ItemAnalyzeResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
