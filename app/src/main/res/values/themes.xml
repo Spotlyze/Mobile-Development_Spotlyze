@@ -8,7 +8,6 @@
         <item name="colorOnPrimaryContainer">@color/onPrimaryContainer</item>
 
         <item name="android:fontFamily">@font/montserrat_default</item>
-        <item name="radioButtonStyle">@style/RadioButtonStyle</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="popupMenuStyle">@style/MyPopupMenuStyle</item>
     </style>
@@ -25,23 +24,13 @@
         <item name="backgroundTint">@color/white</item>
     </style>
 
-
-
-    <style name="RadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:button">@android:color/transparent</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:textColor">@drawable/radio_text_color</item>
-        <item name="android:layout_margin">16dp</item>
-        <item name="android:background">@drawable/radio_selector</item>
-    </style>
-
     <style name="CustomBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemActiveIndicatorStyle">@style/NoActiveIndicatorStyle</item>
     </style>
 
         <style name="MyPopupMenuStyle">
             <item name="android:textColor">@color/black</item>
-            <item name="backgroundTint">@color/white</item>
+            <item name="android:popupBackground">@color/white</item>
         </style>
 
 

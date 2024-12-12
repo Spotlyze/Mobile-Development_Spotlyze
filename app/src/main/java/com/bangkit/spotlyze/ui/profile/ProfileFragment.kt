@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.bangkit.spotlyze.ui.history.HistoryActivity
 import com.bangkit.spotlyze.ui.skincare.favourite.FavoriteActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.R
@@ -74,6 +75,14 @@ class ProfileFragment : Fragment() {
 
     private fun setupAction() {
         goToFavourite()
+        goToHistory()
+    }
+
+    private fun goToHistory() {
+        binding.btnHistory.setOnClickListener {
+            val intent = Intent(requireActivity(), HistoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun goToFavourite() {

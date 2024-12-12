@@ -1,8 +1,12 @@
 package com.bangkit.spotlyze.ui.skincare
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -25,6 +29,7 @@ import java.util.Locale
 class SkincareActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySkincareBinding
+    private var selectedMenuItemId = R.id.sort_random
 
     private val viewModel: SkincareViewModel by viewModels {
         SkincareViewModelFactory.getInstance(this)
@@ -49,11 +54,18 @@ class SkincareActivity : AppCompatActivity() {
             val popupMenu = PopupMenu(this, it)
             popupMenu.menuInflater.inflate(R.menu.menu_sort, popupMenu.menu)
 
+            updateMenuItemStyle(popupMenu.menu, selectedMenuItemId)
+
             popupMenu.setOnMenuItemClickListener { menuItem ->
-                handleFilterSelection(menuItem)
+                if (menuItem.itemId != selectedMenuItemId) {
+                    menuItem.isChecked = true
+                    selectedMenuItemId = menuItem.itemId
+                    handleFilterSelection(menuItem)
+                }
                 popupMenu.dismiss()
                 true
             }
+
             popupMenu.show()
         }
     }
@@ -64,12 +76,20 @@ class SkincareActivity : AppCompatActivity() {
                 viewModel.changeSortType(SortType.RANDOM)
             }
 
-            R.id.sort_desc -> {
-                viewModel.changeSortType(SortType.DESCENDING)
+            R.id.moisturizer -> {
+                viewModel.changeSortType(SortType.MOISTURIZER)
             }
 
-            R.id.sort_asc -> {
-                viewModel.changeSortType(SortType.ASCENDING)
+            R.id.treatment -> {
+                viewModel.changeSortType(SortType.TREATMENT)
+            }
+
+            R.id.cleanser -> {
+                viewModel.changeSortType(SortType.CLEANSER)
+            }
+
+            R.id.mask -> {
+                viewModel.changeSortType(SortType.MASK)
             }
         }
     }
@@ -120,6 +140,7 @@ class SkincareActivity : AppCompatActivity() {
                     Log.d("okhttp", "loading")
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is Result.Error -> {
                     Message.offlineDialog(this)
                     binding.progressBar.visibility = View.GONE
@@ -133,7 +154,7 @@ class SkincareActivity : AppCompatActivity() {
 
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    val skincare = data.data.take(10)
+                    val skincare = data.data
                     dataList = ArrayList(skincare)
                     setupSearchView(skincare)
                     adapter.submitList(skincare)
@@ -142,17 +163,26 @@ class SkincareActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateMenuItemStyle(menu: Menu, selectedItemId: Int) {
+        for (i in 0 until menu.size()) {
+            val item = menu.getItem(i)
+            val spannableTitle = SpannableString(item.title)
+            if (item.itemId == selectedItemId) {
+                spannableTitle.setSpan(StyleSpan(Typeface.BOLD), 0, spannableTitle.length, 0)
+            } else {
+                spannableTitle.setSpan(StyleSpan(Typeface.NORMAL), 0, spannableTitle.length, 0)
+            }
+            item.title = spannableTitle
+        }
+    }
+
     private fun setupAdapter() {
-        adapter = SkincareAdapter()
         val layoutManager = GridLayoutManager(this, 2)
+        val scrollPosition = layoutManager.findFirstVisibleItemPosition()
+        layoutManager.scrollToPosition(scrollPosition)
+        adapter = SkincareAdapter()
         binding.recyclerView.adapter = adapter
         binding.recyclerView.edgeEffectFactory = BoundEdgeEffect(this)
         binding.recyclerView.layoutManager = layoutManager
     }
-
-    override fun onResume() {
-        super.onResume()
-        setupViewModel()
-    }
-
 }

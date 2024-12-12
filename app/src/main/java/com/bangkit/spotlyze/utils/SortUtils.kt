@@ -10,15 +10,6 @@ object SortUtils {
             SortType.RANDOM -> {
                 simpleQuery.append("ORDER BY RANDOM()")
             }
-
-            SortType.ASCENDING -> {
-                simpleQuery.append("ORDER BY name ASC")
-            }
-
-            SortType.DESCENDING -> {
-                simpleQuery.append("ORDER BY name DESC")
-            }
-
             SortType.MOISTURIZER -> {
                 simpleQuery.append("WHERE category = 'Moisturizer'")
             }
@@ -30,10 +21,6 @@ object SortUtils {
             }
             SortType.TREATMENT -> {
                 simpleQuery.append("WHERE category = 'Treatment'")
-            }
-
-            SortType.ALL -> {
-                simpleQuery.append("")
             }
         }
         return SimpleSQLiteQuery(simpleQuery.toString())

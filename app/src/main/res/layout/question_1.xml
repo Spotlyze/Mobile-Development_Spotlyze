@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/what_best_describes_your_skin_type"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupSkinType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radioDry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dry" />
+
+        <RadioButton
+            android:id="@+id/radioOily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oily" />
+
+        <RadioButton
+            android:id="@+id/radioCombination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/combination" />
+    </RadioGroup>
+</LinearLayout>

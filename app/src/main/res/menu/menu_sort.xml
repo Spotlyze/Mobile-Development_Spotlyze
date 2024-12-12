@@ -6,10 +6,18 @@
         android:id="@+id/sort_random"
         android:title="@string/all" />
     <item
-        android:id="@+id/sort_desc"
-        android:title="@string/desc" />
+        android:id="@+id/moisturizer"
+        android:title="@string/moisturizer" />
     <item
-        android:id="@+id/sort_asc"
-        android:title="@string/asc" />
+        android:id="@+id/cleanser"
+        android:title="@string/cleanser" />
+
+    <item
+        android:id="@+id/mask"
+        android:title="@string/mask" />
+
+    <item
+        android:id="@+id/treatment"
+        android:title="@string/treatment" />
 
 </menu>

@@ -64,6 +64,7 @@ class DetailHistoryActivity : AppCompatActivity() {
 
                 is Result.Success -> {
                     val result = data.data
+                    Log.d("okhttp", "$result")
                     setupView(result)
                 }
             }

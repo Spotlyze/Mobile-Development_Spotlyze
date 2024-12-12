@@ -1,5 +1,6 @@
 package com.bangkit.spotlyze.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,6 +10,7 @@ import com.bangkit.spotlyze.data.remote.response.MaskItem
 import com.bangkit.spotlyze.data.remote.response.MoisturizerItem
 import com.bangkit.spotlyze.data.remote.response.TreatmentItem
 import com.bangkit.spotlyze.data.source.RecommendationItem
+import com.bangkit.spotlyze.ui.skincare.detail.DetailSkincareActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ItemAnalyzeResultBinding
 import com.prayatna.spotlyze.databinding.TitleLayoutBinding
@@ -119,6 +121,14 @@ class RecommendationAdapter(private val items: List<RecommendationItem>) :
             productCategory.text = category
             binding.skincarePrice.text = price.toString()
             binding.skincareType.text = title
+            binding.root.setOnClickListener {
+                when(item) {
+                    is TreatmentItem -> {
+                        val intent = Intent(binding.root.context, DetailSkincareActivity::class.java)
+                        binding.root.context.startActivity(intent)
+                    }
+                }
+            }
         }
     }
 }

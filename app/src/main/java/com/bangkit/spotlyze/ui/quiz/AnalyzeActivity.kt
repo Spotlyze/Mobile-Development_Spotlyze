@@ -14,8 +14,8 @@ import com.bangkit.spotlyze.data.source.RecommendationItem
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
 import com.bangkit.spotlyze.ui.adapter.RecommendationAdapter
+import com.bangkit.spotlyze.ui.history.DetailHistoryActivity
 import com.bangkit.spotlyze.ui.main.MainActivity
-import com.bangkit.spotlyze.utils.flattenRecommendations
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ActivityAnalyzeBinding
 
@@ -89,11 +89,11 @@ class AnalyzeActivity : AppCompatActivity() {
                 }
 
                 is Result.Success -> {
-                    val recommend = flattenRecommendations(data.data.recommend!!)
-                    stopAnimation()
-                    showResult(data.data.publicUrl)
-                    binding.tvSkinType.text = data.data.predict
-                    setupAdapter(recommend)
+                    val intent = Intent(this, DetailHistoryActivity::class.java)
+                    intent.putExtra(DetailHistoryActivity.EXTRA_ID, data.data.historyId.toString())
+                    Log.d("okhttp", "${data.data.historyId}")
+                    startActivity(intent)
+                    finish()
                 }
             }
         }
@@ -141,7 +141,6 @@ class AnalyzeActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val CLASSIFY_RESULT = "classify_result"
         const val EXTRA_RECOMMEND = "extra_recommend"
     }
 }
