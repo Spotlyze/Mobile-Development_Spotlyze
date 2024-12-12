@@ -44,16 +44,29 @@ class HistoryActivity : AppCompatActivity() {
         viewModel.getHistory().observe(this) { data ->
             when (data) {
                 is Result.Error -> {
-                    Message.offlineDialog(this)
+                showLoading(false)
+                    if (data.error == "Invalid token") {
+                        Message.toast(this, data.error)
+                        return@observe
+                    } else {
+                        Message.offlineDialog(this) {
+                            setupViewModel()
+                        }
+                    }
                     binding.progressBar.visibility = View.GONE
                     Log.e("okhttp", "setupViewModel: ${data.error}")
                 }
 
                 Result.Loading -> {
-
+                    showLoading(true)
                 }
 
                 is Result.Success -> {
+                    showLoading(false)
+                    if (data.data.isEmpty()) {
+                        binding.errorImage.visibility = View.VISIBLE
+                        binding.tvNoData.visibility = View.VISIBLE
+                    }
                     binding.progressBar.visibility = View.GONE
                     val history = data.data
                     Log.d("okhttp", "histories: $history")
@@ -61,6 +74,10 @@ class HistoryActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setupAdapter() {

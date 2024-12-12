@@ -88,4 +88,14 @@
     <string name="explore_skincare">Explore Skincare</string>
     <string name="made_in_indonesia">Made in Indonesia</string>
     <string name="see_all">See all</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="try_again">Try again</string>
+    <string name="no_data_yet">No data yet!</string>
+    <string name="close">close</string>
+    <string name="here_are_our_recommendations_for_you">Here are our recommendations for you</string>
+    <string name="next">Next</string>
+    <string name="password_not_match">Password not match!</string>
+    <string name="register">Register</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="are_you_sure">Are you sure?</string>
 </resources>

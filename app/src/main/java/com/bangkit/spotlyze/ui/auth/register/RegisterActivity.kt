@@ -27,11 +27,23 @@ class RegisterActivity : AppCompatActivity() {
         setupEditText()
         setupAction()
         setupViewModel()
+        setupLogic()
+    }
+
+    private fun setupLogic() {
+        if (binding.passwordInput.passwordEditText.text.toString() != binding.confirmPasswordInput.passwordEditText.text.toString()) {
+            binding.confirmPasswordInput.passwordTextLayout.error =
+                getString(R.string.password_not_match)
+        }
+    }
+
+    private fun isPasswordMatch(): Boolean {
+        return binding.passwordInput.passwordEditText.text.toString() == binding.confirmPasswordInput.passwordEditText.text.toString()
     }
 
     private fun setupViewModel() {
         viewModel.registerStatus.observe(this) { status ->
-            when(status) {
+            when (status) {
                 is Result.Error -> {}
                 Result.Loading -> {}
                 is Result.Success -> {
@@ -46,15 +58,22 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        register()
         goToLogin()
+        validateRegister()
+    }
+
+    private fun validateRegister() {
+        if (isPasswordMatch()) {
+            register()
+        } else {
+            binding.confirmPasswordInput.passwordTextLayout.error =
+                getString(R.string.password_not_match)
+        }
     }
 
     private fun goToLogin() {
-        binding.btnLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+        binding.toolBar.setNavigationOnClickListener {
+            finish()
         }
     }
 

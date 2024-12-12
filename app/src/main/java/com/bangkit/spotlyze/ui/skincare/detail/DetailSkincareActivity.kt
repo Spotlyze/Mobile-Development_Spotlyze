@@ -34,6 +34,7 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private fun setupAction() {
         backButton()
+
     }
 
 
@@ -49,7 +50,9 @@ class DetailSkincareActivity : AppCompatActivity() {
         viewModel.getSkincareById(id!!).observe(this) { data ->
             when (data) {
                 is Result.Error -> {
-                    Message.offlineDialog(this)
+                    Message.offlineDialog(this) {
+                        setupViewModel()
+                    }
                     showLoading(false)
                     Log.e("okhttp", "error detail skincare:${data.error}")
                 }
@@ -58,12 +61,23 @@ class DetailSkincareActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     showLoading(false)
+                    Log.d("okhttp", "success detail skincare:${data.data[0].explanation}")
                     val skincare = data.data[0]
                     setupView(skincare)
                     setupFavorite(skincare.skincareId!!)
                     updateFavButton(skincare.isFavorite)
+                    setupInfo(skincare)
                 }
             }
+        }
+    }
+
+    private fun setupInfo(skincare: SkincareEntity) {
+        binding.btnIngredients.setOnClickListener {
+            Message.bottomSheetDialog(this,"Ingredients", skincare.ingredients!!)
+        }
+        binding.btnHowToUse.setOnClickListener {
+            Message.bottomSheetDialog(this, "How to use", skincare.description!!)
         }
     }
 

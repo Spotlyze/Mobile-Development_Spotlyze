@@ -1,4 +1,4 @@
-package com.bangkit.spotlyze.ui.quiz
+package com.bangkit.spotlyze.ui.analyze
 
 import android.content.Context
 import android.net.Uri
@@ -11,7 +11,7 @@ import com.bangkit.spotlyze.data.repository.SkinRepository
 import com.bangkit.spotlyze.data.source.Result
 import kotlinx.coroutines.launch
 
-class QuizViewModel(private val repository: SkinRepository) : ViewModel() {
+class AnalyzeViewModel(private val repository: SkinRepository) : ViewModel() {
 
     private var _analyzeState = MutableLiveData<Result<ClassifySkinResponse>>()
     val analyzeState: LiveData<Result<ClassifySkinResponse>> = _analyzeState

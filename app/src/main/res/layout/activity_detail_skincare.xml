@@ -70,100 +70,93 @@
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <TextView
+            android:id="@+id/tvCategoryInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/category"
-            app:layout_constraintTop_toBottomOf="@+id/tvSkinTypeInfo"
             android:layout_marginTop="8dp"
+            android:text="@string/category"
             app:layout_constraintStart_toStartOf="@+id/tvSkinTypeInfo"
-            android:id="@+id/tvCategoryInfo"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tvSkinTypeInfo" />
 
         <TextView
+            android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCategoryInfo"
             app:layout_constraintStart_toStartOf="@+id/tvSkinType"
             app:layout_constraintTop_toTopOf="@+id/tvCategoryInfo"
-            app:layout_constraintBottom_toBottomOf="@+id/tvCategoryInfo"
-            tools:text="Wash off"
-            android:id="@+id/tvCategory"
-            android:textStyle="bold"
-            />
+            tools:text="Wash off" />
 
         <TextView
             android:id="@+id/tvSkinType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:layout_marginStart="12dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tvSkinTypeInfo"
             app:layout_constraintStart_toEndOf="@+id/tvSkinTypeInfo"
             app:layout_constraintTop_toTopOf="@+id/tvSkinTypeInfo"
             tools:text="Skin type, skin tyerjkejwhfd" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_height="wrap_content"
-            android:text="@string/ingredients"
-            app:layout_constraintTop_toBottomOf="@+id/tvCategoryInfo"
-            app:layout_constraintStart_toStartOf="@+id/tvSkinTypeInfo"
             android:id="@+id/tvIngredients"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/ingredients"
+            app:layout_constraintStart_toStartOf="@+id/tvSkinTypeInfo"
+            app:layout_constraintTop_toBottomOf="@+id/tvCategoryInfo" />
 
         <ImageView
+            android:id="@+id/btnIngredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/detail_skincare"
             android:src="@drawable/ic_arrow_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvIngredients"
-            app:layout_constraintTop_toTopOf="@+id/tvIngredients"
             app:layout_constraintBottom_toBottomOf="@+id/tvIngredients"
-            android:id="@+id/btnIngredients"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.97"
-            />
+            app:layout_constraintStart_toEndOf="@+id/tvIngredients"
+            app:layout_constraintTop_toTopOf="@+id/tvIngredients" />
+
         <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tvIngredients"
             android:layout_marginTop="16dp"
-            android:id="@+id/divider2"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tvIngredients" />
 
         <TextView
             android:id="@+id/tvHowToUse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/divider2"
-            app:layout_constraintStart_toStartOf="@+id/tvIngredients"
             android:layout_marginTop="16dp"
             android:text="@string/how_to_use"
-            />
+            app:layout_constraintStart_toStartOf="@+id/tvIngredients"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
         <ImageView
+            android:id="@+id/btnHowToUse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/detail_skincare"
             android:src="@drawable/ic_arrow_right"
-            app:layout_constraintStart_toEndOf="@+id/tvHowToUse"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvHowToUse"
             app:layout_constraintBottom_toBottomOf="@+id/tvHowToUse"
-            android:id="@+id/btnHowToUse"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.97"
-            />
+            app:layout_constraintStart_toEndOf="@+id/tvHowToUse"
+            app:layout_constraintTop_toTopOf="@+id/tvHowToUse" />
 
         <ProgressBar
-            app:layout_constraintVertical_bias="0.6"
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

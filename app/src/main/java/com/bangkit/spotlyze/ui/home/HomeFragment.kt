@@ -85,7 +85,6 @@ class HomeFragment : Fragment() {
                 }
                 is Result.Error -> {
                     showLoading(false)
-                    Message.offlineDialog(requireActivity())
                     if (data.error == "Invalid token") {
                         val intent = Intent(requireActivity(), LoginActivity::class.java)
                         startActivity(intent)

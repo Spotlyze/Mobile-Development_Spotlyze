@@ -5,28 +5,43 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
     tools:context="com.bangkit.spotlyze.ui.auth.login.LoginActivity">
 
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="200dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="@string/create_an_account"
-        android:textSize="36sp"
+        android:layout_marginBottom="12dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back">
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="end"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/create_an_account"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emailConstraint"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRegister">
+        app:layout_constraintTop_toBottomOf="@+id/toolBar">
 
         <include
             android:id="@+id/emailInput"
@@ -84,33 +99,8 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:background="@drawable/btn_bg"
-        android:text="@string/login"
+        android:text="@string/register"
         app:layout_constraintEnd_toEndOf="@+id/confirmPasswordConstraint"
         app:layout_constraintStart_toStartOf="@+id/confirmPasswordConstraint"
         app:layout_constraintTop_toBottomOf="@+id/confirmPasswordConstraint" />
-
-    <TextView
-        android:id="@+id/tvCreateAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="@string/aready_have_an_account"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
-
-    <TextView
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:textColor="@color/red_pink"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCreateAccount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tvCreateAccount"
-        app:layout_constraintTop_toTopOf="@+id/tvCreateAccount" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

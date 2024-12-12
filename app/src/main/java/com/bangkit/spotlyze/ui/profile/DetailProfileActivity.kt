@@ -6,10 +6,12 @@ import android.util.Log
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.ui.UserViewModelFactory
 import com.bumptech.glide.Glide
+import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.ActivityDetailProfileBinding
 
 class DetailProfileActivity : AppCompatActivity() {
@@ -75,6 +77,25 @@ class DetailProfileActivity : AppCompatActivity() {
         updateUser()
         openGallery()
         backButton()
+        logout()
+    }
+
+    private fun logout() {
+        binding.btnLogout.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle(getString(R.string.logout))
+            builder.setMessage(R.string.are_you_sure)
+
+            builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.logOut()
+            }
+
+            builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            builder.create().show()
+        }
     }
 
     private fun backButton() {

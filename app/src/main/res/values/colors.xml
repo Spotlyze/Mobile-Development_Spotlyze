@@ -6,6 +6,7 @@
     <color name="onPrimary">#FFFFFF</color>
     <color name="primaryContainer">#48CAE4</color>
     <color name="onPrimaryContainer">#03045E</color>
+    <color name="grey">#babec4</color>
 
     <color name="secondary">#8EA7E9</color>
     <color name="onSecondary">#FFF2F2</color>

@@ -19,13 +19,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.bangkit.spotlyze.ui.quiz.AnalyzeActivity"
+            android:name="com.bangkit.spotlyze.ui.analyze.AnalyzeActivity"
             android:exported="false" />
         <activity
             android:name="com.bangkit.spotlyze.ui.skincare.SkincareActivity"
             android:exported="false" />
         <activity
-            android:name="com.bangkit.spotlyze.ui.quiz.QuizActivity"
+            android:name="com.bangkit.spotlyze.ui.analyze.quiz.QuizActivity"
             android:exported="false" />
         <activity
             android:name="com.bangkit.spotlyze.ui.history.DetailHistoryActivity"

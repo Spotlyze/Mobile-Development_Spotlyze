@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bangkit.spotlyze.ui.quiz.AnalyzeActivity">
+    tools:context="com.bangkit.spotlyze.ui.analyze.AnalyzeActivity">
 
     <TextView
         android:id="@+id/tvThanks"

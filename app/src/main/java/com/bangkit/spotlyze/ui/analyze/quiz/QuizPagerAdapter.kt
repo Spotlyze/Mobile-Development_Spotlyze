@@ -1,4 +1,4 @@
-package com.bangkit.spotlyze.ui.quiz
+package com.bangkit.spotlyze.ui.analyze.quiz
 
 import android.view.LayoutInflater
 import android.view.View

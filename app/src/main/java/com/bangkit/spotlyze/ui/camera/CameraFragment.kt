@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
-import com.bangkit.spotlyze.ui.quiz.QuizActivity
+import com.bangkit.spotlyze.ui.analyze.quiz.QuizActivity
 import com.bangkit.spotlyze.utils.createCustomTempFile
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentCameraBinding

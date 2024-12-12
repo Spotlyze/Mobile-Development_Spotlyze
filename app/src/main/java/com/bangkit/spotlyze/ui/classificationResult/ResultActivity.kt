@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.spotlyze.data.source.RecommendationItem
 import com.bangkit.spotlyze.ui.adapter.RecommendationAdapter
+import com.bangkit.spotlyze.ui.analyze.AnalyzeActivity.Companion.EXTRA_RECOMMEND
 import com.bangkit.spotlyze.ui.main.MainActivity
-import com.bangkit.spotlyze.ui.quiz.AnalyzeActivity.Companion.EXTRA_RECOMMEND
 import com.prayatna.spotlyze.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {

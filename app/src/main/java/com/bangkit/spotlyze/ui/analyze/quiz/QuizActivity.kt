@@ -1,4 +1,4 @@
-package com.bangkit.spotlyze.ui.quiz
+package com.bangkit.spotlyze.ui.analyze.quiz
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,12 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.bangkit.spotlyze.ui.analyze.AnalyzeActivity
 import com.bangkit.spotlyze.ui.camera.CameraFragment
+import com.bangkit.spotlyze.ui.main.MainActivity
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.ActivityQuizBinding
 
@@ -27,6 +30,15 @@ class QuizActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@QuizActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+        })
 
     }
 
@@ -64,6 +76,8 @@ class QuizActivity : AppCompatActivity() {
     private fun setupView() {
         val viewPager = binding.viewPager
         val submitButton = binding.submitButton
+        val nextButton = binding.nextButton
+        val backButton = binding.backButton
 
         val layouts = listOf(
             R.layout.question_1,
@@ -83,9 +97,25 @@ class QuizActivity : AppCompatActivity() {
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                submitButton.visibility = if (position == layouts.lastIndex) View.VISIBLE else View.GONE
+                backButton.visibility = if (position == 0) View.GONE else View.VISIBLE
+                nextButton.visibility =
+                    if (position == layouts.lastIndex) View.GONE else View.VISIBLE
+                submitButton.visibility =
+                    if (position == layouts.lastIndex) View.VISIBLE else View.GONE
             }
         })
+
+        backButton.setOnClickListener {
+            if (viewPager.currentItem > 0) {
+                viewPager.currentItem -= 1
+            }
+        }
+
+        nextButton.setOnClickListener {
+            if (viewPager.currentItem < layouts.lastIndex) {
+                viewPager.currentItem += 1
+            }
+        }
     }
 
     private fun handleSkinTypeInput(view: View) {

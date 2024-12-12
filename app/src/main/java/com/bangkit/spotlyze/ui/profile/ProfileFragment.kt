@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.bangkit.spotlyze.ui.auth.login.LoginActivity
 import com.bangkit.spotlyze.ui.history.HistoryActivity
 import com.bangkit.spotlyze.ui.skincare.favourite.FavoriteActivity
 import com.bumptech.glide.Glide
@@ -52,7 +53,11 @@ class ProfileFragment : Fragment() {
         viewModel.getUserProfile(id.toString()).observe(viewLifecycleOwner) { user ->
             when (user) {
                 is Result.Error -> {
-                    Message.offlineDialog(requireActivity())
+                    if (user.error == "Invalid token") {
+                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
                     Message.toast(requireActivity(), user.error)
                 }
 
@@ -61,11 +66,11 @@ class ProfileFragment : Fragment() {
                     val data = user.data
                     binding.tvUserName.text = data.name
                     binding.tvEmail.text = data.email
-                    if (!data.profilePicture.isNullOrEmpty()) {
+                    if (data.profilePicture.isNullOrEmpty()) {
                         Glide.with(binding.userProfileImage.context).load(data.profilePicture)
                             .into(binding.userProfileImage)
                     } else {
-                        binding.userProfileImage.setImageResource(R.drawable.dummy_profile)
+                        binding.userProfileImage.setImageResource(R.drawable.ic_user)
                     }
                     Log.d("okhttp", "profile fetched: $data")
                 }

@@ -142,12 +142,15 @@ class SkincareActivity : AppCompatActivity() {
                 }
 
                 is Result.Error -> {
-                    Message.offlineDialog(this)
                     binding.progressBar.visibility = View.GONE
                     if (data.error == "Invalid token") {
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
+                    } else {
+                        Message.offlineDialog(this) {
+                            setupViewModel()
+                        }
                     }
                     Message.toast(this, data.error)
                 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.ui.skincare.detail.DetailSkincareActivity
+import com.bangkit.spotlyze.utils.formatToRupiah
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ItemAnalyzeResultBinding
 import com.prayatna.spotlyze.databinding.TitleLayoutBinding
@@ -49,7 +50,7 @@ class SkincareByTypeAdapter :
                 .into(binding.skincareImage)
             binding.tvSkincareName.text = skincare.name
             binding.skincareType .text = skincare.type
-            binding.skincarePrice.text = skincare.price.toString()
+            binding.skincarePrice.text = formatToRupiah(skincare.price!!)
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailSkincareActivity::class.java)

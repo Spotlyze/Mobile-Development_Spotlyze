@@ -53,6 +53,7 @@ class SkincareRepository private constructor(
                         isFavorite = isFavorite
                     )
                 }
+                dao.deleteAll()
                 dao.insertSkincare(skincareList)
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()

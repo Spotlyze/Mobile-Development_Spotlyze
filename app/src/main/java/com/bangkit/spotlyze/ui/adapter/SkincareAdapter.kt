@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
 import com.bangkit.spotlyze.helper.SkincareLocalDiffCallback
 import com.bangkit.spotlyze.ui.skincare.detail.DetailSkincareActivity
+import com.bangkit.spotlyze.utils.formatToRupiah
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.databinding.ItemLayoutBinding
 
@@ -18,7 +19,7 @@ class SkincareAdapter : ListAdapter<SkincareEntity, SkincareAdapter.ViewHolder>(
             Glide.with(binding.skincareImage.context).load(skincare.skincarePicture)
                 .into(binding.skincareImage)
             binding.tvSkincareName.text = skincare.name
-            binding.tvProcess.text = skincare.ingredients
+            binding.tvProcess.text = formatToRupiah(skincare.price!!)
         }
     }
 

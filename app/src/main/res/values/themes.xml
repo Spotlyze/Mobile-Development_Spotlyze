@@ -21,7 +21,7 @@
     </style>
 
     <style name="CustomBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="backgroundTint">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
     </style>
 
     <style name="CustomBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">

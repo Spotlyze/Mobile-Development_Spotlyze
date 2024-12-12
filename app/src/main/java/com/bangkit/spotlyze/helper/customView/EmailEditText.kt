@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Patterns
 import androidx.appcompat.widget.AppCompatEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.prayatna.spotlyze.R
 
 class EmailEditText @JvmOverloads constructor(
@@ -14,10 +15,10 @@ class EmailEditText @JvmOverloads constructor(
 
     init {
         setupInputValidation()
-        setupAttribute()
+        setupAttributes()
     }
 
-    private fun setupAttribute() {
+    private fun setupAttributes() {
         hint = context.getString(R.string.email)
         inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS or android.text.InputType.TYPE_CLASS_TEXT
     }
@@ -33,18 +34,23 @@ class EmailEditText @JvmOverloads constructor(
 
             override fun afterTextChanged(s: Editable?) {
             }
-
         })
     }
 
     private fun validateEmail(email: CharSequence?) {
-        if (email.isNullOrEmpty()) {
-            setError(context.getString(R.string.email_required), null)
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            setError(context.getString(R.string.invaid_email), null)
-        } else {
-            setError(null, null)
+        val parent = this.parent?.parent
+        if (parent is TextInputLayout) {
+            when {
+                email.isNullOrEmpty() -> {
+                    parent.error = context.getString(R.string.email_required)
+                }
+                !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                    parent.error = context.getString(R.string.invalid_email)
+                }
+                else -> {
+                    parent.error = null
+                }
+            }
         }
     }
-
 }

@@ -2,7 +2,8 @@ package com.bangkit.spotlyze.utils
 
 import com.bangkit.spotlyze.data.remote.response.Recommend
 import com.bangkit.spotlyze.data.source.RecommendationItem
-
+import java.text.NumberFormat
+import java.util.Locale
 fun flattenRecommendations(recommend: Recommend): List<RecommendationItem> {
     val items = mutableListOf<RecommendationItem>()
 
@@ -24,3 +25,10 @@ fun flattenRecommendations(recommend: Recommend): List<RecommendationItem> {
 
     return items
 }
+
+fun formatToRupiah(amount: Int): String {
+    val localeID = Locale("in", "ID")
+    val numberFormat = NumberFormat.getCurrencyInstance(localeID)
+    return numberFormat.format(amount).replace("Rp", "Rp ") // Ensure space after Rp
+}
+

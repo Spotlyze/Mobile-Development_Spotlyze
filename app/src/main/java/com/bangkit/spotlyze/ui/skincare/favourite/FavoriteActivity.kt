@@ -54,11 +54,14 @@ class FavoriteActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                     Message.toast(this, data.error)
                 }
-                Result.Loading -> {
-
-                }
+                Result.Loading -> { }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
+                    if (data.data.isEmpty()) {
+                        binding.errorImage.visibility = View.VISIBLE
+                        binding.tvNoData.visibility = View.VISIBLE
+                        return@observe
+                    }
                     adapter?.submitList(data.data)
                 }
             }

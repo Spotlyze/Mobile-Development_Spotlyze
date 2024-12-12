@@ -1,4 +1,4 @@
-package com.bangkit.spotlyze.ui.quiz
+package com.bangkit.spotlyze.ui.analyze
 
 import android.animation.PropertyValuesHolder
 import android.content.Intent
@@ -14,6 +14,7 @@ import com.bangkit.spotlyze.data.source.RecommendationItem
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
 import com.bangkit.spotlyze.ui.adapter.RecommendationAdapter
+import com.bangkit.spotlyze.ui.analyze.quiz.QuizActivity
 import com.bangkit.spotlyze.ui.history.DetailHistoryActivity
 import com.bangkit.spotlyze.ui.main.MainActivity
 import com.bumptech.glide.Glide
@@ -22,7 +23,7 @@ import com.prayatna.spotlyze.databinding.ActivityAnalyzeBinding
 class AnalyzeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnalyzeBinding
-    private val viewModel: QuizViewModel by viewModels {
+    private val viewModel: AnalyzeViewModel by viewModels {
         SkinViewModelFactory.getInstance(this)
     }
 
@@ -43,7 +44,6 @@ class AnalyzeActivity : AppCompatActivity() {
                 finish()
             }
         })
-
     }
 
     private fun setupAnimation() {
@@ -91,6 +91,7 @@ class AnalyzeActivity : AppCompatActivity() {
                 is Result.Success -> {
                     val intent = Intent(this, DetailHistoryActivity::class.java)
                     intent.putExtra(DetailHistoryActivity.EXTRA_ID, data.data.historyId.toString())
+                    intent.putExtra("navigation", true)
                     Log.d("okhttp", "${data.data.historyId}")
                     startActivity(intent)
                     finish()

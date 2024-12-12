@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.prayatna.spotlyze.R
 
 class PasswordEditText @JvmOverloads constructor(
@@ -14,7 +15,7 @@ class PasswordEditText @JvmOverloads constructor(
     init {
         setupValidation()
         hint = context.getString(R.string.password)
-        inputType = android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD or android.text.InputType.TYPE_CLASS_TEXT
+        inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
     }
 
     private fun setupValidation() {
@@ -23,17 +24,18 @@ class PasswordEditText @JvmOverloads constructor(
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length < 8) {
-                    setError(context.getString(R.string.password_must_have_8_characters), null)
-                } else {
-                    setError(null, null)
+                val parent = this@PasswordEditText.parent.parent
+                if (parent is TextInputLayout) {
+                    if (s.toString().length < 8) {
+                        parent.error = context.getString(R.string.password_must_have_8_characters)
+                    } else {
+                        parent.error = null
+                    }
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
             }
-
         })
     }
-
 }
