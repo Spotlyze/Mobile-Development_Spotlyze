@@ -58,7 +58,6 @@ class QuizActivity : AppCompatActivity() {
 
     private fun setupAnalyze() {
         val pictureUri = intent.getStringExtra(CameraFragment.EXTRA_RESULT)
-        Log.d("okhttp", "pictureUri: $pictureUri")
         val intent = Intent(this, AnalyzeActivity::class.java)
         intent.putExtra(SKIN_TYPE, skinType)
         intent.putExtra(SKIN_SENSITIVITY, skinSensitivity)

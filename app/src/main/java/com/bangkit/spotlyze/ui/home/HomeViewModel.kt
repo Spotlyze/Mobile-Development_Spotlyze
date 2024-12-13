@@ -14,14 +14,8 @@ class HomeViewModel(private val repository: SkincareRepository) : ViewModel() {
         _sort.value = SortType.RANDOM
     }
 
-    fun changeSortType(sortType: SortType) {
-        _sort.value = sortType
-    }
-
     fun getAllSkincare() = _sort.switchMap {
         repository.getAllSkincare(it)
     }
-
-    fun getSkincareByType(type: String) = repository.getSkincareByType(type)
 
 }

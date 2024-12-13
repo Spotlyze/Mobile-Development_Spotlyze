@@ -1,7 +1,6 @@
 package com.bangkit.spotlyze.ui.history
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -55,10 +54,8 @@ class HistoryActivity : AppCompatActivity() {
                         Message.offlineDialog(this) {
                             setupViewModel()
                         }
-                        Log.e("okhttp", "history: ${data.error}")
                     }
                     binding.progressBar.visibility = View.GONE
-                    Log.e("okhttp", "setupViewModel: ${data.error}")
                 }
 
                 Result.Loading -> {
@@ -73,7 +70,6 @@ class HistoryActivity : AppCompatActivity() {
                     }
                     binding.progressBar.visibility = View.GONE
                     val history = data.data
-                    Log.d("okhttp", "histories: $history")
                     adapter?.submitList(history)
                 }
             }

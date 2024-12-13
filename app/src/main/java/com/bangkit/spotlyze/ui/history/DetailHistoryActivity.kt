@@ -2,7 +2,6 @@ package com.bangkit.spotlyze.ui.history
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -67,7 +66,6 @@ class DetailHistoryActivity : AppCompatActivity() {
     private fun backButton() {
         binding.toolBar.setNavigationOnClickListener {
             val toMain = intent.getBooleanExtra("navigation", false)
-            Log.d("okhttp", "backButton: $toMain")
             if (toMain) {
                 val intent = Intent(this@DetailHistoryActivity, MainActivity::class.java)
                 startActivity(intent)
@@ -96,7 +94,6 @@ class DetailHistoryActivity : AppCompatActivity() {
                     binding.dummyPicture.visibility = View.GONE
                     showLoading(false)
                     val result = data.data
-                    Log.d("okhttp", "$result")
                     setupView(result)
                 }
             }
@@ -105,7 +102,6 @@ class DetailHistoryActivity : AppCompatActivity() {
 
     private fun setupSkincare() {
         val id = intent.getStringExtra(EXTRA_ID)
-        Log.d("okhttp", "setupSkincare: $id")
         viewModel.getFilteredHistory(id!!).observe(this) { data ->
             when (data) {
                 is Result.Error -> {
@@ -117,7 +113,6 @@ class DetailHistoryActivity : AppCompatActivity() {
 
                 Result.Loading -> {
                     showLoading(true)
-                    Log.d("okhttp", "detail history: loading")
                 }
 
                 is Result.Success -> {

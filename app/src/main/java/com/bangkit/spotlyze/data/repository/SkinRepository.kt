@@ -79,8 +79,6 @@ class SkinRepository private constructor(
             try {
                 val response = apiService.getAllHistory("Bearer $token", userId)
                     .sortedByDescending { it.analyzeHistoryId }
-                val test = response.last()
-                Log.d("okhttp", "detail history test: ${test.analyzeHistoryId}")
                 emit(Result.Success(response))
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
@@ -98,9 +96,6 @@ class SkinRepository private constructor(
             try {
                 val response = apiService.getDetailHistory("Bearer $token", id)
                 emit(Result.Success(response))
-                val idRe = response.map { it.recommendation }
-                Log.d("okhttp", "detail history id: $idRe")
-                Log.d("okhttp", "detail history: $response")
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)

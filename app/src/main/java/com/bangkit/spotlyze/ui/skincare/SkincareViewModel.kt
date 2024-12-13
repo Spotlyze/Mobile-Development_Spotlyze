@@ -1,6 +1,5 @@
 package com.bangkit.spotlyze.ui.skincare
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,7 +35,6 @@ class SkincareViewModel(private val repository: SkincareRepository) : ViewModel(
         viewModelScope.launch {
             repository.addFavorite(skincareId)
             _isFavorite.value = true
-            Log.d("okhttp", "add favorite: ${_isFavorite.value}")
         }
     }
 
@@ -44,7 +42,6 @@ class SkincareViewModel(private val repository: SkincareRepository) : ViewModel(
         viewModelScope.launch {
             repository.deleteFavorite(skincareId)
             _isFavorite.value = false
-            Log.d("okhttp", "delete favorite: ${_isFavorite.value}")
         }
     }
 

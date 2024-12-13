@@ -3,7 +3,6 @@ package com.bangkit.spotlyze.ui.profile
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -45,14 +44,12 @@ class DetailProfileActivity : AppCompatActivity() {
         viewModel.updateInfoState.observe(this) { data ->
             when (data) {
                 is Result.Error -> {
-                    Log.e("okhttpEdit", "error: ${data.error}")
                 }
 
                 Result.Loading -> {
                 }
 
                 is Result.Success -> {
-                    Log.d("okhttpEdit", "success: ${data.data}")
                 }
             }
         }
@@ -62,12 +59,10 @@ class DetailProfileActivity : AppCompatActivity() {
         viewModel.updatePictureState.observe(this) { data ->
             when (data) {
                 is Result.Error -> {
-                    Log.e("okhttpEdit", "error: ${data.error}")
                 }
 
                 Result.Loading -> {}
                 is Result.Success -> {
-                    Log.d("okhttpEdit", "success: ${data.data}")
                     finish()
                 }
             }
@@ -126,7 +121,6 @@ class DetailProfileActivity : AppCompatActivity() {
     ) {
         if (it != null) {
             profilePictureUri = it
-            Log.d("okhttpEdit", "uri: $profilePictureUri")
             setupProfilePicture()
         }
     }

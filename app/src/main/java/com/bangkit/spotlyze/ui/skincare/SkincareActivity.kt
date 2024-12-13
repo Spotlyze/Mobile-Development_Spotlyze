@@ -5,7 +5,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -137,7 +136,6 @@ class SkincareActivity : AppCompatActivity() {
         viewModel.getAllSkincare().observe(this) { data ->
             when (data) {
                 is Result.Loading -> {
-                    Log.d("okhttp", "loading")
                     binding.progressBar.visibility = View.VISIBLE
                 }
 

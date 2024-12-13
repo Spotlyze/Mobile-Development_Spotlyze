@@ -3,7 +3,6 @@ package com.bangkit.spotlyze.ui.analyze
 import android.animation.PropertyValuesHolder
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -12,6 +11,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.spotlyze.data.source.RecommendationItem
 import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.SkinViewModelFactory
 import com.bangkit.spotlyze.ui.adapter.RecommendationAdapter
 import com.bangkit.spotlyze.ui.analyze.quiz.QuizActivity
@@ -81,7 +81,7 @@ class AnalyzeActivity : AppCompatActivity() {
         viewModel.analyzeState.observe(this) { data ->
             when (data) {
                 is Result.Error -> {
-                    Log.e("analyzer", "error: ${data.error}")
+                    Message.bottomSheetDialog(this, "Error", data.error)
                 }
 
                 Result.Loading -> {
@@ -92,7 +92,6 @@ class AnalyzeActivity : AppCompatActivity() {
                     val intent = Intent(this, DetailHistoryActivity::class.java)
                     intent.putExtra(DetailHistoryActivity.EXTRA_ID, data.data.historyId.toString())
                     intent.putExtra("navigation", true)
-                    Log.d("okhttp", "${data.data.historyId}")
                     startActivity(intent)
                     finish()
                 }

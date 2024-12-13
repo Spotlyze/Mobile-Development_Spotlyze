@@ -37,7 +37,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("okhttp", "onViewCreated: ProfileFragment")
         setupAction()
     }
 

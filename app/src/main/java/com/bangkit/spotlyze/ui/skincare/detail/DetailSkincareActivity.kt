@@ -1,7 +1,6 @@
 package com.bangkit.spotlyze.ui.skincare.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -47,7 +46,6 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         id = intent.getStringExtra(EXTRA_ID)
-        Log.d("okhttp", "id detail skincare: $id")
         viewModel.getSkincareById(id!!).observe(this) { data ->
             when (data) {
                 is Result.Error -> {

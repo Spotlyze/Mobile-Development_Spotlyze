@@ -2,7 +2,6 @@ package com.bangkit.spotlyze.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,7 +101,6 @@ class HomeFragment : Fragment() {
                 is Result.Success -> {
                     showLoading(false)
                     val skincare = processData(data.data)
-                    Log.d("okhttp", "$skincare")
                     adapter?.submitList(skincare)
                 }
             }

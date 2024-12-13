@@ -124,17 +124,17 @@
 
         <TextView
             android:id="@+id/tvSkinType"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSkinTypeInfo"
             app:layout_constraintEnd_toEndOf="parent"
+            android:maxLines="3"
             app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintStart_toEndOf="@+id/tvSkinTypeInfo"
             app:layout_constraintTop_toTopOf="@+id/tvSkinTypeInfo"
-            tools:text="Skin type, skin tyerjkejwhfd" />
+            tools:text="Skin type, skin tyerjkejwhfcdcdcdcjdkcjdjcdkcjd" />
 
         <TextView
             android:id="@+id/tvIngredients"
@@ -163,7 +163,7 @@
             android:id="@+id/tvHowToUse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:text="@string/how_to_use"
             app:layout_constraintStart_toStartOf="@+id/tvIngredients"
             app:layout_constraintTop_toBottomOf="@+id/tvIngredients" />

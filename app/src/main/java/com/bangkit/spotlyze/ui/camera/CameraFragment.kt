@@ -65,30 +65,8 @@ class CameraFragment : Fragment() {
         }
 
         setupAction()
-//        setupViewModel()
 
     }
-
-//    private fun setupViewModel() {
-//        viewModel.result.observe(viewLifecycleOwner) { data ->
-//            when (data) {
-//                is Result.Error -> {
-//                    Log.d("okhttp", "classify error: ${data.error}")
-//                }
-//                Result.Loading -> {
-//
-//                }
-//                is Result.Success -> {
-//                    val result = data.data.message
-//                    Log.d("okhttp", "classify data: $result")
-//                    val intent = Intent(requireActivity(), ResultActivity::class.java)
-//                    intent.putExtra(EXTRA_RESULT, result.toString())
-//                    requireActivity().startActivity(intent)
-//                    requireActivity().finish()
-//                }
-//            }
-//        }
-//    }
 
     private fun setupAction() {
         switchCamera()
