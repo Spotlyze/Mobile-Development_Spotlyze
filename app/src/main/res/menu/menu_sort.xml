@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/sort_random"
+        android:title="@string/all" />
+    <item
+        android:id="@+id/moisturizer"
+        android:title="@string/moisturizer" />
+    <item
+        android:id="@+id/cleanser"
+        android:title="@string/cleanser" />
+
+    <item
+        android:id="@+id/mask"
+        android:title="@string/mask" />
+
+    <item
+        android:id="@+id/treatment"
+        android:title="@string/treatment" />
+
+</menu>

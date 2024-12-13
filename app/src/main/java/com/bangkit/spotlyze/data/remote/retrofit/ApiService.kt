@@ -97,12 +97,20 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Part("user_id") userId: RequestBody,
         @Part picture: MultipartBody.Part,
-        @Part("recommendation") recommendation: RequestBody,
+        @Part("skin_type") skinType: RequestBody,
+        @Part("skin_sensitivity") skinSensitivity: RequestBody,
+        @Part("concerns") concerns: RequestBody
     ): ClassifySkinResponse
 
     @GET("history/user/{id}")
     suspend fun getAllHistory(
         @Header("Authorization") token: String,
         @Path("id") userId: String
+    ): List<GetHistoryResponseItem>
+
+    @GET("history/{id}")
+    suspend fun getDetailHistory(
+        @Header("Authorization") token: String,
+        @Path("id") historyId: String
     ): List<GetHistoryResponseItem>
 }

@@ -5,12 +5,23 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/view_bg"
-    tools:context="com.bangkit.spotlyze.ui.skincare.DetailSkincareActivity">
+    tools:context="com.bangkit.spotlyze.ui.skincare.detail.DetailSkincareActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/skincarePicture"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/skincare_picture"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
@@ -20,21 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_back"
-            app:title="@string/detail_skincare" />
-
-        <ImageView
-            android:id="@+id/skincarePicture"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/skincare_picture"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolBar"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            app:navigationIcon="@drawable/ic_back" />
 
         <ImageButton
             android:id="@+id/btnFav"
@@ -49,7 +46,7 @@
             app:layout_constraintTop_toTopOf="@+id/skincarePicture"
             app:layout_constraintVertical_bias="0.9"
             tools:ignore="RedundantDescriptionCheck" />
-
+        
         <TextView
             android:id="@+id/tvName"
             android:layout_width="0dp"
@@ -57,42 +54,142 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/montserrat_bold"
-            android:textSize="32sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/skincarePicture"
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvBrand"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/tvName"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
-            tools:text="Description" />
+            tools:text="Brand" />
 
         <TextView
-            android:id="@+id/tvIngredientsTitle"
-            android:layout_width="0dp"
+            android:id="@+id/tvSkinTypeInfo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/ingredients"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/tvDescription"
-            app:layout_constraintStart_toStartOf="@+id/tvDescription"
-            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+            android:text="@string/for_skin_type"
+            app:layout_constraintStart_toStartOf="@+id/tvBrand"
+            app:layout_constraintTop_toBottomOf="@+id/tvBrand" />
+
+        <TextView
+            android:id="@+id/tvCategoryInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/category"
+            app:layout_constraintStart_toStartOf="@+id/tvSkinTypeInfo"
+            app:layout_constraintTop_toBottomOf="@+id/tvSkinType" />
+
+        <TextView
+            android:id="@+id/tvCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCategoryInfo"
+            app:layout_constraintStart_toStartOf="@+id/tvSkinType"
+            app:layout_constraintTop_toTopOf="@+id/tvCategoryInfo"
+            tools:text="Wash off" />
+
+        <TextView
+            android:id="@+id/tvPriceInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/price"
+            app:layout_constraintStart_toStartOf="@+id/tvCategoryInfo"
+            app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1000"
+            app:layout_constraintTop_toTopOf="@+id/tvPriceInfo"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPriceInfo"
+            app:layout_constraintStart_toStartOf="@+id/tvCategory"
+            />
+
+
+        <TextView
+            android:id="@+id/tvSkinType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSkinTypeInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toEndOf="@+id/tvSkinTypeInfo"
+            app:layout_constraintTop_toTopOf="@+id/tvSkinTypeInfo"
+            tools:text="Skin type, skin tyerjkejwhfd" />
 
         <TextView
             android:id="@+id/tvIngredients"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/tvIngredientsTitle"
-            app:layout_constraintStart_toStartOf="@+id/tvIngredientsTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvIngredientsTitle"
-            tools:text="Ingredients" />
+            android:layout_marginTop="32dp"
+            android:text="@string/ingredients"
+            app:layout_constraintStart_toStartOf="@+id/tvSkinTypeInfo"
+            app:layout_constraintTop_toBottomOf="@+id/tvPriceInfo" />
+
+        <ImageView
+            android:id="@+id/btnIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/detail_skincare"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@+id/tvIngredients"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.97"
+            app:layout_constraintStart_toEndOf="@+id/tvIngredients"
+            app:layout_constraintTop_toTopOf="@+id/tvIngredients"
+            app:tint="@color/onThemeColor" />
+
+
+        <TextView
+            android:id="@+id/tvHowToUse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/how_to_use"
+            app:layout_constraintStart_toStartOf="@+id/tvIngredients"
+            app:layout_constraintTop_toBottomOf="@+id/tvIngredients" />
+
+        <ImageView
+            android:id="@+id/btnHowToUse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/detail_skincare"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHowToUse"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.97"
+            app:layout_constraintStart_toEndOf="@+id/tvHowToUse"
+            app:layout_constraintTop_toTopOf="@+id/tvHowToUse"
+            app:tint="@color/onThemeColor" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,7 +45,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:dividerColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/btnDarkMode"
         app:layout_constraintStart_toStartOf="@+id/tvDarkMode"
         app:layout_constraintTop_toBottomOf="@+id/tvDarkMode" />
@@ -72,16 +71,5 @@
         app:layout_constraintStart_toEndOf="@+id/tvLanguage"
         app:layout_constraintTop_toTopOf="@+id/tvLanguage"
         tools:ignore="RedundantDescriptionCheck" />
-
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/dividerHistory"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:dividerColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/btnLanguage"
-        app:layout_constraintStart_toStartOf="@+id/tvLanguage"
-        app:layout_constraintTop_toBottomOf="@+id/tvLanguage" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

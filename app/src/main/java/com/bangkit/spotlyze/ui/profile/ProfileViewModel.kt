@@ -16,6 +16,10 @@ class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
     private var _updatePictureState: MutableLiveData<Result<UserUpdateResponse>> = MutableLiveData()
     val updatePictureState: MutableLiveData<Result<UserUpdateResponse>> = _updatePictureState
 
+    private var _updateInfoState: MutableLiveData<Result<UserUpdateResponse>> = MutableLiveData()
+    val updateInfoState: MutableLiveData<Result<UserUpdateResponse>> = _updateInfoState
+
+
     fun logOut() {
         viewModelScope.launch {
             repository.logOut()
@@ -33,11 +37,19 @@ class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-    fun updateUserInfo(name: String, email: String, context: Context) {
-        _updatePictureState.value = Result.Loading
+    fun updateUserInfo(name: String, email: String,) {
+        _updateInfoState.value = Result.Loading
         viewModelScope.launch {
-            _updatePictureState.value = repository.updateUserInfo(name, email, context)
+            _updateInfoState.value = repository.updateUserInfo(name, email,)
         }
 
+    }
+
+    fun getThemeSetting() = repository.getThemeSetting().asLiveData()
+
+    fun setThemeSetting(isDarkModeActive: Boolean) {
+        viewModelScope.launch {
+            repository.setThemeSetting(isDarkModeActive)
+        }
     }
 }

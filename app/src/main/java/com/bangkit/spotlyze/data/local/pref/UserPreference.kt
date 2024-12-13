@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.bangkit.spotlyze.data.local.pref.model.UserModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
@@ -42,6 +43,24 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    fun getThemeSetting(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[THEME_KEY] ?: false
+        }
+    }
+
+    suspend fun getCurrentTheme(): Boolean {
+        return dataStore.data.map { preferences ->
+            preferences[THEME_KEY] ?: false
+        }.first()
+    }
+
+    suspend fun setThemeSetting(isDarkModeActive: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[THEME_KEY] = isDarkModeActive
+        }
+    }
+
     companion object {
         private var INSTANCE: UserPreference? = null
 
@@ -49,6 +68,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val USERNAME_KEY = stringPreferencesKey("username_key")
         private val TOKEN_KEY = stringPreferencesKey("token_key")
         private val IS_LOGIN = booleanPreferencesKey("is_login")
+        private val THEME_KEY = booleanPreferencesKey("theme_key")
 
         fun getInstance(dataStore: DataStore<Preferences>) =
             INSTANCE ?: synchronized(this) {

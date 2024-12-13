@@ -18,6 +18,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+
         buildConfigField("String", "BASE_URL", "\"http://35.219.38.132/\"")
     }
 
@@ -74,7 +78,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
-    //data-presistent
+    //data-persistent
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.room.runtime)
     ksp(libs.room.compiler)
@@ -89,5 +93,11 @@ dependencies {
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
     implementation(libs.androidx.exifinterface)
+
+    //paging
+    implementation(libs.androidx.paging.runtime.ktx)
+
+    //splash screen
+    implementation(libs.androidx.core.splashscreen)
 
 }

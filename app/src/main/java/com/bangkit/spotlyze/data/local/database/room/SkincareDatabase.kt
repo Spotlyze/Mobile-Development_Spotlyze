@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.bangkit.spotlyze.data.local.database.entity.SkincareEntity
+import com.bangkit.spotlyze.data.local.database.entity.UserEntity
 
-@Database(entities = [SkincareEntity::class], version = 1, exportSchema = false)
+@Database(entities = [SkincareEntity::class, UserEntity::class], version = 1, exportSchema = true)
 abstract class SkincareDatabase : RoomDatabase() {
     abstract fun skincareDao(): SkincareDao
 

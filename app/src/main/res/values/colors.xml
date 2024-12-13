@@ -2,12 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#7286D3</color>
-    <color name="onPrimary">#E5E0FF</color>
-    <color name="secondary">#8EA7E9</color>
-    <color name="onSecondary">#FFF2F2</color>
+    <color name="primary">#0096C7</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="primaryContainer">#48CAE4</color>
+    <color name="onPrimaryContainer">#03045E</color>
+    <color name="grey">#babec4</color>
+    <color name="themeColor">#FFFFFFFF</color>
+    <color name="onThemeColor">#FF000000</color>
+
+    <color name="botNavBorder">#babec4</color>
+
     <color name="red_pink">#F83758</color>
     <color name="red">#e43630</color>
-    <color name="titleColor">#661BA8</color>
 
 </resources>

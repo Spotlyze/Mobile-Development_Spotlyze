@@ -2,17 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
+        android:layout_marginStart="32dp"
         android:icon="@drawable/home_selector"
         android:title="@string/home" />
 
     <item
-        android:id="@+id/navigation_camera"
-        android:icon="@drawable/camera_selector"
-        android:title="@string/camera" />
-    
+        android:id="@+id/navigation_placeholder"
+        android:enabled="false"
+        android:icon="@android:color/transparent"
+        android:title="@string/none" />
+
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/settings_selector"
+        android:layout_marginEnd="32dp"
+        android:icon="@drawable/user_selector"
         android:title="@string/profile" />
 
 

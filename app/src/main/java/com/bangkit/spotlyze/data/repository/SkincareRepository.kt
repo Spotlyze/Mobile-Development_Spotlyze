@@ -13,6 +13,8 @@ import com.bangkit.spotlyze.data.remote.response.ErrorResponse
 import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.remote.retrofit.ApiService
 import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.data.source.SortType
+import com.bangkit.spotlyze.utils.SortUtils
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -27,7 +29,8 @@ class SkincareRepository private constructor(
     private val token = runBlocking { userPref.getSession().first().token }
     private val userId = runBlocking { userPref.getSession().first().id }
 
-    fun getAllSkincare(): LiveData<Result<List<GetSkincareResponseItem>>> {
+    fun getAllSkincare(sortType: SortType): LiveData<Result<List<SkincareEntity>>> {
+        val query = SortUtils.getSortedQuery(sortType)
         return liveData {
             emit(Result.Loading)
             try {
@@ -38,53 +41,20 @@ class SkincareRepository private constructor(
                     SkincareEntity(
                         skincareId = skincare.skincareId,
                         name = skincare.name,
-                        type = skincare.type,
+                        brand = skincare.brand,
+                        category = skincare.category,
+                        rating = skincare.starRating,
+                        isRecommend = skincare.isRecommend == 1,
+                        description = skincare.descriptionProcessed,
+                        skinType = skincare.skinType,
                         price = skincare.price,
                         skincarePicture = skincare.skincarePicture,
                         ingredients = skincare.ingredients,
-                        explanation = skincare.explanation,
                         isFavorite = isFavorite
                     )
                 }
                 dao.deleteAll()
                 dao.insertSkincare(skincareList)
-                emit(Result.Success(response))
-            } catch (e: HttpException) {
-                val jsonInString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
-                emit(Result.Error(errorMessage!!))
-            } catch (e: Exception) {
-                emit(Result.Error(e.message.toString()))
-            }
-        }
-    }
-
-    fun getFavoriteSkincare(): LiveData<List<SkincareEntity>> {
-        return dao.getFavoriteSkincare()
-    }
-
-    suspend fun setFavoriteSkincare(skincare: SkincareEntity, favoriteState: Boolean) {
-        skincare.isFavorite = favoriteState
-        dao.updateSkincare(skincare)
-    }
-
-    fun getSkincareById(id: String): LiveData<Result<List<SkincareEntity>>> {
-        return liveData {
-            emit(Result.Loading)
-            try {
-                val response = apiService.getSkincareById("Bearer $token", id)
-                val isFavorite = dao.isSkincareFavorite(response[0].skincareId!!)
-                SkincareEntity(
-                    skincareId = response[0].skincareId,
-                    name = response[0].name,
-                    type = response[0].type,
-                    price = response[0].price,
-                    skincarePicture = response[0].skincarePicture,
-                    ingredients = response[0].ingredients,
-                    explanation = response[0].explanation,
-                    isFavorite = isFavorite,
-                )
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
@@ -94,9 +64,30 @@ class SkincareRepository private constructor(
                 emit(Result.Error(e.message.toString()))
             }
             val localData: LiveData<Result<List<SkincareEntity>>> =
-                dao.getSkincareById(id.toInt()).map { Result.Success(it) }
+                dao.getAllSkincare(query).map { Result.Success(it) }
             emitSource(localData)
         }
+    }
+
+//    fun getAllSkincare(sortType: SortType): LiveData<Result<List<SkincareEntity>>> {
+//        val query = SortUtils.getSortedQuery(sortType)
+//        val liveData: LiveData<Result<List<SkincareEntity>>> =
+//            dao.getAllSkincare(query).map { Result.Success(it) }
+//        return liveData
+//    }
+
+    suspend fun setFavoriteSkincare(skincare: SkincareEntity, favoriteState: Boolean) {
+        skincare.isFavorite = favoriteState
+        dao.updateSkincare(skincare)
+    }
+
+    fun getSkincareById(id: String): LiveData<Result<List<SkincareEntity>>> {
+        val response: LiveData<Result<List<SkincareEntity>>> = dao.getSkincareById(id.toInt()).map { Result.Success(it) }
+        return response
+    }
+    fun getSkincareByType(type: String): LiveData<Result<List<SkincareEntity>>> {
+        val response: LiveData<Result<List<SkincareEntity>>> = dao.getSkincareByType(type).map { Result.Success(it) }
+        return response
     }
 
     suspend fun isFavoriteSkincare(skincareId: Int): Boolean {
@@ -126,7 +117,6 @@ class SkincareRepository private constructor(
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
             }
-
         }
     }
 

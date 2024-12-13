@@ -11,10 +11,10 @@ import androidx.fragment.app.viewModels
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.bangkit.spotlyze.ui.auth.login.LoginActivity
 import com.bangkit.spotlyze.ui.history.HistoryActivity
 import com.bangkit.spotlyze.ui.skincare.favourite.FavoriteActivity
 import com.bumptech.glide.Glide
-import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -38,7 +38,6 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("okhttp", "onViewCreated: ProfileFragment")
-        setupView()
         setupAction()
     }
 
@@ -53,6 +52,11 @@ class ProfileFragment : Fragment() {
         viewModel.getUserProfile(id.toString()).observe(viewLifecycleOwner) { user ->
             when (user) {
                 is Result.Error -> {
+                    if (user.error == "Invalid token") {
+                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
                     Message.toast(requireActivity(), user.error)
                 }
 
@@ -61,11 +65,9 @@ class ProfileFragment : Fragment() {
                     val data = user.data
                     binding.tvUserName.text = data.name
                     binding.tvEmail.text = data.email
-                    if (!data.profilePicture.isNullOrEmpty()) {
+                    if (data.profilePicture != null) {
                         Glide.with(binding.userProfileImage.context).load(data.profilePicture)
                             .into(binding.userProfileImage)
-                    } else {
-                        binding.userProfileImage.setImageResource(R.drawable.dummy_profile)
                     }
                     Log.d("okhttp", "profile fetched: $data")
                 }
@@ -74,20 +76,34 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupAction() {
-        goToHistory()
         goToFavourite()
+        goToHistory()
+        darkMode()
+        getTheme()
     }
 
-    private fun goToFavourite() {
-        binding.btnFavourite.setOnClickListener {
-            val intent = Intent(requireActivity(), FavoriteActivity::class.java)
-            startActivity(intent)
+    private fun getTheme() {
+        viewModel.getThemeSetting().observe(viewLifecycleOwner) {
+            checkDarkSetting(it)
+        }
+    }
+
+    private fun darkMode() {
+        binding.settingsView.btnDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setThemeSetting(isChecked)
         }
     }
 
     private fun goToHistory() {
         binding.btnHistory.setOnClickListener {
             val intent = Intent(requireActivity(), HistoryActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun goToFavourite() {
+        binding.btnFavourite.setOnClickListener {
+            val intent = Intent(requireActivity(), FavoriteActivity::class.java)
             startActivity(intent)
         }
     }
@@ -100,8 +116,8 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setupView() {
-        binding.actionBar.btnSearch.visibility = View.GONE
+    private fun checkDarkSetting(isDark: Boolean) {
+        binding.settingsView.btnDarkMode.isChecked = isDark
     }
 
     override fun onStart() {

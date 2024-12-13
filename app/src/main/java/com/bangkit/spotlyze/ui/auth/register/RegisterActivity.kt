@@ -3,9 +3,12 @@ package com.bangkit.spotlyze.ui.auth.register
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.UserViewModelFactory
 import com.bangkit.spotlyze.ui.auth.AuthViewModel
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
@@ -29,15 +32,37 @@ class RegisterActivity : AppCompatActivity() {
         setupViewModel()
     }
 
+    private fun isPasswordMatch(): Boolean {
+        val password = binding.passwordInput.passwordEditText.text.toString()
+        val confirmPassword = binding.confirmPasswordInput.passwordEditText.text.toString()
+        return password == confirmPassword
+    }
+
+    private fun isEmailValid(): Boolean {
+        val email = binding.emailInput.emailEditText.text.toString()
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun isPasswordValid(): Boolean {
+        val password = binding.passwordInput.passwordEditText.text.toString()
+        return password.length >= 8
+    }
+
     private fun setupViewModel() {
         viewModel.registerStatus.observe(this) { status ->
-            when(status) {
-                is Result.Error -> {}
-                Result.Loading -> {}
+            when (status) {
+                is Result.Error -> {
+                    Message.toast(this, status.error)
+                }
+                Result.Loading -> {
+                    binding.btnRegister.isEnabled = false
+                }
                 is Result.Success -> {
                     val user = status.data
+                    Toast.makeText(this, user.message, Toast.LENGTH_SHORT).show()
                     Log.d("okhttp", "user: $user")
                     val intent = Intent(this, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
                     finish()
                 }
@@ -46,33 +71,55 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        register()
         goToLogin()
+        setupRegisterButton()
+        validateFields()
     }
 
-    private fun goToLogin() {
-        binding.btnLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+    private fun setupRegisterButton() {
+        binding.btnRegister.setOnClickListener {
+            if (validateFields()) {
+                val email = binding.emailInput.emailEditText.text.toString()
+                val name = binding.usernameInput.usernameEditText.text.toString()
+                val password = binding.passwordInput.passwordEditText.text.toString()
+
+                viewModel.register(email = email, name = name, password = password)
+            }
         }
     }
 
-    private fun register() {
-        binding.btnRegister.setOnClickListener {
-            val email = binding.emailInput.emailEditText.text.toString()
-            val name = binding.usernameInput.usernameEditText.text.toString()
-            val password = binding.passwordInput.passwordEditText.text.toString()
-            viewModel.register(
-                email = email,
-                name = name,
-                password = password
-            )
+    private fun validateFields(): Boolean {
+        var isValid = true
+
+        if (!isPasswordMatch()) {
+            binding.confirmPasswordInput.passwordTextLayout.error = getString(R.string.password_not_match)
+            isValid = false
+        } else {
+            binding.confirmPasswordInput.passwordTextLayout.error = null
+        }
+
+        if (!isEmailValid()) {
+            isValid = false
+        } else {
+            binding.emailInput.emailTextLayout.error = null
+        }
+
+        if (!isPasswordValid()) {
+            isValid = false
+        } else {
+            binding.passwordInput.passwordTextLayout.error = null
+        }
+
+        return isValid
+    }
+
+    private fun goToLogin() {
+        binding.toolBar.setNavigationOnClickListener {
+            finish()
         }
     }
 
     private fun setupEditText() {
-        binding.confirmPasswordInput.passwordTextLayout.hint =
-            getString(R.string.confirm_password)
+        binding.confirmPasswordInput.passwordTextLayout.hint = getString(R.string.confirm_password)
     }
 }

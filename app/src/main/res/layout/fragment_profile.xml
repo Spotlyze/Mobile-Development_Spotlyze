@@ -6,32 +6,18 @@
     android:layout_marginHorizontal="16dp"
     tools:context="com.bangkit.spotlyze.ui.profile.ProfileFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/actionBarConstraint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include
-            android:id="@+id/actionBar"
-            layout="@layout/action_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <TextView
         android:id="@+id/tvProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/profile"
+        android:layout_marginTop="8dp"
         android:textSize="20sp"
         android:fontFamily="@font/montserrat_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionBarConstraint" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewProfile"
@@ -52,9 +38,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="16dp"
-                android:src="@drawable/dummy_profile"
-                app:civ_border_color="@color/black"
-                app:civ_border_width="4dp"
+                android:src="@drawable/ic_user"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="1dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/username"
-                android:textSize="12sp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/userProfileImage"
                 app:layout_constraintTop_toTopOf="@+id/userProfileImage" />
@@ -76,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/email"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/tvUserName"
                 app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
@@ -86,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/detail_profile"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/userProfileImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.9"
@@ -95,32 +84,46 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_marginTop="16dp"
-        android:background="@drawable/btn_bg"
-        android:id="@+id/btnHistory"
-        android:layout_width="0dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="@string/history"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/btnFavourite"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvInfo"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:text="@string/your_information"
         app:layout_constraintTop_toBottomOf="@+id/cardViewProfile"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewProfile"
+        app:layout_constraintStart_toStartOf="@+id/cardViewProfile"
         />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnFavourite"
         android:layout_width="0dp"
         android:text="@string/favourite"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_bg"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvInfo"
+        app:layout_constraintEnd_toStartOf="@+id/btnHistory"
+        app:layout_constraintStart_toStartOf="@+id/cardViewProfile"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnHistory"
+        android:layout_width="0dp"
+        android:text="@string/history"
+        android:textColor="@color/white"
         android:background="@drawable/btn_bg"
         android:fontFamily="@font/montserrat_bold"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        app:layout_constraintTop_toTopOf="@+id/btnHistory"
-        app:layout_constraintBottom_toBottomOf="@+id/btnHistory"
-        app:layout_constraintStart_toEndOf="@+id/btnHistory"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnFavourite"
+        app:layout_constraintBottom_toBottomOf="@+id/btnFavourite"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewProfile"
+        app:layout_constraintStart_toEndOf="@+id/btnFavourite"
         />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,15 +131,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="@+id/btnFavourite"
-            app:layout_constraintStart_toStartOf="@+id/btnHistory"
-            app:layout_constraintTop_toBottomOf="@+id/btnHistory">
+            app:layout_constraintEnd_toEndOf="@+id/btnHistory"
+            app:layout_constraintStart_toStartOf="@+id/btnFavourite"
+            app:layout_constraintTop_toBottomOf="@+id/btnFavourite">
 
             <include
                 android:id="@+id/settingsView"
                 layout="@layout/fragment_settings" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

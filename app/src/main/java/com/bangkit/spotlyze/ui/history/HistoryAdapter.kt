@@ -1,5 +1,6 @@
 package com.bangkit.spotlyze.ui.history
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -29,5 +30,10 @@ class HistoryAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailHistoryActivity::class.java)
+            intent.putExtra(DetailHistoryActivity.EXTRA_ID, item.analyzeHistoryId.toString())
+            holder.itemView.context.startActivity(intent)
+        }
     }
 }

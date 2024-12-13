@@ -16,6 +16,20 @@ data class SkincareEntity(
     @field:ColumnInfo(name = "name")
     val name: String? = null,
 
+    val brand: String? = null,
+
+    val category: String? = null,
+
+    val rating: Int? = null,
+
+    @field:ColumnInfo(name = "is_recommend")
+    val isRecommend: Boolean? = null,
+
+    val description: String? = null,
+
+    @field:ColumnInfo(name = "skin_type")
+    val skinType: String? = null,
+
     @field:ColumnInfo(name = "type")
     val type: String? = null,
 

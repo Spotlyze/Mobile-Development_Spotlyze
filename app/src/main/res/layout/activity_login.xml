@@ -47,23 +47,13 @@
             layout="@layout/password_input" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tvForgotPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/forgot_password"
-        android:textColor="@color/red_pink"
-        app:layout_constraintEnd_toEndOf="@+id/passwordConstraint"
-        app:layout_constraintTop_toBottomOf="@+id/passwordConstraint" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:textColor="@color/black"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:background="@drawable/btn_bg"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="@+id/passwordConstraint"

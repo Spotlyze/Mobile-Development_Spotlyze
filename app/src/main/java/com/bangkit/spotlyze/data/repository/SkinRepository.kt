@@ -9,6 +9,7 @@ import com.bangkit.spotlyze.data.local.pref.UserPreference
 import com.bangkit.spotlyze.data.remote.response.ClassifySkinResponse
 import com.bangkit.spotlyze.data.remote.response.ErrorResponse
 import com.bangkit.spotlyze.data.remote.response.GetHistoryResponseItem
+import com.bangkit.spotlyze.data.remote.response.GetSkincareResponseItem
 import com.bangkit.spotlyze.data.remote.retrofit.ApiService
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.utils.reduceFileImage
@@ -32,12 +33,17 @@ class SkinRepository private constructor(
     private val userId = runBlocking { userPref.getSession().first().id }.toString()
 
     suspend fun classifySkin(
-        recommendation: String,
+        skinType: String,
+        skinSensitivity: String,
+        concerns: List<String>,
         imageUri: Uri,
         context: Context
     ): Result<ClassifySkinResponse> {
         val idReqBody = userId.toRequestBody("text/plain".toMediaTypeOrNull())
-        val recommendationReqBody = recommendation.toRequestBody("text/plain".toMediaTypeOrNull())
+        val skinTypeReqBody = skinType.toRequestBody("text/plain".toMediaTypeOrNull())
+        val skinSensitivityReqBody = skinSensitivity.toRequestBody("text/plain".toMediaTypeOrNull())
+        val concernsString = concerns.joinToString(",")
+        val concernsReqBody = concernsString.toRequestBody("text/plain".toMediaTypeOrNull())
 
         val imageFile = uriToFile(imageUri, context).reduceFileImage()
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -52,7 +58,9 @@ class SkinRepository private constructor(
                 "Bearer $token",
                 userId = idReqBody,
                 picture = multiPartImage,
-                recommendation = recommendationReqBody
+                skinType = skinTypeReqBody,
+                skinSensitivity = skinSensitivityReqBody,
+                concerns = concernsReqBody
             )
             Result.Success(response)
         } catch (e: HttpException) {
@@ -84,13 +92,15 @@ class SkinRepository private constructor(
             }
         }
 
-    fun getDetailHistory(index: Int): LiveData<Result<GetHistoryResponseItem>> =
+    fun getDetailHistory(id: String): LiveData<Result<List<GetHistoryResponseItem>>> =
         liveData {
             emit(Result.Loading)
             try {
-                val listResponse = apiService.getAllHistory("Bearer $token", userId)
-                val response = listResponse[index - 1]
+                val response = apiService.getDetailHistory("Bearer $token", id)
                 emit(Result.Success(response))
+                val idRe = response.map { it.recommendation }
+                Log.d("okhttp", "detail history id: $idRe")
+                Log.d("okhttp", "detail history: $response")
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
@@ -100,6 +110,32 @@ class SkinRepository private constructor(
                 emit(Result.Error(e.message.toString()))
             }
         }
+
+    fun getFilteredHistory(id: String): LiveData<Result<List<GetSkincareResponseItem>>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val recommend = apiService.getDetailHistory("Bearer $token", id)
+                val recId = recommend.map { it.recommendation }
+                    .flatMap { it!!.split(",") }
+                    .map { it.trim().toInt() }
+                val allSkincareResponse = apiService.getAllSkincare("Bearer $token")
+                val filteredSkincare = allSkincareResponse.filter { skincareItem ->
+                    recId.contains(skincareItem.skincareId)
+                }
+                Log.d("okhttp", "filtered history: $filteredSkincare")
+                emit(Result.Success(filteredSkincare))
+
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error(errorMessage!!))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+
 
     companion object {
         @Volatile

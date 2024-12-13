@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/what_specific_skin_concerns_would_you_like_to_address"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/checkSkinBrightening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skin_brightening" />
+
+        <CheckBox
+            android:id="@+id/checkUnevenTexture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/uneven_skin_texture" />
+
+        <CheckBox
+            android:id="@+id/checkSkinDullness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skin_dullness" />
+
+        <CheckBox
+            android:id="@+id/checkHydration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hydration_and_nourishment" />
+
+        <CheckBox
+            android:id="@+id/checkAcne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/acne_and_breakouts" />
+
+        <CheckBox
+            android:id="@+id/checkFineLines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fine_lines_and_wrinkles" />
+
+        <CheckBox
+            android:id="@+id/checkDarkCircles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dark_circles_and_eye_bags" />
+
+    </LinearLayout>
+</ScrollView>

@@ -29,7 +29,7 @@ import retrofit2.HttpException
 
 class UserRepository private constructor(
     private val userPref: UserPreference,
-    private val apiService: ApiService
+    private val apiService: ApiService,
 ) {
 
     private val token = runBlocking { userPref.getSession().first().token }
@@ -121,7 +121,6 @@ class UserRepository private constructor(
     suspend fun updateUserInfo(
         name: String,
         email: String,
-        context: Context
     ): Result<UserUpdateResponse> {
 
         val nameReqBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -156,6 +155,19 @@ class UserRepository private constructor(
     suspend fun logOut() {
         userPref.logOut()
     }
+
+    fun getThemeSetting(): Flow<Boolean> {
+        return userPref.getThemeSetting()
+    }
+
+    suspend fun getCurrentTheme(): Boolean {
+        return userPref.getCurrentTheme()
+    }
+
+    suspend fun setThemeSetting(isDarkModeActive: Boolean) {
+        userPref.setThemeSetting(isDarkModeActive)
+    }
+
 
     companion object {
         @Volatile
