@@ -83,14 +83,20 @@ class HomeFragment : Fragment() {
                 is Result.Loading -> {
                     showLoading(true)
                 }
+
                 is Result.Error -> {
                     showLoading(false)
                     if (data.error == "Invalid token") {
                         val intent = Intent(requireActivity(), LoginActivity::class.java)
                         startActivity(intent)
                         requireActivity().finish()
+                    } else {
+                        Message.bottomSheetDialog(
+                            requireActivity(),
+                            getString(R.string.offline),
+                            getString(R.string.you_are_offline)
+                        )
                     }
-                    Message.toast(requireActivity(), data.error)
                 }
 
                 is Result.Success -> {
@@ -133,8 +139,6 @@ class HomeFragment : Fragment() {
 
         return result
     }
-
-
 
 
     private fun setupAdapter() {

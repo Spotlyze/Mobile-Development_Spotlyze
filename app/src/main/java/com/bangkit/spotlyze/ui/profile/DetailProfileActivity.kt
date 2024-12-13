@@ -1,5 +1,6 @@
 package com.bangkit.spotlyze.ui.profile
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.ui.UserViewModelFactory
+import com.bangkit.spotlyze.ui.auth.login.LoginActivity
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.ActivityDetailProfileBinding
@@ -88,6 +90,10 @@ class DetailProfileActivity : AppCompatActivity() {
 
             builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
                 viewModel.logOut()
+                val intent = Intent(this@DetailProfileActivity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
             }
 
             builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
@@ -144,7 +150,7 @@ class DetailProfileActivity : AppCompatActivity() {
     private fun updateInfo() {
         val name = binding.nameEditText.text.toString()
         val email = binding.emailEditText.text.toString()
-        viewModel.updateUserInfo(name, email, this)
+        viewModel.updateUserInfo(name, email)
     }
 
     private fun updateProfilePicture() {
@@ -161,9 +167,9 @@ class DetailProfileActivity : AppCompatActivity() {
                     val user = data.data
                     binding.emailEditText.setText(user.email)
                     binding.nameEditText.setText(user.name)
-                    Glide.with(binding.profilePicture.context).load(user.profilePicture)
-                        .into(binding.profilePicture)
-                    Log.d("okhttpEdit", "${user.profilePicture}")
+                    if (user.profilePicture != null)
+                        Glide.with(binding.profilePicture.context).load(user.profilePicture)
+                            .into(binding.profilePicture)
                 }
             }
         }

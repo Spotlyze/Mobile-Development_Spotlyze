@@ -16,6 +16,7 @@ import com.bangkit.spotlyze.ui.SkinViewModelFactory
 import com.bangkit.spotlyze.ui.home.HomeAdapter
 import com.bangkit.spotlyze.ui.main.MainActivity
 import com.bumptech.glide.Glide
+import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.ActivityDetailHistoryBinding
 
 class DetailHistoryActivity : AppCompatActivity() {
@@ -92,6 +93,7 @@ class DetailHistoryActivity : AppCompatActivity() {
                 }
 
                 is Result.Success -> {
+                    binding.dummyPicture.visibility = View.GONE
                     showLoading(false)
                     val result = data.data
                     Log.d("okhttp", "$result")
@@ -130,27 +132,33 @@ class DetailHistoryActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
+            binding.tvRecommend.visibility = View.GONE
             binding.tvSkinStatus.visibility = View.GONE
-            binding.dummyPicture.visibility = View.GONE
-            binding.tvRecommendations.visibility = View.GONE
+            binding.tvSkinCond.visibility = View.GONE
+            binding.tvSkinStatus.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
         } else {
-            binding.dummyPicture.visibility = View.VISIBLE
+            binding.tvRecommend.visibility = View.VISIBLE
             binding.tvSkinStatus.visibility = View.VISIBLE
-            binding.tvRecommendations.visibility = View.VISIBLE
+            binding.tvSkinCond.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
             binding.facePicture.visibility = View.VISIBLE
         }
     }
 
     private fun setupView(result: List<GetHistoryResponseItem>) {
-        binding.dummyPicture.visibility = View.GONE
         binding.tvSkinStatus.text = when (result[0].results) {
-            "dark circle" -> "Your skin status is dark circle"
-            "acne" -> "Your skin status is acne"
-            "wrinkle" -> "Your skin status is wrinkle"
-            "normal" -> "Your skin status is normal"
-            else -> "Your skin status is unknown"
+            "dark circle", "acne", "wrinkle" -> getString(R.string.oh_no)
+            "normal" -> getString(R.string.congrats)
+            else -> getString(R.string.unknown)
+        }
+
+        binding.tvSkinCond.text = when (result[0].results) {
+            "dark circle" -> getString(R.string.you_have_a_dark_circle)
+            "normal" -> getString(R.string.your_skin_is_normal)
+            "wrinkle" -> getString(R.string.you_have_wrinkles)
+            "acne" -> getString(R.string.you_have_acne)
+            else -> getString(R.string.unknown)
         }
         Glide.with(binding.facePicture.context).load(result[0].historyPicture)
             .into(binding.facePicture)

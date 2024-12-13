@@ -19,6 +19,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="com.bangkit.spotlyze.ui.main.FirstPageActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.bangkit.spotlyze.ui.analyze.AnalyzeActivity"
             android:exported="false" />
         <activity
@@ -51,13 +59,7 @@
         <activity
             android:name="com.bangkit.spotlyze.ui.main.MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
 
         <service
             android:name="com.google.android.gms.metadata.ModuleDependencies"

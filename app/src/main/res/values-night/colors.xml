@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="themeColor">#FF000000</color>
+    <color name="onThemeColor">#FFFFFF</color>
+    <color name="primary">#00B4D8</color>
+    <color name="onPrimary">#023E8A</color>
+    <color name="primaryContainer">#0077B6</color>
+    <color name="onPrimaryContainer">#48CAE4</color>
+    <color name="botNavBorder">#2d2e31</color>
+
+</resources>

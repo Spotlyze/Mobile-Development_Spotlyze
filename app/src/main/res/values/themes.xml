@@ -10,9 +10,6 @@
         <item name="android:fontFamily">@font/montserrat_default</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="popupMenuStyle">@style/MyPopupMenuStyle</item>
-
-        <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@id/icon</item>
     </style>
 
     <style name="NoActiveIndicatorStyle">

@@ -64,24 +64,36 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="@string/yeay_here_are_our_recommendations_to_you"
+                tools:text="Oh no!"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tvRecommendations"
+                android:id="@+id/tvSkinCond"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="@string/here_are_our_recommendations_for_you"
+                tools:text="@string/here_are_our_recommendations_for_you"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvRecommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/here_are_our_recommendations_for_you"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

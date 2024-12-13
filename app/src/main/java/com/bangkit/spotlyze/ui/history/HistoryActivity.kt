@@ -45,13 +45,17 @@ class HistoryActivity : AppCompatActivity() {
             when (data) {
                 is Result.Error -> {
                 showLoading(false)
+
                     if (data.error == "Invalid token") {
                         Message.toast(this, data.error)
-                        return@observe
+                    } else if (data.error == "List is empty.") {
+                        binding.errorImage.visibility = View.VISIBLE
+                        binding.tvNoData.visibility = View.VISIBLE
                     } else {
                         Message.offlineDialog(this) {
                             setupViewModel()
                         }
+                        Log.e("okhttp", "history: ${data.error}")
                     }
                     binding.progressBar.visibility = View.GONE
                     Log.e("okhttp", "setupViewModel: ${data.error}")

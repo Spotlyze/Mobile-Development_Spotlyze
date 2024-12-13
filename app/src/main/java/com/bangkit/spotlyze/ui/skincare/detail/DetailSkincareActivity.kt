@@ -10,6 +10,7 @@ import com.bangkit.spotlyze.data.source.Result
 import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.SkincareViewModelFactory
 import com.bangkit.spotlyze.ui.skincare.SkincareViewModel
+import com.bangkit.spotlyze.utils.formatToRupiah
 import com.bumptech.glide.Glide
 import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.ActivityDetailSkincareBinding
@@ -54,14 +55,12 @@ class DetailSkincareActivity : AppCompatActivity() {
                         setupViewModel()
                     }
                     showLoading(false)
-                    Log.e("okhttp", "error detail skincare:${data.error}")
                 }
                 Result.Loading -> {
                     showLoading(true)
                 }
                 is Result.Success -> {
                     showLoading(false)
-                    Log.d("okhttp", "success detail skincare:${data.data[0].explanation}")
                     val skincare = data.data[0]
                     setupView(skincare)
                     setupFavorite(skincare.skincareId!!)
@@ -111,8 +110,10 @@ class DetailSkincareActivity : AppCompatActivity() {
 
     private fun setupView(skincare: SkincareEntity) {
         binding.tvName.text = skincare.name
+        binding.tvBrand.text = skincare.brand
         binding.tvCategory.text = skincare.category
         binding.tvSkinType.text = skincare.skinType
+        binding.tvPrice.text = formatToRupiah(skincare.price!!)
         Glide.with(binding.skincarePicture.context).load(skincare.skincarePicture)
             .into(binding.skincarePicture)
     }

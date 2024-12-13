@@ -2,8 +2,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="@color/themeColor">
 
     <ImageView
         android:id="@+id/ivClose"
@@ -11,6 +12,7 @@
         android:layout_height="24dp"
         android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
+        app:tint="@color/onThemeColor"
         android:contentDescription="@string/close"
         android:src="@drawable/ic_close" />
 

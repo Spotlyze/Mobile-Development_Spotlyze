@@ -51,7 +51,6 @@ class QuizActivity : AppCompatActivity() {
             if (!isQuizComplete()) {
                 Toast.makeText(this, "Please complete the quiz", Toast.LENGTH_SHORT).show()
             } else {
-                showResults()
                 setupAnalyze()
             }
         }

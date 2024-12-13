@@ -35,7 +35,7 @@ class SkincareRepository private constructor(
             emit(Result.Loading)
             try {
                 val response =
-                    apiService.getAllSkincare("Bearer $token").take(300)
+                    apiService.getAllSkincare("Bearer $token")
                 val skincareList = response.map { skincare ->
                     val isFavorite = dao.isSkincareFavorite(skincare.skincareId!!)
                     SkincareEntity(
@@ -90,39 +90,6 @@ class SkincareRepository private constructor(
         return response
     }
 
-//    fun getSkincareById(id: String): LiveData<Result<List<SkincareEntity>>> {
-//        return liveData {
-//            emit(Result.Loading)
-//            try {
-//                val response = apiService.getSkincareById("Bearer $token", id)
-//                val isFavorite = dao.isSkincareFavorite(response[0].skincareId!!)
-//                SkincareEntity(
-//                    skincareId = response[0].skincareId,
-//                    name = response[0].name,
-//                    skinType = response[0].skinType,
-//                    price = response[0].price,
-//                    skincarePicture = response[0].skincarePicture,
-//                    ingredients = response[0].ingredients,
-//                    explanation = response[0].descriptionProcessed,
-//                    rating = response[0].starRating,
-//
-//                    isFavorite = isFavorite,
-//                )
-//            } catch (e: HttpException) {
-//                val jsonInString = e.response()?.errorBody()?.string()
-//                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-//                val errorMessage = errorBody.message
-//                emit(Result.Error(errorMessage!!))
-//            } catch (e: Exception) {
-//                emit(Result.Error(e.message.toString()))
-//            }
-//            val localData: LiveData<Result<List<SkincareEntity>>> =
-//                dao.getSkincareById(id.toInt()).map { Result.Success(it) }
-//            emitSource(localData)
-//        }
-//    }
-
-
     suspend fun isFavoriteSkincare(skincareId: Int): Boolean {
         return try {
             val listSkincare = apiService.getFavorite("Bearer $token", userId.toString())
@@ -150,7 +117,6 @@ class SkincareRepository private constructor(
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
             }
-
         }
     }
 

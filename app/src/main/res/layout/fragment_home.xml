@@ -87,7 +87,7 @@
                 android:id="@+id/stickyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/themeColor"
                 android:paddingHorizontal="12dp"
                 android:paddingBottom="12dp"
                 android:elevation="0.1dp">

@@ -98,4 +98,14 @@
     <string name="register">Register</string>
     <string name="invalid_email">Invalid email</string>
     <string name="are_you_sure">Are you sure?</string>
+    <string name="oh_no">Oh no!</string>
+    <string name="congrats">Congratulation!</string>
+    <string name="unknown">Unknown</string>
+    <string name="you_have_a_dark_circle">You have a dark circle!</string>
+    <string name="your_skin_is_normal">Your skin is normal!</string>
+    <string name="you_have_wrinkles">You have wrinkles</string>
+    <string name="you_have_acne">You have acne</string>
+    <string name="error">Error</string>
+    <string name="you_are_offline">You seem to be offline!</string>
+    <string name="price">Price</string>
 </resources>

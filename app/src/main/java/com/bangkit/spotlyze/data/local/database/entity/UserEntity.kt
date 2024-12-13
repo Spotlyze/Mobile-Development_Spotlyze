@@ -10,9 +10,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserEntity(
     @PrimaryKey
-    val id: Int,
-    val name: String,
-    val email: String,
+    val id: Int? = null,
+    val name: String? = null,
+    val email: String? = null,
     @field:ColumnInfo(name = "picture_profile")
-    val pictureProfile: String
+    val pictureProfile: String? = null
 ): Parcelable

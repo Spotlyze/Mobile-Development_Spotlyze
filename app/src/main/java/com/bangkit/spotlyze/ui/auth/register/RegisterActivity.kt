@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.spotlyze.data.source.Result
+import com.bangkit.spotlyze.helper.Message
 import com.bangkit.spotlyze.ui.UserViewModelFactory
 import com.bangkit.spotlyze.ui.auth.AuthViewModel
 import com.bangkit.spotlyze.ui.auth.login.LoginActivity
@@ -50,12 +52,14 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.registerStatus.observe(this) { status ->
             when (status) {
                 is Result.Error -> {
+                    Message.toast(this, status.error)
                 }
                 Result.Loading -> {
                     binding.btnRegister.isEnabled = false
                 }
                 is Result.Success -> {
                     val user = status.data
+                    Toast.makeText(this, user.message, Toast.LENGTH_SHORT).show()
                     Log.d("okhttp", "user: $user")
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -95,14 +99,12 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         if (!isEmailValid()) {
-            binding.emailInput.emailTextLayout.error = getString(R.string.invalid_email)
             isValid = false
         } else {
             binding.emailInput.emailTextLayout.error = null
         }
 
         if (!isPasswordValid()) {
-            binding.passwordInput.passwordTextLayout.error = getString(R.string.password_must_have_8_characters)
             isValid = false
         } else {
             binding.passwordInput.passwordTextLayout.error = null

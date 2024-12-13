@@ -16,7 +16,6 @@ class PasswordEditText @JvmOverloads constructor(
         setupValidation()
         hint = context.getString(R.string.password)
         inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-        setupFocusListener()
     }
 
     private fun setupValidation() {
@@ -37,16 +36,5 @@ class PasswordEditText @JvmOverloads constructor(
 
             override fun afterTextChanged(s: Editable?) {}
         })
-    }
-
-    private fun setupFocusListener() {
-        this.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val parent = this@PasswordEditText.parent.parent
-                if (parent is TextInputLayout) {
-                    parent.error = null
-                }
-            }
-        }
     }
 }

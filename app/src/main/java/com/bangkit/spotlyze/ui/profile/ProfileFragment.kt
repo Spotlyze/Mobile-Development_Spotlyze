@@ -15,7 +15,6 @@ import com.bangkit.spotlyze.ui.auth.login.LoginActivity
 import com.bangkit.spotlyze.ui.history.HistoryActivity
 import com.bangkit.spotlyze.ui.skincare.favourite.FavoriteActivity
 import com.bumptech.glide.Glide
-import com.prayatna.spotlyze.R
 import com.prayatna.spotlyze.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -66,11 +65,9 @@ class ProfileFragment : Fragment() {
                     val data = user.data
                     binding.tvUserName.text = data.name
                     binding.tvEmail.text = data.email
-                    if (data.profilePicture.isNullOrEmpty()) {
+                    if (data.profilePicture != null) {
                         Glide.with(binding.userProfileImage.context).load(data.profilePicture)
                             .into(binding.userProfileImage)
-                    } else {
-                        binding.userProfileImage.setImageResource(R.drawable.ic_user)
                     }
                     Log.d("okhttp", "profile fetched: $data")
                 }
@@ -81,6 +78,20 @@ class ProfileFragment : Fragment() {
     private fun setupAction() {
         goToFavourite()
         goToHistory()
+        darkMode()
+        getTheme()
+    }
+
+    private fun getTheme() {
+        viewModel.getThemeSetting().observe(viewLifecycleOwner) {
+            checkDarkSetting(it)
+        }
+    }
+
+    private fun darkMode() {
+        binding.settingsView.btnDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setThemeSetting(isChecked)
+        }
     }
 
     private fun goToHistory() {
@@ -103,6 +114,10 @@ class ProfileFragment : Fragment() {
             intent.putExtra(DetailProfileActivity.EXTRA_ID, id)
             startActivity(intent)
         }
+    }
+
+    private fun checkDarkSetting(isDark: Boolean) {
+        binding.settingsView.btnDarkMode.isChecked = isDark
     }
 
     override fun onStart() {

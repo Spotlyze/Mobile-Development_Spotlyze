@@ -37,11 +37,19 @@ class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-    fun updateUserInfo(name: String, email: String, context: Context) {
+    fun updateUserInfo(name: String, email: String,) {
         _updateInfoState.value = Result.Loading
         viewModelScope.launch {
-            _updateInfoState.value = repository.updateUserInfo(name, email, context)
+            _updateInfoState.value = repository.updateUserInfo(name, email,)
         }
 
+    }
+
+    fun getThemeSetting() = repository.getThemeSetting().asLiveData()
+
+    fun setThemeSetting(isDarkModeActive: Boolean) {
+        viewModelScope.launch {
+            repository.setThemeSetting(isDarkModeActive)
+        }
     }
 }

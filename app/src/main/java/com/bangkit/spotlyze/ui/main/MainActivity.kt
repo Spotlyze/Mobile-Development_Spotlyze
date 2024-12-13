@@ -2,10 +2,12 @@ package com.bangkit.spotlyze.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -34,12 +36,29 @@ class MainActivity : AppCompatActivity() {
         setupView()
         setupViewModel()
         setupCamera()
+        checkDarkMode()
+    }
 
+    private fun checkDarkMode() {
+        val isDarkMode = viewModel.getCurrentTheme()
+        Log.d("okhttp", "checkDarkMode: $isDarkMode")
+        checkDarkSetting(isDarkMode)
+        viewModel.getThemeSetting().observe(this) { isDarkModeActive: Boolean ->
+            checkDarkSetting(isDarkModeActive)
+        }
     }
 
     private fun setupCamera() {
         binding.floatingCameraButton.setOnClickListener {
             findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_camera)
+        }
+    }
+
+    private fun checkDarkSetting(isDark: Boolean) {
+        if (isDark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 

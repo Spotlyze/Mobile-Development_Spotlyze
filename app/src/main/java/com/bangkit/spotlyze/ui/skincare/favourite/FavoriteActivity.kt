@@ -57,12 +57,11 @@ class FavoriteActivity : AppCompatActivity() {
                 Result.Loading -> { }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
+                    adapter?.submitList(data.data)
                     if (data.data.isEmpty()) {
                         binding.errorImage.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.VISIBLE
-                        return@observe
                     }
-                    adapter?.submitList(data.data)
                 }
             }
         }
